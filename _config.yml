@@ -6,7 +6,7 @@ email: 747630335@qq.com
 description: ""
 keyword: ""
 url: "http://www.conerlius.cn"              # your host, for absolute URL
-baseurl: "/blog"         # for example, '/blog' if your blog hosted on 'host/blog'
+baseurl: ""         # for example, '/blog' if your blog hosted on 'host/blog'
 
 
 
