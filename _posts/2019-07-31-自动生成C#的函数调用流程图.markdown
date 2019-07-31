@@ -1,0 +1,78 @@
+---
+layout:     post
+title:      "自动生成C#的函数调用流程图"
+subtitle:   " \"graphviz\""
+date:       2019-07-31 18:25:00
+author:     "Conerlius"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - CSharp
+	- Unity
+---
+
+# 需求
+1. 在一个项目里，不是每一块功能或代码块都是由一个人从头到尾去书写的;
+2. 也不是每个项目组都有完整的项目规范的，我就经历过一次了；
+3. 庞大的代码量，没有注释的代码块；
+# 解决方案
+> 使用doxygen和graphviz来自动分析函数间的调用关系
+## 工具介绍
+1. doxygen
+> [下载](http://www.doxygen.nl/download.html#srcbin) [gitlink](https://github.com/doxygen/doxygen)
+2. graphviz
+> [下载](http://www.graphviz.org/)
+## 工具安装
+### doxygen
+> 我是从官网上直接下载的安装文件，所以我直接安装就可以使用，如果你下载的是其他的，那可以自行看一下官方的安装或编译文档。
+### graphviz
+> 安装的时候直接next就行了，无须注意什么！
+## 如何生成
+> 1. 打开doxygen ![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenIcon.png)
+> ![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenStep1.png)
+> 
+>> 1:设定Doxygen的运行目录
+>> 2:设定生成工程的工程名称
+>> 3:设定目标代码的根目录
+>> 4：开启递归遍历
+>> 5:Doxygen的生成文件存放的目录
+>
+> ![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenStep2.png)
+>
+>> 1:勾选所有实体
+>> 2:勾选包含跨引用输出
+>> 3:选中Doxygen需要遍历的代码语言
+> 
+> ![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenStep3.png)
+>
+>> 1:勾选压缩html的准备
+>
+> ![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenStep4.png)
+>
+>> 1:开启graphviz
+>> 2:开启函数调用图
+>
+> ![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenStep5.png)
+>
+>> 如果生成的文档希望是中文的话，就在这里选择一下语言
+>
+> ![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenStep6.png)
+> ![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenStep7.png)
+> ![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenStep8.png)
+>
+>> 选中graphviz安装目录下的`bin`目录
+>
+> ![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenStep9.png)
+> 到这里就只有等待其生成完成了！
+# 结果
+![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenResult1.png)
+![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenResult2.png)
+
+# 补充
+> 每次生成都需要配置那么多的话，相信不少人早就想放弃了，那么现在我补充一下如何快速用命令行生成；
+> 这里我取了一下巧，纯命令大神勿喷！
+
+1. 通过之前的那几步，我们能导出一份完整的文档了
+2. `File/save`、`Ctrl+s`直接保存当前配置~我们就命名为`Config1`
+3. 打开`cmd`
+4. 键入`doxygen `+`Config1`后执行
+5. 完工！
