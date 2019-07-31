@@ -222,10 +222,3 @@ There are a number of tasks it performs like minification of the JavaScript, com
 我的博客标题是 **“Hux Blog”** 但是我想要在搜索的时候显示 **“黄玄的博客 | Hux Blog”** ，这个就需要SEO Title来定义了。
 
 其实这个SEO Title就是定义了<head><title>标题</title></head>这个里面的东西和多说分享的标题，你可以自行修改的。
-
-## 致谢
-
-1. 这个模板是从这里[IronSummitMedia/startbootstrap-clean-blog-jekyll](https://github.com/IronSummitMedia/startbootstrap-clean-blog-jekyll)  forked 的。 感谢这个作者
-2. 感谢[@BrucZhaoR](https://github.com/BruceZhaoR)的中文翻译 
-
-3. 感谢 Jekyll、Github Pages 和 Bootstrap!
