@@ -1,6 +1,6 @@
 # Site settings
 title: Conerlius Blog
-SEOTitle: 时间会证明！ | Conerlius Blog
+SEOTitle: 菠菜的博客| Conerlius Blog
 header-img: img/home-bg.jpg
 email: 747630335@qq.com
 description: ""
@@ -68,7 +68,7 @@ ga_domain: www.conerlius.cn
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
-sidebar-about-description: "写写代码，做做设计，看看产品。世界那么大，多玩玩看看。"
+sidebar-about-description: "博学之,审问之,慎思之,明辨之,笃行之。"
 sidebar-avatar: /img/avatar-hux.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
@@ -86,5 +86,3 @@ friends: [
         href: "http://www.conerlius.cn"
     }
 ]
-
-theme: jekyll-theme-modernist
