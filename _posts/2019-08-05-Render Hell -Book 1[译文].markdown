@@ -1,4 +1,13 @@
-[TOC]
+---
+layout:     post
+title:      "Render Hell -Book 1[译文]"
+subtitle:   " \"Graphic\""
+date:       2019-07-31 18:25:00
+author:     "Conerlius"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - 译文;
+---
 
 本文翻译自：[link](https://simonschreibt.de/gat/renderhell-book1/)
 
@@ -9,13 +18,13 @@
 > 首先，所有必要的数据都从硬盘驱动器（HDD）加载到系统内存（RAM）中，以便更快地访问。然后把必要的网格和纹理都加载到显存（VRAM）中。这是因为显卡访问VRAM比访问内存(RAM)更快。
 
 <html>
-<video width="100%" controls="" loop="" preload="" src="http://www.conerlius.cn/wp-content/uploads/2019/05/copy_data_from_hdd_to_ram_vram_01.mp4" type="video/mp4"></video>
+<video width="100%" controls="" loop="" preload="" src="/vedios/copy_data_from_hdd_to_ram_vram_01.mp4" type="video/mp4"></video>
 </html>
 
 当VRAM已经加载完成以后，如果纹理资源不需要重复使用，我们就可以吧该纹理资源从RAM里移除。（注意：你必须确定你不在需要该资源，因为重新从HDD加载到RAM需要消耗大量的时间）。一般情况下，顶点数据都会常驻在RAM中，主要是CPU基本都有可能需要访问访问，比如碰撞检测。
 
 <html>
-<video width="100%" controls="" loop="" preload=""  src="http://www.conerlius.cn/wp-content/uploads/2019/05/delete_data_in_ram.mp4" type="video/mp4"></video>
+<video width="100%" controls="" loop="" preload=""  src="/vedios/delete_data_in_ram.mp4" type="video/mp4"></video>
 </html>
 <html>
 
@@ -24,7 +33,7 @@
 因此硬件驱动允许把较小的内存块数据直接传递到处理芯片(the processor chips)，一般称之为“芯片缓存”（on-chip caches）。因为如果要将该缓存植入到处理芯片上需要极为昂贵的成本，所以导致了该缓存的大小极为有限。GPU从缓存中复制部分当前必须的数据.
 
 <html>
-<video width="100%" controls="" loop="" preload="" src="http://www.conerlius.cn/wp-content/uploads/2019/05/copy_data_from_vram_to_l2_01.mp4" type="video/mp4"></video>
+<video width="100%" controls="" loop="" preload="" src="/vedios/copy_data_from_vram_to_l2_01.mp4" type="video/mp4"></video>
 </html>
 
 数据复制完成后，这些已经复制的数据会存放在一个叫L2的缓存区。L2一般都比较小（在NVIDIA GM204: 2048 KB），而L2的位于GPU上，并且GPU访问L2的速度比访问VRAM快了很多。
@@ -33,7 +42,7 @@
 尽管如此，对于需要更高效的GPU来说，还是很慢!因此出现了一个更小的缓存L1（在NVIDIA GM204: 384 KB (4 x 4 x 24 KB)），它不仅位于GPU上，而且更接近核心！
 
 <html>
-<video width="100%" controls="" loop="" preload="" src="http://www.conerlius.cn/wp-content/uploads/2019/05/copy_data_from_l2_to_l1_01.mp4" type="video/mp4"></video>
+<video width="100%" controls="" loop="" preload="" src="/vedios/copy_data_from_l2_to_l1_01.mp4" type="video/mp4"></video>
 </html>
 
 另外，还有另一块内存用来存放GPU核的输入和输出数据的：寄存器和寄存器文件。在此GPU核心将截取部分数据（比如2个值）去计算并且把计算的结果放置到寄存器里（基本上都是一些寄存器上的内存地址指针）；
@@ -56,7 +65,7 @@
 
 重点：CPU命令GPU绘制的每个网格都将在这些条件下渲染！你可以渲染石头，椅子或剑； 如果在渲染下一个网格之前不更改渲染状态，它们都会获得相同的渲染值（例如材质）。
 <html>
-<video width="100%" controls="" loop="" preload="" src="http://www.conerlius.cn/wp-content/uploads/2019/05/renderstate.mp4" type="video/MP4"></video>
+<video width="100%" controls="" loop="" preload="" src="/vedios/renderstate.mp4" type="video/MP4"></video>
 </html>
 
 准备完成后，CPU最终可以调起GPU并告诉它要绘制什么。 此命令称为：Draw Call。
@@ -64,7 +73,7 @@
 # 3. Draw Call
 Draw call是一个通知渲染**一个**mesh的指令。它是由cpu发起的，由gpu接受，该指令只指向将要渲染的mesh，并不包含任何材质信息，因为材质信息已经通过渲染状态定义了。这些mesh位于VRAM中。
 <html>
-<video width="100%" controls="" loop="" preload="" src="http://www.conerlius.cn/wp-content/uploads/2019/05/cpu_calls_gpu.mp4" type="video/mp4"></video>
+<video width="100%" controls="" loop="" preload="" src="/vedios/cpu_calls_gpu.mp4" type="video/mp4"></video>
 </html>
 
 当这些指令发出去之后，gpu会获取渲染状态的数据（材质、纹理、shader……）和定点数据，通过一些代码将这些数据转换成漂亮的像素到屏幕上。这个处理过程就称之为Pipeline。
@@ -78,7 +87,7 @@ Draw call是一个通知渲染**一个**mesh的指令。它是由cpu发起的，
 以下是硬件绘制一个三角形的步骤示例：
 
 <html>
-<video width="100%" controls="" loop="" preload="" src="http://www.conerlius.cn/wp-content/uploads/2019/05/pipeline_overview.mp4" type="video/mp4"></video>
+<video width="100%" controls="" loop="" preload="" src="/vedios/pipeline_overview.mp4" type="video/mp4"></video>
 </html>
 
 渲染一般要处理大量的小任务，比如为了把数千个顶点或绘制数百万像素到荧屏上而进行一些计算。至少30fps(希望是)。
@@ -91,12 +100,12 @@ Draw call是一个通知渲染**一个**mesh的指令。它是由cpu发起的，
 当数据（比如一堆顶点）被放入Pipeline时，转换点/像素的工作被分发到几个核心，然后由很多这些小元素并行形成一张大图片：
 
 <html>
-<video width="100%" controls="" loop="" preload="" src="http://www.conerlius.cn/wp-content/uploads/2019/05/pipeline_overview_multicore.mp4" type="video/mp4"></video>
+<video width="100%" controls="" loop="" preload="" src="/vedios/pipeline_overview_multicore.mp4" type="video/mp4"></video>
 </html>
 
 现在我们都知道GPU可以并行处理。但是CPU和GPU是怎么通信的呢？难道CPU要等待GPU执行完所有的任务并且能接受新的指令？
 
-![gif](http://www.conerlius.cn/wp-content/uploads/2019/05/tut_cpu_commands_gpu_zzz.gif)
+![gif](/images/tut_cpu_commands_gpu_zzz.gif)
 
 幸好不是！原因是这种通信会产生瓶颈（当cpu不能足够快速地划分指令时）和是并行工作成为不可能。该解决方案是维护一个列表，由CPU添加命令而GPU读取 - 彼此独立！ 此列表称为：Command Buffer。
 
@@ -104,7 +113,7 @@ Draw call是一个通知渲染**一个**mesh的指令。它是由cpu发起的，
 > Command Buffer使得CPU和GPU独立工作成为了可能。当cpu需要渲染某样东西的时候，会把command放置到队列里，当gpu需要渲染的时候，gpu会从队列里取出并执行（FIFO，先进先出）。
 
 <html>
-<video width="100%" controls="" loop="" preload="" src="http://www.conerlius.cn/wp-content/uploads/2019/05/commandbuffer_communication.mp4" type="video/mp4"></video>
+<video width="100%" controls="" loop="" preload="" src="/vedios/commandbuffer_communication.mp4" type="video/mp4"></video>
 </html>
 
 顺便一提：有可能有一些比较特殊的command，一个是Draw call,另一个是更换render state。
