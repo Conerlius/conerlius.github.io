@@ -1,0 +1,54 @@
+---
+layout:     post
+title:      "使用Graphviz动态生成流程图"
+subtitle:   " \"Graphivz\""
+date:       2019-8-05 12:00:00
+author:     "Conerlius"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - Tool;
+---
+
+# 前言
+> 作为一个程序员，每天画画流程图，那是必不可少的工作。作为一个已经code了7年的programmer（姑且这么叫吧），使用过比较多的流程图工具，也知乎了一波，最后还是选择了Graphviz!
+> 大概列一下流程图的工具，这里就不一一比较了，青菜萝卜各有所爱！
+>> 1. [ProcessOn](http://ProcessOn.com)在线，免费的只有9个文件，完全不够用！
+>> 2. visio,知名产品了，可惜要手动拖来拖去才能把流程理的比较好看，不大适合程序员（我这种）
+>> 3. office,这个大家都知道，理由和visio一样
+>> 4. Graphviz这个我的大爱，跨平台，而且还能和doxygen配合生成一系列的文档及调度流程！[link](https://conerlius.github.io/2019/07/31/%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90C-%E7%9A%84%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E6%B5%81%E7%A8%8B%E5%9B%BE/)
+
+# 安装
+> 直接从官网上download下来安装就可以，整个安装流程我就一笔带过。[Download Link](http://www.graphviz.org/)
+
+# 使用
+> ```
+> 在Graphviz的安装目录`bin`下，有一个`gvedit.exe`的文件，直接运行这个就可以直接看到一下的编辑窗口
+> ```
+> ![](/images/graphviz_ui.png)
+
+# 基本语法
+> 在菜单`File->New`创建一个新的文件，然后尝试一下以下的code，在代码里已经有说明，这里就不一一说明了
+>> 1. 基本原型图
+>> ```
+>> // graphviz有几种基本的图类型
+>> // digraph是有向图，graph是无向图，要注意：->用在有向图中，--用在无向图中，不能混用
+>> digraph G{	// 声明一下图的类型
+>>    size = "5, 5";	//图片大小,这里是5inch，5inch,结尾有无;都可以
+>>    main[shape=box];	/*形状, 注释可以用//,也可以想这种*/
+>>    main->parse[weight=8]	// weight设置这条线的重要性
+>>    parse->execute;
+>>    main->init[style = dotted];	//虚线
+>>    main->cleanup;
+>>    edge[color = green]; 	// 连接线的颜色
+>>    execute->{make_string; printf}	//连接两个
+>>    init->make_string;
+>>    main->printf[style=bold, label="100 times"];	//线的 label
+>>    make_string[label = "make a\nstring"]	// \n, 这个node的label，注意和上一行的区别
+>>    node[shape = box, style = filled, color = ".7.3 1.0"];	//一个node的属性
+>>    execute->compare;
+>>    compare->hash[dir=back] // 连线的方式，有both.none,back,forward
+>> }
+>> ```
+>> ![](/images/graph1.png)
+
+以上的这些就是我比较常用的，至于一些不怎么用的数据结构呀之类的，就靠各位自己学习了

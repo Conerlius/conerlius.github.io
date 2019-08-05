@@ -1,0 +1,296 @@
+---
+layout:     post
+title:      "Unity中使用代码模板"
+subtitle:   " \"Unity中使用代码模板\""
+date:       2019-08-05 14:48:00
+author:     "Conerlius"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - Unity;
+---
+
+# 前言
+> 作为一个爱学习的程序员，从各种繁忙的工作中抽取时间去学习，那是一件很重要的事情。
+>
+> 工作内容那是肯定不可能少的了，那么我们就只能尽可能地减少我手动执行事件和提高工作效率
+>
+> 在日常的unity开发里，尤其是写ui功能的时候，我们发现有n多代码是一个模印出来的，最多就是名字不一样~
+> 如果手动去打这些代码，那岂不是浪费n多时间！
+>
+> 这个时候，代码模板就应运而生啦！！
+> 
+> 代码块模板请参考
+>> [Vscode中的snippets](http://www.conerlius.cn/2019/04/24/snippets_for_vscode/)
+>> 
+>> [Visual studio](http://www.conerlius.cn/2019/04/25/snippets_for_vs/?preview_id=325&preview_nonce=d4f5c56309&_thumbnail_id=-1&preview=true)
+
+# Unity中文件的模板
+> unity是一个工具型的ide，而且不少东西都可以自行扩展，尤其是到了这几年，越来越开放了底层的api
+## unity自带的部分代码模板
+> 在使用unity的时候，大家都知道，在` Assets->Create->C# Script`创建C#的文件，文件生成的时候就已经自动集成` MonoBehaviour`，并且还生成了`Start`和`Update`方法,相信大部分人都知道，unity是有代码模板，路径就在安装目录的`Editor\Data\Resources\ScriptTemplates`下;
+>
+> 我们来修改一下，就在文件头添加一些必要的文件信息, 如下
+```
+/* Author:#AUTHOR#
+*  Date:#DATE#
+*  Company:#COMPANY#
+*  Copyright:#COPYRIGHT#
+*/
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class #SCRIPTNAME# : MonoBehaviour
+{
+    // Start is called before the first frame update
+    void Start()
+    {
+        #NOTRIM#
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        #NOTRIM#
+    }
+}
+
+```
+
+> 保存后，进入到unity里，在次创建文件，都已经带有刚添加的文字了;
+> 但是我们想要的是能把`#AUTHOR#`等替换成创建者的名称,要如何处理呢？
+>> unity文件修改完名字的时候，都有一个统一的对外api,我们只需要监听该接口，然后读取文件的文本信息，覆盖我们填入的信息就可以了，实现如下
+
+```
+/// <summary>
+/// 从unity 模板中创建的时候修改的回调
+/// </summary>
+public class CSharpCreator : UnityEditor.AssetModificationProcessor
+{
+    /// <summary>
+    /// 文件名称修改完成后的回调
+    /// </summary>
+    /// <param name="path">文件的路径</param>
+    public static void OnWillCreateAsset(string path)
+    {
+        // 忽略lua wrap
+        if (path.Contains("/Source/Generate/"))
+        {
+            return;
+        }
+        // 文件路径是带有.meta的，要去掉
+        path = path.Replace(".meta", "");
+        // 只修改C#文件,其他的忽略
+        if (path.EndsWith(".cs"))
+        {
+            // cs文件
+            string content = File.ReadAllText(path);
+
+            content = content.Replace("#AUTHOR#", "Conerlius");
+            content = content.Replace("#DATE#", System.DateTime.Now.ToString());
+            content = content.Replace("#Company#", "CompanyName");
+            content = content.Replace("#COPYRIGHT#", "This is the Copyright!!!");
+
+            // 重新输出到文件
+            File.WriteAllText(path, content);
+        }
+    }
+}
+```
+
+> 经过重新创建后，终于达到了我们想要的样子了！
+> 但是这这能是unity提供的，能不能生成其他的文件呢？比如Lua？
+>> 能！我们继续往下看。
+
+
+## 从0开始的代码模板
+### 原理
+> 在unity里，有这么一个方法`ProjectWindowUtil.StartNameEditingIfProjectWindowExists`
+> 我们先来看看unity的源代码是如何实现的
+```
+ProjectWindowUtil.cs
+public static void CreateScriptAssetFromTemplateFile(string templatePath, string defaultNewFileName)
+{
+	if (templatePath == null)
+	{
+		throw new ArgumentNullException("templatePath");
+	}
+	if (!File.Exists(templatePath))
+	{
+		throw new FileNotFoundException($"The template file \"{templatePath}\" could not be found.", templatePath);
+	}
+	if (string.IsNullOrEmpty(defaultNewFileName))
+	{
+		defaultNewFileName = Path.GetFileName(templatePath);
+	}
+	Texture2D texture2D = null;
+	switch (Path.GetExtension(defaultNewFileName))
+	{
+	case ".cs":
+		texture2D = (EditorGUIUtility.IconContent("cs Script Icon").image as Texture2D);
+		break;
+	case ".shader":
+		texture2D = (EditorGUIUtility.IconContent<Shader>().image as Texture2D);
+		break;
+	case ".asmdef":
+		texture2D = (EditorGUIUtility.IconContent<AssemblyDefinitionAsset>().image as Texture2D);
+		break;
+	default:
+		texture2D = (EditorGUIUtility.IconContent<TextAsset>().image as Texture2D);
+		break;
+	}
+	StartNameEditingIfProjectWindowExists(0, ScriptableObject.CreateInstance<DoCreateScriptAsset>(), defaultNewFileName, texture2D, templatePath);
+}
+```
+> 在这里，其使用了一个名为`StartNameEditingIfProjectWindowExists`的方法。
+> 那么``又做了什么呢？我们继续看看
+```
+internal class DoCreateScriptAsset : EndNameEditAction
+{
+	public override void Action(int instanceId, string pathName, string resourceFile)
+	{
+		Object o = ProjectWindowUtil.CreateScriptAssetFromTemplate(pathName, resourceFile);
+		ProjectWindowUtil.ShowCreatedAsset(o);
+	}
+}
+```
+> `DoCreateScriptAsset`集成了`EndNameEditAction`并且静态重载了它的`Action`方法
+> 继续看看`CreateScriptAssetFromTemplate`做了什么！
+
+```
+internal static UnityEngine.Object CreateScriptAssetFromTemplate(string pathName, string resourceFile)
+{
+	string text = File.ReadAllText(resourceFile);
+	text = text.Replace("#NOTRIM#", "");
+	string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(pathName);
+	text = text.Replace("#NAME#", fileNameWithoutExtension);
+	string text2 = fileNameWithoutExtension.Replace(" ", "");
+	text = text.Replace("#SCRIPTNAME#", text2);
+	if (char.IsUpper(text2, 0))
+	{
+		text2 = char.ToLower(text2[0]) + text2.Substring(1);
+		text = text.Replace("#SCRIPTNAME_LOWER#", text2);
+	}
+	else
+	{
+		text2 = "my" + char.ToUpper(text2[0]) + text2.Substring(1);
+		text = text.Replace("#SCRIPTNAME_LOWER#", text2);
+	}
+	return CreateScriptAssetWithContent(pathName, text);
+}
+```
+> 看到这里，大家应该明白unity是怎么创建脚本的了。
+> 现在我们来自己些一下lua的代码模板
+
+### lua代码模板
+> 1.我们先把lua的代码模板写一下
+```
+--!@Author  #AUTHOR#
+--!@Date  #DATE#
+--!@Copyright  #COPYRIGHT#
+
+module(..., package.seeall)
+
+local #FILE_NAME# = class("#FILE_NAME#", BaseView)
+
+--!@brief   初始化
+--!@return  是否成功
+function #FILE_NAME#:Init()
+    return #FILE_NAME#.Super.Init(self)
+end
+
+return #FILE_NAME#
+```
+> 有了前面的分析，我们照着写一遍
+> 1. 先写个menu的方法
+```
+// 脚本文件的icon
+private static Texture2D scriptIcon = (EditorGUIUtility.IconContent("TextAsset Icon").image as Texture2D);
+
+/// <summary>
+/// 创建lua脚本
+/// </summary>
+[MenuItem("Assets/Create/Lua Script", false, 2)]
+static void CreateLuaFile()
+{
+    // 获取当前要创建的脚本的路径
+    var selectPath = AssetDatabase.GetAssetPath(Selection.activeObject);
+    // 路径过滤
+    if (!selectPath.Contains("Assets/Lua/"))
+    {
+        Debug.LogError("请选择Assets/lua目录下创建");
+        return;
+    }
+    // 脚本模板的路径
+    string tmpPath = Application.dataPath + "/WDFramework/Editor/templetes/Lua Script.txt";
+    // 创建脚本
+    // InstanceID 一般都是传0就可以了
+    ProjectWindowUtil.StartNameEditingIfProjectWindowExists(
+        0,
+        // 文件名字编辑完成后的回调
+        ScriptableObject.CreateInstance<DoCreateScriptFile>(),
+        // 默认创建的文件名称
+        "LuaScript.lua",
+        // 文件资源在unity下显示的icon
+        scriptIcon,
+        // 模板的路径
+        tmpPath
+    );
+}
+```
+
+> 2. `DoCreateScriptFile`必须继承`UnityEditor.ProjectWindowCallback.EndNameEditAction`
+```
+/// <summary>
+/// 必须继承UnityEditor.ProjectWindowCallback.EndNameEditAction
+/// </summary>
+public class DoCreateScriptFile : UnityEditor.ProjectWindowCallback.EndNameEditAction
+{
+    public override void Action(int instanceId, string pathName, string resourceFile)
+    {
+        Object o = CreateScript(pathName, resourceFile);
+        if (o != null)
+            ProjectWindowUtil.ShowCreatedAsset(o);
+    }
+}
+```
+
+> 3. 替换文件中的模板关键key
+```
+/// <summary>
+/// 替换文件中的文本
+/// </summary>
+/// <param name="pathName">目标路径</param>
+/// <param name="templatePath">模板路径</param>
+/// <returns>资源</returns>
+internal static UnityEngine.Object CreateScript(string pathName, string templatePath)
+{
+    // 去掉文件名的空格
+    // 这里文件名和类名同名
+    string fileName = Path.GetFileNameWithoutExtension(pathName).Replace(" ", string.Empty);
+    string templateText = string.Empty;
+    UTF8Encoding encoding = new UTF8Encoding(true, false);
+    // 读取文本内容
+    if (File.Exists(templatePath))
+    {
+        // 读取
+        StreamReader reader = new StreamReader(templatePath);
+        templateText = reader.ReadToEnd();
+        reader.Close();
+        // 替换
+        templateText = templateText.Replace("#AUTHOR#", "Conerlius");
+        templateText = templateText.Replace("#DATE#", System.DateTime.Now.ToString(""));
+        templateText = templateText.Replace("#COPYRIGHT#", "This is the Copyright!!!");
+        templateText = templateText.Replace("#FILE_NAME#", fileName);
+        // 写入
+        StreamWriter writer = new StreamWriter(Path.GetFullPath(pathName), false, encoding);
+        writer.Write(templateText);
+        writer.Close();
+        // 导入
+        AssetDatabase.ImportAsset(pathName);
+        return AssetDatabase.LoadAssetAtPath(pathName, typeof(Object));
+    }
+    return null;
+}
+```
