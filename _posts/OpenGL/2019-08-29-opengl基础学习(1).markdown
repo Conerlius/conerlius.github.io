@@ -1,0 +1,21 @@
+---
+layout:     post
+title:      "opengl基础学习(1)"
+subtitle:   " \"OpenGL\""
+date:       2019-09-29 10:06:00
+author:     "Conerlius"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - opengl;
+---
+# 前提
+> OpenGL学习前的基本技能
+>> * C/C++的变成语言基础
+>> * 基本的数学基础
+# opengl
+> OpenGL只是一种api规范；
+# opengl开发环境
+> 因为其是一种规范，所以在跨平台的时候，我们需要根据平台对其api进行函数绑定；
+> 
+> 由于每次都要绑定很麻烦，所以我们使用`GLFW`提供的`opengl core`绑定库进行绑定
+>> [`GLFW`](https://www.glfw.org/download.html)本文是基于window进行开发的，为了快速入门，这里就不讲`GLFW`编译的事情，有兴趣的同学可以自己尝试去编译。这里就直接下载Binaries
