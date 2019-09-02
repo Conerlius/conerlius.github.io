@@ -47,7 +47,44 @@ tags:
 >> * GridLayoutManager(Intellij)
 > 这里本文使用的是`GridLayoutManager(Intellij)`
 
+# 应用
+> 创建完成后，需要怎么样才能把GUI的布局在窗口中展示呢？
+> ```
+> package com.conerlius.WDTools;
+> 
+> mport javax.swing.*;
+> 
+> public class Main {
+>
+>    public static void main(String[] args) {
+>	    // write your code here
+>        // 设定为默认展示
+>        JFrame.setDefaultLookAndFeelDecorated(true);
+>        // 创建frame
+>        JFrame frame = new JFrame("Excel2Data");
+>        // 设定关闭的方式
+>        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+>        // 设定窗口的大小
+>        frame.setSize(600,800);
+>        // 获取GUI的JPanel
+>        JPanel panel = new MainView().mainPanel;
+>        // 设定为主要的panel
+>        frame.setContentPane(panel);
+>        // 打包处理
+>        frame.pack();
+>        // 设置为显示
+>        frame.setVisible(true);
+>    }
+>}
+> ```
+
 # 控件
 > 其他的空间我就不一一说明了，列举几个比较特殊的使用方式说明一下
 
+## JPanel
+> 
+## JLabel
+## JButton
+## JCheckBox
 ## JList
+## JFileChooser
