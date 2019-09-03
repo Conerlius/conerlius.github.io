@@ -12,6 +12,7 @@ tags:
 > OpenGL学习前的基本技能
 >> * C/C++的变成语言基础
 >> * 基本的数学基础
+>> * Visual Studio
 # opengl
 > OpenGL只是一种api规范；
 # opengl开发环境
@@ -19,3 +20,10 @@ tags:
 > 
 > 由于每次都要绑定很麻烦，所以我们使用`GLFW`提供的`opengl core`绑定库进行绑定
 >> [`GLFW`](https://www.glfw.org/download.html)本文是基于window进行开发的，为了快速入门，这里就不讲`GLFW`编译的事情，有兴趣的同学可以自己尝试去编译。这里就直接下载Binaries
+> 
+> ![png](/images/OpenGL/opengl_project_create1.jpg)
+> 首先，打开Visual Studio，创建一个新的项目。如果VS提供了多个选项，选择Visual C++，然后选择`Empty Project(空项目)`（别忘了给你的项目起一个合适的名字）。现在我们开始创建我们第一个OpenGL程序吧！
+## 项目配置
+* Link(链接)
+> 
+* GLAD
