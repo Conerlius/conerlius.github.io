@@ -2,7 +2,7 @@
 layout:     post
 title:      "opengl基础学习(1)"
 subtitle:   " \"OpenGL\""
-date:       2019-09-29 10:06:00
+date:       2019-08-29 10:06:00
 author:     "Conerlius"
 header-img: "img/post-bg-2015.jpg"
 tags:
