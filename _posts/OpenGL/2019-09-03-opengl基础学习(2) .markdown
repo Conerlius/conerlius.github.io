@@ -1,0 +1,15 @@
+---
+layout:     post
+title:      "opengl基础学习(1)"
+subtitle:   " \"OpenGL\""
+date:       2019-09-03 20:00:00
+author:     "Conerlius"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - opengl;
+---
+
+目前的工程放置在github上[Link](https://github.com/Conerlius/LearnOpenGL)
+
+# 启动项目
+
