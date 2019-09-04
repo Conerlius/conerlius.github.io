@@ -1,0 +1,24 @@
+---
+layout:     post
+title:      "自定义骨骼动画播放"
+subtitle:   " \"自定义动画\""
+date:       2019-09-04 16:00:00
+author:     "Conerlius"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - Unity;
+---
+
+# 缘由
+> 由于项目是足球竞技类的，对于动作的要求比较高，Unity提供的动画管理器消耗比较大，以为一个球员的动作都几百上千个，真的使用unity的动画，移动设备真心是抗不住的！所以才有了这个需求！
+# Unity的动画优化技术
+> Unity的动画系统一直比较让人无奈的，谁用谁知道！但是Unity的同时也提供了另外的一套解决方案，可以优化动画带来的部分问题
+> * 减少有动作的骨骼数量
+>> 一个骨骼(Transform)是有position(x,y,z),rotation(x,y,z,w),scale(x,y,z)3个数据，在unity里，我们可以打开animation观察
+>> ![png](/images/Unity/CustomAnimation1.jpg)
+>>
+>> 一个Position,`x,y,z`三个数据，三条curve那么一个骨骼就有3(position)+4(rotation)+3(scale)=10个curve，少一个带动画的骨骼，那么就直接少了10条curve
+> * Curve曲线的剔除
+> 
+> * 浮点数压缩
+> 
