@@ -6,8 +6,8 @@ date:       2019-08-05 14:44:00
 author:     "Conerlius"
 header-img: "img/post-bg-2015.jpg"
 tags:
-    - Tool;
-    - Csharp;
+    - Tool
+    - Csharp
 ---
 
 > 具体的知识点可以自行在[https://docs.microsoft.com/zh-cn/visualstudio/ide/walkthrough-creating-a-code-snippet?view=vs-2019](https://docs.microsoft.com/zh-cn/visualstudio/ide/walkthrough-creating-a-code-snippet?view=vs-2019)查看，这里仅仅只是做一个简单的说明

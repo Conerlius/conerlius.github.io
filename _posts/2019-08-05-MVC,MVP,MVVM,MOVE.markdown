@@ -6,7 +6,7 @@ date:       2019-08-05 17:05:00
 author:     "Conerlius"
 header-img: "img/post-bg-2015.jpg"
 tags:
-    - 交流;
+    - 交流
 ---
 
 > 对于ui设计模式，好多人都知道大概是怎么回事，去没有很好地区别;<br>

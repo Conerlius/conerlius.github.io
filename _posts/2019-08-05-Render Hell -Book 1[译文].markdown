@@ -6,7 +6,7 @@ date:       2019-08-5 11:25:00
 author:     "Conerlius"
 header-img: "img/post-bg-2015.jpg"
 tags:
-    - 译文;
+    - 译文
 ---
 
 本文翻译自：[link](https://simonschreibt.de/gat/renderhell-book1/)

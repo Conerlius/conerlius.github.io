@@ -6,7 +6,7 @@ date:       2019-08-05 17:22:00
 author:     "Conerlius"
 header-img: "img/post-bg-2015.jpg"
 tags:
-    - Unity;
+    - Unity
 ---
 
 # unity的资源加载方式介绍

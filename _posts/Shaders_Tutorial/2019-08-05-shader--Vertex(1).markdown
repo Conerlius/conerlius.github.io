@@ -6,7 +6,7 @@ date:       2019-08-05 17:14:00
 author:     "Conerlius"
 header-img: "img/post-bg-2015.jpg"
 tags:
-    - Shader;
+    - Shader
 ---
 
 # 声明

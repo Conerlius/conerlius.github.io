@@ -6,7 +6,7 @@ date:       2019-09-03 20:00:00
 author:     "Conerlius"
 header-img: "img/post-bg-2015.jpg"
 tags:
-    - opengl;
+    - opengl
 ---
 
 目前的工程放置在github上[Link](https://github.com/Conerlius/LearnOpenGL)

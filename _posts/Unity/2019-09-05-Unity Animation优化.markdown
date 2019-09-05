@@ -6,7 +6,7 @@ date:       2019-09-05 18:00:00
 author:     "Conerlius"
 header-img: "img/post-bg-2015.jpg"
 tags:
-    - Unity;
+    - Unity
 ---
 
 > Unity的动画系统一直比较让人无奈的，谁用谁知道！但是Unity的同时也提供了另外的一套解决方案，可以优化动画带来的部分问题
@@ -93,5 +93,5 @@ tags:
 > 在上一章的剔除`Scale`的基础上再次压缩精度后
 > ![png](/images/Unity/CustomAnimation4.jpg)
 > 直接优化了8.9K
-> * 恒量曲线剔除
-> * 
+> * 恒量(或者变化小到忽略的关键帧)
+>

@@ -6,7 +6,7 @@ date:       2019-08-05 17:24:00
 author:     "Conerlius"
 header-img: "img/post-bg-2015.jpg"
 tags:
-    - Shader;
+    - Shader
 ---
 
 > 经过前面的几波操作，我们有了一个比较基本的shader了，但是认真看看，发先，alpha没有，重要的是光照也没有；alpha没有，我们能忍，但光照没有的话，我们就不能忍了！<br>

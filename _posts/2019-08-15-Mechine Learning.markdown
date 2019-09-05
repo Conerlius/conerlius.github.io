@@ -6,7 +6,7 @@ date:       2019-08-15 14:38:00
 author:     "Conerlius"
 header-img: "img/post-bg-2015.jpg"
 tags:
-    - ai;
+    - Ai
 ---
 [TOC]
 

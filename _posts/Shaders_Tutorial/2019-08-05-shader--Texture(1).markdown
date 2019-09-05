@@ -6,7 +6,7 @@ date:       2019-08-05 17:20:00
 author:     "Conerlius"
 header-img: "img/post-bg-2015.jpg"
 tags:
-    - Shader;
+    - Shader
 ---
 
 前面两章说了一些基本的内容，我们做Shader，怎么可能烧的了贴图纹理呢？所以这章我们来讲讲纹理的使用。<br>

@@ -6,8 +6,8 @@ date:       2019-08-05 14:00:00
 author:     "Conerlius"
 header-img: "img/post-bg-2015.jpg"
 tags:
-    - Unity;
-    - Tool;
+    - Unity
+    - Tool
 ---
 
 # unity比较常见的声音插件
