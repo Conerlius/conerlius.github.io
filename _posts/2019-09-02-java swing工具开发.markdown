@@ -66,7 +66,7 @@ tags:
 >        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 >        // 设定窗口的大小
 >        frame.setSize(600,800);
->        // 获取GUI的JPanel
+>        // 获取GUI的JPanel，MainView是生成GUI from的绑定class,还需要将mainPanel公开public
 >        JPanel panel = new MainView().mainPanel;
 >        // 设定为主要的panel
 >        frame.setContentPane(panel);
@@ -80,11 +80,24 @@ tags:
 
 # 控件
 > 其他的空间我就不一一说明了，列举几个比较特殊的使用方式说明一下
-
+## 如何放置控件
+> ![gif](/images/java_swing/java_swing_label.gif)
 ## JPanel
-> 
+> Java swing的展示面板，一般都是用作大容器使用
+>> 前文使用的`JPanel panel = new MainView().mainPanel;`就是一个`JPanel`
 ## JLabel
+> 上图的gif就是一个JLabel的使用方式，现在在这里补充一下JLabel的一些常用字段属性的意义;
+> * Field Name : 绑定在java类中的property名称，用于访问和修改的，如果需要`public`，可以去看看绑定的class里将`private`改为`public`
+>> ![png](/images/java_swing/java_swing_label2.png)
+>> 
+>> 第一个框出来的是jlabel的对齐方式
+>> 黑色的框是JLabel的大小设置 
 ## JButton
+> 基本属性同JLabel，但是JButton多了一个事件监听；
+> 如果需要怼JButton的点击进行监听，操作如下:
+>> ![gif](/images/java_swing/java_swing_button.gif)
+>
+> 选中JButton，右键--> `Create Listener`->`MouseListener`->`mouseClicked`
 ## JCheckBox
 ## JList
 ## JFileChooser
