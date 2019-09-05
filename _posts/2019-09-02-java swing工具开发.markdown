@@ -98,6 +98,7 @@ tags:
 >> ![gif](/images/java_swing/java_swing_button.gif)
 >
 > 选中JButton，右键--> `Create Listener`->`MouseListener`->`mouseClicked`
+> 
 ## JCheckBox
 ## JList
 ## JFileChooser
