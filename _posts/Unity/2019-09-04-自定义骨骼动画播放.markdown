@@ -22,4 +22,163 @@ tags:
 ## 说明
 > 要说明的是这里用来做例子的是骨骼动画，如果是其他的animation,原理也差不多，可以自行参考修改
 > 
+> Unity的官方提供了一套工具类给我们用来获取`Animation`的`Curve`->`AnimationUtility.GetCurveBindings(clip)`
+> 该方法返回的是`EditorCurveBinding`
+>> `EditorCurveBinding`有两个比较重要的属性`path`和`propertyName`
+>> * path 是只该curve的名称，在unity的Animation Editor界面是下图的红色框框的名称
+>>> ![jpg](/images/Unity/CustomAnimation6.jpg)
+>> * propertyName 这是AnimationCurve的名称，通常是m_LocalPosition.X(y,z)之类的
+>
+> 通过上述的方法获取了Bind的数据，那么Unity也提供另外一个方法去提取Bind对应的Curve，那就是`AnimationUtility.GetEditorCurve(clip, bind)` 
+> 
+> 通过上述的方法获取了AnimationCurve后，那么就可以把AnimationCurve的keyframe数据读取出来，并存起来
+> 
+> 上述就是大概的过程，代码如下
+> 
+>> ```
+>> [MenuItem("Assets/CustomAnimation/生成动画数据")]
+>> static void GenerateCurves()
+>> {
+>>     // 需要直接选中AnimationClip
+>>     var animation_go = Selection.activeObject;
+>>     if (animation_go.GetType() == typeof(AnimationClip))
+>>     {
+>>         var clip = animation_go as AnimationClip;
+>>         var binds = AnimationUtility.GetCurveBindings(clip);
+>>         Dictionary<string, WDAnimationCurve> anim = new Dictionary<string, WDAnimationCurve>();
+>>         // 遍历Bind
+>>         foreach (var bind in binds)
+>>         {
+>>             WDAnimationCurve wdCurve;
+>>             // 一个path下有m_LocalPosition.x/m_LocalPosition.y/m_LocalPosition.z
+>>             // 和m_LocalRotation.x/m_LocalRotation.y/m_LocalRotation.z/m_LocalRotation.w
+>>             // 和m_LocalScale.x/m_LocalScale.y/m_LocalScale.z
+>>             if (!anim.ContainsKey(bind.path))
+>>             {
+>>                 // 用一个WDAnimationCurve去存放上述的m_LocalPosition/m_LocalRotation/m_LocalScale
+>>                 wdCurve = new WDAnimationCurve();
+>>                 anim.Add(bind.path, wdCurve);
+>>             }
+>>             else
+>>             {
+>>                 anim.TryGetValue(bind.path, out wdCurve);
+>>             }
+>>             if (wdCurve == null)
+>>                 continue;
+>>             // 获取Curve
+>>             var curve = AnimationUtility.GetEditorCurve(clip, bind);
+>>             List<WDKeyFrame> list = new List<WDKeyFrame>();
+>>             // 关键帧
+>>             var keys = curve.keys;
+>>             for (int index=0; index< keys.Length; index++)
+>>             {
+>>                 var keyframe = keys[index];
+>>                 // 关键帧的数值
+>>                 WDKeyFrame frame = new WDKeyFrame();
+>>                 frame.m_Time = keyframe.time;
+>>                 frame.m_Value = keyframe.value;
+>>                 frame.m_InTangent = keyframe.inTangent;
+>>                 frame.m_OutTangent = keyframe.outTangent;
+>>                 list.Add(frame);
+>>             }
+>>             // 存
+>>             wdCurve.AddCurve(bind.propertyName, list);
+>>         }
+>>         // 移除根节点，也可以不移除，看具体需求
+>>         anim.Remove("");
+>>         // 开启一个序列化内容的流
+>>         var steam = File.Open(Path.Combine(Application.dataPath, $"{Selection.activeObject.name}.txt"),
+>>             FileMode.OpenOrCreate);
+>>         // 开启一个用来说明内容流的每条数据大小的int流
+>>         var steamindex = File.Open(Path.Combine(Application.dataPath, $"{Selection.activeObject.name}Index.txt"),
+>>             FileMode.OpenOrCreate);
+>>         BinaryWriter ms = new BinaryWriter(steam);
+>>         BinaryWriter msL = new BinaryWriter(steamindex);
+>>         // 写入动画的数量
+>>         msL.Write(anim.Count);
+>>         foreach (var d in anim)
+>>         {
+>>             byte[] byteArray = System.Text.Encoding.UTF8.GetBytes(d.Key);
+>>             ms.Write(byteArray);
+>>             msL.Write(byteArray.Length);
+>>             // 依序写入每个数据
+>>             d.Value.Write(ms, msL);
+>>         }
+>>         ms.Flush();
+>>         ms.Dispose();
+>>         ms.Close();
+>>         ms = null;
+>>         steam.Dispose();
+>>         steam.Close();
+>>         steam = null;
+>>         
+>>         msL.Flush();
+>>         msL.Dispose();
+>>         msL.Close();
+>>         msL = null;
+>>         steamindex.Dispose();
+>>         steamindex.Close();
+>>         steamindex = null;
+>>     }
+>> }
+>> ```
+
 # 解释和执行Animation数据
+> 上述已经讲述了怎么去序列化动画数据了，那么现在开始讲讲怎么去执行这些数据的；
+> 直接看代码，代码里有注释了
+>> ```
+>> /// <summary>
+>> /// 加载动画的数据文件
+>> /// </summary>
+>> /// <param name="fileName">文件名称</param>
+>> /// <returns>自定义动画</returns>
+>> public CustomAnimation LoadAnimation(string fileName)
+>> {
+>>     // 构建一个自定义的动画文件
+>>     CustomAnimation cAniamtion = new CustomAnimation();
+>>     // 开启一个动画内容的流
+>>     var stream = File.OpenRead(Path.Combine(Application.dataPath, $"{fileName}.txt"));
+>>     // 开启一个动画内容字节位的流
+>>     var streamIndex = File.OpenRead(Path.Combine(Application.dataPath, $"{fileName}Index.txt"));
+>>     BinaryReader br_anim = new BinaryReader(stream);
+>>     BinaryReader br_animIndex = new BinaryReader(streamIndex);
+>>     // 动画数量
+>>     var Count = br_animIndex.ReadInt32();
+>>     while (Count > 0)
+>>     {
+>>         Count--;
+>>         var length = br_animIndex.ReadInt32();
+>>         var bytesCont = br_anim.ReadBytes(length);
+>>         // Animation Path
+>>         var aniPath = System.Text.Encoding.UTF8.GetString(bytesCont);
+>>         // 截取最后的一个objectName 作为名称（在demo的例子中，该节点的名称是唯一的）
+>>         var l_index = aniPath.LastIndexOf("/");
+>>         var path = aniPath.Substring(l_index+1);
+>>         // 因为只考虑Position和Rotation，所以就7个Curve,不懂的同学可以去看看Animation的优化章节
+>>         for (var i = 0; i < 7; i++)
+>>         {
+>>             // keyframe的数量
+>>             length = br_animIndex.ReadInt32();
+>>             if (length != 0)
+>>             {
+>>                 // 将keyframe转换成为AnimationCurve
+>>                 AnimationCurve curve = new AnimationCurve();
+>>                 for (int j = 0; j < length; j++)
+>>                 {
+>>                     Keyframe frame = new Keyframe(br_anim.ReadSingle(), br_anim.ReadSingle(),
+>>                         br_anim.ReadSingle(), br_anim.ReadSingle());
+>>                     curve.AddKey(frame);
+>>                 }
+>>                 // 添加到自定义的结构里记录
+>>                 cAniamtion.Add(path, curve, i);
+>>             }
+>>         }
+>>     }
+>>     br_anim.Close();
+>>     br_animIndex.Close();
+>>     stream.Close();
+>>     streamIndex.Close();>> 
+>>     return cAniamtion;
+>> }
+>> ```
+在这里，还需要对上面的部分代码进行相应的说明，首先是`CustomAnimation`

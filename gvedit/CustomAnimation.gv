@@ -1,0 +1,11 @@
+digraph G{
+	subgraph cluster0{
+		label="CustomAnimation"
+	}
+	subgraph cluster1{
+		label="WDAnimationCurve"
+	}
+	subgraph cluster2{
+		label="AnimationCurve"
+	}
+}
