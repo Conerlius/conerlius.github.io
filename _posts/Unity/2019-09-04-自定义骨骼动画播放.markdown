@@ -15,7 +15,11 @@ tags:
 > 有兴趣的可以去[这里看看]({% post_url 2019-09-05-Unity Animation优化 %})
 
 # 原理
-
+> 将`AnimationCurve`的`keyframe`数据序列化成文本，然后在运行解释是将`keyframe`的数据生成`AnimationCurve`，在Play的时候，将对应的Target的Transform数值按照数据生成`AnimationCurve`去设定就可以了
+> 
 # 序列化Animation数据
-
+> 前面讲了大概的原理，现在开始来讲讲怎么去序列化数据!
+## 说明
+> 要说明的是这里用来做例子的是骨骼动画，如果是其他的animation,原理也差不多，可以自行参考修改
+> 
 # 解释和执行Animation数据
