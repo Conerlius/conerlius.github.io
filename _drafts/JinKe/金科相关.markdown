@@ -10,9 +10,10 @@ tags:
 ---
 # 公司
 * 代码版本管理工具的统一（git）
-> 个人比较推荐使用git,从全球化来讲，git更加使用[Link]({% post_url 2019-09-10-代码版本管理工具 %})
+> 个人比较推荐使用git,从全球化来讲，git更加使用[Link](https://conerlius.github.io/2019/09/10/%E4%BB%A3%E7%A0%81%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/)
 * 自动打包工具的统一（Jenkins，gitlab ci）
-> Jenkins用的比较少，一般来讲，各有优势[GitLab CI]({% post_url 2019-08-05-GitLab-CI在windows下的部署 %})
+> Jenkins用的比较少，一般来讲，各有优势[GitLab CI](https://conerlius.github.io/2019/08/05/GitLab-CI%E5%9C%A8windows%E4%B8%8B%E7%9A%84%E9%83%A8%E7%BD%B2/)
+> [Unity GitLab CI](https://conerlius.github.io/2019/09/10/Unity-GitLab-CI/)
 * 数据导出工具的统一
 > 目前基本的数据导表工具都不一致，就算项目间一时人手紧缺，也无法做到临时调度人员支援
 * 上线前的检查工具统一，包括上前验收工具
