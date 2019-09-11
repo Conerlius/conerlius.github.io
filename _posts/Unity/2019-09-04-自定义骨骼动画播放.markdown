@@ -127,58 +127,191 @@ tags:
 > 上述已经讲述了怎么去序列化动画数据了，那么现在开始讲讲怎么去执行这些数据的；
 > 直接看代码，代码里有注释了
 >> ```
->> /// <summary>
->> /// 加载动画的数据文件
->> /// </summary>
->> /// <param name="fileName">文件名称</param>
->> /// <returns>自定义动画</returns>
->> public CustomAnimation LoadAnimation(string fileName)
->> {
->>     // 构建一个自定义的动画文件
->>     CustomAnimation cAniamtion = new CustomAnimation();
->>     // 开启一个动画内容的流
->>     var stream = File.OpenRead(Path.Combine(Application.dataPath, $"{fileName}.txt"));
->>     // 开启一个动画内容字节位的流
->>     var streamIndex = File.OpenRead(Path.Combine(Application.dataPath, $"{fileName}Index.txt"));
->>     BinaryReader br_anim = new BinaryReader(stream);
->>     BinaryReader br_animIndex = new BinaryReader(streamIndex);
->>     // 动画数量
->>     var Count = br_animIndex.ReadInt32();
->>     while (Count > 0)
->>     {
->>         Count--;
->>         var length = br_animIndex.ReadInt32();
->>         var bytesCont = br_anim.ReadBytes(length);
->>         // Animation Path
->>         var aniPath = System.Text.Encoding.UTF8.GetString(bytesCont);
->>         // 截取最后的一个objectName 作为名称（在demo的例子中，该节点的名称是唯一的）
->>         var l_index = aniPath.LastIndexOf("/");
->>         var path = aniPath.Substring(l_index+1);
->>         // 因为只考虑Position和Rotation，所以就7个Curve,不懂的同学可以去看看Animation的优化章节
->>         for (var i = 0; i < 7; i++)
->>         {
->>             // keyframe的数量
->>             length = br_animIndex.ReadInt32();
->>             if (length != 0)
->>             {
->>                 // 将keyframe转换成为AnimationCurve
->>                 AnimationCurve curve = new AnimationCurve();
->>                 for (int j = 0; j < length; j++)
->>                 {
->>                     Keyframe frame = new Keyframe(br_anim.ReadSingle(), br_anim.ReadSingle(),
->>                         br_anim.ReadSingle(), br_anim.ReadSingle());
->>                     curve.AddKey(frame);
->>                 }
->>                 // 添加到自定义的结构里记录
->>                 cAniamtion.Add(path, curve, i);
->>             }
->>         }
->>     }
->>     br_anim.Close();
->>     br_animIndex.Close();
->>     stream.Close();
->>     streamIndex.Close();>> 
->>     return cAniamtion;
->> }
 >> ```
-在这里，还需要对上面的部分代码进行相应的说明，首先是`CustomAnimation`
+在这里，还需要对上面的部分代码进行相应的说明
+
+# CustomAnimationConfig
+> 这个类主要是存放从数据中加载及解释出来的配置文件，并且能根据骨骼节点生成新的动画播放器<br>
+> 该文件内存放着n个CustomAnimationPlay
+# CustomAnimationPlay
+> 自定义的动画播放器，只允许通过`CustomAnimationConfig.CreateAnimationPlay`创建，里面记录了一个完整的Animation的动画<br>
+> 由`CustomAnimationPath`组成，就像Unity Animation一样，都是有一个个path组成
+# CustomAnimationPath
+> 前面的Animation数据序列原理里已经说过了，所以为了更加接近Unity的视图化，这里的`CustomAnimationPath`就是记录了Bind.Path下的所有Curve,在次demo里，因为我不需要使用Scale，所以一个`CustomAnimationPath`下就只有7个Curve<br>
+> 由有限个AnimationCurve组成
+# AnimationCurve
+> 这个就是unity自带的，本文就不多做讲述了
+> 
+![png](/gvedit/CustomAnimation.png)
+
+需要播放动画的代码
+```
+var _animationConfig = CustomAnimationPlayManager.Instance.LoadAnimation("AI_recover_F_left");
+customAnimationPlay = _animationConfig.CreateAnimationPlay(skin.bones);
+
+// mTime就是希望播放到哪个时间点
+customAnimationPlay.Play(mTime);
+```
+
+最后放上代码！
+CustomAnimationConfig.cs
+```
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace CustomAnimation.AnimationPlay
+{
+    public class CustomAnimationConfig
+    {
+        /// <summary>
+        /// 动画名称
+        /// </summary>
+        private string _name;
+        /// <summary>
+        /// 该动画节点的所有animation Path的动画
+        /// </summary>
+        private readonly Dictionary<string, CustomAnimationPath> _dict = new Dictionary<string, CustomAnimationPath>();
+
+        public CustomAnimationConfig(string fileName)
+        {
+            _name = fileName;
+        }
+
+        public void Add(string path, AnimationCurve curve, int i)
+        {
+            CustomAnimationPath animation;
+            if (!_dict.ContainsKey(path))
+            {
+                animation = new CustomAnimationPath();
+                _dict.Add(path, animation);
+            }
+            else
+            {
+                _dict.TryGetValue(path, out animation);
+            }
+
+            animation?.Add(i, curve);
+
+        }
+        /// <summary>
+        /// 通过骨骼构建一个动画播放器
+        /// </summary>
+        /// <param name="newBones">新的骨骼节点</param>
+        /// <returns>动画播放器</returns>
+        public CustomAnimationPlay CreateAnimationPlay(Transform[] newBones)
+        {
+            var play = new CustomAnimationPlay();
+            foreach (var bone in newBones)
+            {
+                if (!_dict.ContainsKey(bone.name)) continue;
+                _dict.TryGetValue(bone.name, out var path);
+                play.Add(bone, path);
+            }
+
+            return play;
+        }
+    }
+}
+```
+
+CustomAnimationPath.cs
+```
+using UnityEngine;
+
+namespace CustomAnimation.AnimationPlay
+{
+    public class CustomAnimationPath
+    {
+        /// <summary>
+        /// 作用的Transform对象
+        /// </summary>
+        private Transform _target = null;
+        /// <summary>
+        /// 对象上的所有曲线，目前只考虑Position和Rotation
+        /// </summary>
+        private readonly AnimationCurve[] _curves = new AnimationCurve[7];
+        /// <summary>
+        /// 添加Curve
+        /// </summary>
+        /// <param name="i">下标</param>
+        /// <param name="curve">曲线</param>
+        public void Add(int i, AnimationCurve curve)
+        {
+            _curves[i] = curve;
+        }
+        /// <summary>
+        /// 绑定的骨骼
+        /// </summary>
+        /// <param name="newBone">骨骼</param>
+        public void BindBone(Transform newBone)
+        {
+            _target = newBone;
+        }
+        /// <summary>
+        /// 播放
+        /// </summary>
+        /// <param name="time">时间</param>
+        public void Play(float time)
+        {
+            if (_target == null)
+                return;
+            // Position
+            var localPosition = _target.localPosition;
+            var x = _curves[0]?.Evaluate(time) ?? localPosition.x;
+            var y = _curves[1]?.Evaluate(time) ?? localPosition.y;
+            var z = _curves[2]?.Evaluate(time) ?? localPosition.z;
+            localPosition = new Vector3(x, y, z);
+            _target.localPosition = localPosition;
+            // Rotation
+            var localRotation = _target.localRotation;
+            var rx = _curves[3]?.Evaluate(time) ?? localRotation.x;
+            var ry = _curves[4]?.Evaluate(time) ?? localRotation.y;
+            var rz = _curves[5]?.Evaluate(time) ?? localRotation.z;
+            var rw = _curves[6]?.Evaluate(time) ?? localRotation.w;
+            localRotation = new Quaternion(rx, ry, rz, rw);
+            _target.localRotation = localRotation;
+        }
+    }
+}
+```
+
+CustomAnimationPlay.cs
+```
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace CustomAnimation.AnimationPlay
+{
+    public class CustomAnimationPlay
+    {
+        /// <summary>
+        /// 所有的骨骼动画
+        /// </summary>
+        private readonly List<CustomAnimationPath> _list = new List<CustomAnimationPath>();
+        /// <summary>
+        /// 绑定骨骼的动画
+        /// </summary>
+        /// <param name="newBone">骨骼</param>
+        /// <param name="animationPath">动画</param>
+        public void Add(Transform newBone, CustomAnimationPath animationPath)
+        {
+            animationPath.BindBone(newBone);
+            _list.Add(animationPath);
+        }
+        /// <summary>
+        /// 播放动画
+        /// </summary>
+        /// <param name="time">动画的时间进度</param>
+        /// <returns>是否播放完成</returns>
+        public bool Play(float time)
+        {
+            foreach (var curve in _list)
+            {
+                curve.Play(time);
+            }
+
+            return true;
+        }
+    }
+}
+```
