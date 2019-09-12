@@ -1,8 +1,8 @@
 ---
 layout:     post
-title:      "opengl基础学习(1)"
+title:      "opengl基础学习(2)"
 subtitle:   " \"OpenGL\""
-date:       2019-09-03 20:00:00
+date:       2019-09-11 20:00:00
 author:     "Conerlius"
 header-img: "img/post-bg-2015.jpg"
 tags:
@@ -12,4 +12,63 @@ tags:
 目前的工程放置在github上[Link](https://github.com/Conerlius/LearnOpenGL)
 
 # 启动项目
+空的项目里，我们需要在`main.cpp`加上自己的逻辑
+```
+// 创建一个程序实例
+ApplicationStart* application = new ApplicationStart();
+int result = application->Start();
+return result;
+```
+在这里，`ApplicationStart`是我们以后要使用的所有的Opengl课程的的启动文件；
 
+在前面一节文章里，我们已经知道，为了能更好地使用opengl，我们接入了`GLFW`
+那么我们修改一下`ApplicationStart::Start`的方法
+```
+// 启动
+int ApplicationStart::Start()
+{
+	initGLFW();
+	return 0;
+}
+```
+```
+// 初始化GLFW
+void ApplicationStart::initGLFW() {
+	glfwInit();
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+}
+```
+更加详细的`GLFW`文档在[这里](https://www.glfw.org/docs/latest/window_guide.html)
+> `glfwInit`调用函数来初始化`GLFW`<br>
+> `glfwWindowHint`配置GLFW；函数的第一个参数代表选项的名称，第二个参数接受一个整型，用来设置这个选项的值。在这里，先声明GLFW对应的Opengl core的大小版本（`GLFW_CONTEXT_VERSION_MAJOR`和`GLFW_CONTEXT_VERSION_MINOR`）
+> `GLFW_OPENGL_PROFILE`是开启opengl 的profile,但是在opengl es中会被忽略,如果opengl 的版本低于3.2，其值必须是`GLFW_OPENGL_ANY_PROFILE`<br>
+> `GLFW_OPENGL_FORWARD_COMPAT`是否向前兼容，不建议开启，在opengl es中同样会被忽略<br>
+
+在初始化完成`GLFW`后，我们正式创建一个视图窗口看看；在`initGLFW();`下添加一个`drawWindow();`然后我们尝试在`drawWindow()`方法里绘制一个窗口
+
+```
+GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
+if (window == NULL)
+{
+    glfwTerminate();
+    return -1;
+}
+glfwMakeContextCurrent(window);
+```
+
+绘制第一个window，`GLFW`提供了`glfwCreateWindow`于创建Window,`glfwDestroyWindow`或者`glfwTerminate`来销毁window<br>
+如果`glfwCreateWindow`创建失败的话，则会返回一个`Null`;该函数有5个参数，前面两个分别代表着window的长宽，第三个代表window的标题，如果需要处理全屏窗口可以传个`monitor`进去，目前本文不考虑这个，所以第四第五个直接使用Null。
+
+`glfwMakeContextCurrent`将窗口的上下文设置为当前线程的主上下文，如果想在其他线程上使用该上下文，就必须将其从旧的线程中释放出来；目前本文只考虑当线程，所以现阶段不考虑，只需要绑定就行。
+
+由于本文是通过`GLAD`来管理opengl的函数指针的，所以在设定上下文后，我们需要初始化`GLAD`,(必须是绑定完上下文后，否则报错)
+
+```
+if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+{
+    return -1;
+}
+```
