@@ -72,3 +72,13 @@ if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     return -1;
 }
 ```
+
+> 这个时候，我们的工程已经可以启动了，但是窗口却一闪而过；因为`main`在执行完`drawWindow`后，就退出了，故需要添加等待用户主动关闭窗口循环;
+
+```
+while (!glfwWindowShouldClose(window))
+{
+}
+// 销毁窗口
+glfwTerminate();
+```
