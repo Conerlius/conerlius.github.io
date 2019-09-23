@@ -180,3 +180,23 @@ ldvirtftn       | 将虚函数的地址推入堆栈|
 leave           | 退出代码的受保护区域 |
 leave.s         | 退出代码的受保护区域(短格式)|
 localloc        | 从本地内存池中申请空间|
+mkrefany        | Push a typed reference to ptr of type class onto the stack|
+mul             | 乘积|
+mul.ovf         | 乘积, 并在溢出时引发 OverflowException|
+mul.ovf.un      | 无符号数据乘积, 并在溢出时引发 OverflowException|
+neg             | 取反值 |
+newarr          | 创建指定元素类型的数组 |
+newobj          | 创建指定类型的对象 |
+nop             | 无处理 |
+not             | 逻辑not |
+or              | 逻辑or |
+pop             | 从堆栈中弹出值 |
+readonly        | 声明一个连续的数组在运行时无须检查类型,并返回可控的托管指针|
+refanytype      | Push the type token stored in a typed reference|
+refanyval       | Push the address stored in a typed reference |
+rem             | 余数 |
+rem.un          | 无符号整数除以两个数的余数 |
+ret             | 返回 |
+rethrow         | 返回当前异常 |
+shl             | 左移，(<<) |
+shr             | 右移，(>>) |
