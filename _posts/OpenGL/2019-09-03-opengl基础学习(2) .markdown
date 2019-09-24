@@ -82,3 +82,9 @@ while (!glfwWindowShouldClose(window))
 // 销毁窗口
 glfwTerminate();
 ```
+
+![jpg](/images/OpenGL/opengl_2_1.jpg)
+
+此时，我们终于能看到一个黑乎乎的窗口了！
+
+下一章会讲简单的三角形绘制！
