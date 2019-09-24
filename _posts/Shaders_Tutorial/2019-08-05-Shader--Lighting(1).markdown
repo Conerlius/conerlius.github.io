@@ -59,7 +59,7 @@ struct v2f
 > Disffuse = 直射光颜色*max(0,cosθ) (θ是法线跟光照的夹角)
 >> 数学基础就不说了~
 
-```math
+```
 diffuse = _LightColor0.rgb * max(0, dot(o.normal, lightDir));
 ```
 

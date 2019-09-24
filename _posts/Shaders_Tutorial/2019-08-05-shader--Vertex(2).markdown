@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "shader--Vertex(1)"
+title:      "shader--Vertex(2)"
 subtitle:   " \"Vertex\""
 date:       2019-08-05 17:17:00
 author:     "Conerlius"
@@ -21,7 +21,7 @@ tags:
 > 还记得上一章中的`float4 vert(float4 v:POSITION) :SV_POSITION`吗？我们发现这里决然只有一个参数，那如果我既想要定点坐标，也想要法线坐标呢？难道传两个参？<br>
 > 答案是no,我们抽象一下参数结构出来
 
-```Shader
+```
 // 定义系统对vert需要传入的参数(application to vertex)
 struct a2v 
 {
@@ -31,7 +31,7 @@ struct a2v
 
 > 既然传入Vert能抽象，那么Vert传递到Frag的数据也能抽象了
 
-```Shader
+```
 struct v2f
 {
 	float4 pos:POSITION;
@@ -40,7 +40,7 @@ struct v2f
 
 > 经过两次的抽象后，我们得到一下的代码
 
-```Shader
+```
 Shader "WDFramework/VertShader"
 {
 	// 属性

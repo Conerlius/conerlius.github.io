@@ -13,7 +13,7 @@ tags:
 前面两章说了一些基本的内容，我们做Shader，怎么可能烧的了贴图纹理呢？所以这章我们来讲讲纹理的使用。<br>
 > 首先我们像之前声明Color那样去声明和绑定一个纹理<br>
 
-```Shader
+```
 // 属性
 Properties{
 	// 颜色
@@ -38,7 +38,7 @@ sampler2D _MainTex;
 `Vert`的？<br>
 > 在`a2v`里声明,这样GPU就会把uv信息告诉`Vert`了
 
-```Shader
+```
 // 定义系统对vert需要传入的参数
 struct a2v 
 {
@@ -50,7 +50,7 @@ struct a2v
 ```
 > 注意一点，模型的数据只有在vert里能拿到，在`Frag`里不能直接取的，但是呢，我们可以通过`a2v`来获取，存放到`v2f`里，这样`Frag`就可以间接取到了！
 
-```Shader
+```
 // vert对frag输出的数据
 struct v2f
 {
@@ -62,7 +62,7 @@ struct v2f
 
 > 我们来写写`Vert`吧
 
-```Shader
+```
 // 因为返回的已经不单单是顶点坐标了，我们就去掉SV_POSITION的声明
 v2f vert(a2v IN)// : SV_POSITION
 {
@@ -77,7 +77,7 @@ v2f vert(a2v IN)// : SV_POSITION
 
 > Fragment
 
-```Shader
+```
 // 像素插值输出方法
 float4 frag(v2f o ):SV_Target
 {
@@ -87,7 +87,7 @@ float4 frag(v2f o ):SV_Target
 
 > 现在我们在`v2f o`里可以取得到UV，那么我们如果去获取该像素点上的纹理颜色呢？Unity为我们提供了api：`tex2D(Texture, UV)`；直接使用返回后我们得到的Shader和结果如下！
 
-```Shader
+```
 Shader "WDFramework/VertShader"
 {
 	// 属性
