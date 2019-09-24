@@ -10,12 +10,12 @@ tags:
     - shader
 ---
 
-# 声明
+## 声明
 > 这里先讲Vertex/Fragment，至于ShaderLab，有时间在整理。<br>
 > 本人是自己乱学的shader，属野鸡流，没有什么系统地学，但应该比较适合还懵懵的新人吧！<br>
 > 直接正文
 
-# 最简单的Shader
+## 最简单的Shader
 > 这里不说渲染管线的流程，什么几何阶段都不理，直接上手`Shader`;
 ```Shader
 Shader "WDFramework/VertShader"
@@ -73,7 +73,7 @@ Shader "WDFramework/Shader Temp"
     FallBack  "VertexLit" 
 }
 ```
-## Properties
+### Properties
 > Properties的格式是
 ```CG
 _Color("Color",Color)=(1,1,1,1)
@@ -98,7 +98,7 @@ _Cute("Cute",Cube)="red"{}
 //3D纹理
 _3D("Texture",3D)="black"{}
 ```
-## CG
+### CG
 > 本文不讲HLSLPROGRAM, 这就直接说说CG的一些常用格式;CG都必须写在`CGPROGRAM`和`ENDCG`之间;<br>
 ```CG
 // 声明指定vertex 和fragment的方法
@@ -127,7 +127,7 @@ _3D("Texture",3D)="black"{}
 >>}
 >> ```
 >> `SV_Target`是剪裁坐标语义,告诉系统，`frag`返回的是颜色
-## 语义
+### 语义
 > 从应用程序传递到顶点函数的语义有哪些(application to vertex,通常我们就命名成a2v) 
 > 1. POSITION顶点坐标(模型空间下的) 
 > 2. NORMAL法线(模型空间下) 
