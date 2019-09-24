@@ -29,7 +29,7 @@ tags:
 </html>
 <html>
 
-完成上一步的时候，数据已经缓存在显存中了(VRAM)。但是从VRAM到GPU的传输速度还是显得慢，GPU在传输数据上还可以更快的！
+完成上一步的时候，数据已经缓存在显存中了(VRAM)。但是从VRAM到GPU的传输速度还是显得慢，GPU在传输数据上还可以更快的！<br>
 
 因此硬件驱动允许把较小的内存块数据直接传递到处理芯片(the processor chips)，一般称之为“芯片缓存”（on-chip caches）。因为如果要将该缓存植入到处理芯片上需要极为昂贵的成本，所以导致了该缓存的大小极为有限。GPU从缓存中复制部分当前必须的数据.
 
@@ -37,7 +37,7 @@ tags:
 <video width="100%" controls="" loop="" preload="" src="/vedios/copy_data_from_vram_to_l2_01.mp4" type="video/mp4"></video>
 </html>
 
-数据复制完成后，这些已经复制的数据会存放在一个叫L2的缓存区。L2一般都比较小（在NVIDIA GM204: 2048 KB），而L2的位于GPU上，并且GPU访问L2的速度比访问VRAM快了很多。
+数据复制完成后，这些已经复制的数据会存放在一个叫L2的缓存区。L2一般都比较小（在NVIDIA GM204: 2048 KB），而L2的位于GPU上，并且GPU访问L2的速度比访问VRAM快了很多。<br>
 
 
 尽管如此，对于需要更高效的GPU来说，还是很慢!因此出现了一个更小的缓存L1（在NVIDIA GM204: 384 KB (4 x 4 x 24 KB)），它不仅位于GPU上，而且更接近核心！
@@ -56,7 +56,7 @@ tags:
 为什么需要如此麻烦，如上所述，这些都和访问消耗的时间有关！如果你去比较这些访问时间，比如：HDD和L1,你会发现差距超级大！具体数据可以参考
 [link](https://gist.github.com/hellerbarde/2843375)
 
-在渲染开始之前，CPU会设置一些全局值，这些值描述了如何渲染网格。这些值称为“渲染状态”(Render State)。
+在渲染开始之前，CPU会设置一些全局值，这些值描述了如何渲染网格。这些值称为“渲染状态”(Render State)。<br>
 
 
 ## 2. 设置渲染状态（Set the Render State）
@@ -69,7 +69,7 @@ tags:
 <video width="100%" controls="" loop="" preload="" src="/vedios/renderstate.mp4" type="video/MP4"></video>
 </html>
 
-准备完成后，CPU最终可以调起GPU并告诉它要绘制什么。 此命令称为：Draw Call。
+准备完成后，CPU最终可以调起GPU并告诉它要绘制什么。 此命令称为：Draw Call。<br>
 
 ## 3. Draw Call
 Draw call是一个通知渲染**一个**mesh的指令。它是由cpu发起的，由gpu接受，该指令只指向将要渲染的mesh，并不包含任何材质信息，因为材质信息已经通过渲染状态定义了。这些mesh位于VRAM中。
@@ -77,7 +77,7 @@ Draw call是一个通知渲染**一个**mesh的指令。它是由cpu发起的，
 <video width="100%" controls="" loop="" preload="" src="/vedios/cpu_calls_gpu.mp4" type="video/mp4"></video>
 </html>
 
-当这些指令发出去之后，gpu会获取渲染状态的数据（材质、纹理、shader……）和定点数据，通过一些代码将这些数据转换成漂亮的像素到屏幕上。这个处理过程就称之为Pipeline。
+当这些指令发出去之后，gpu会获取渲染状态的数据（材质、纹理、shader……）和定点数据，通过一些代码将这些数据转换成漂亮的像素到屏幕上。这个处理过程就称之为Pipeline。<br>
 
 ## 4. Pipeline
 正如文章开头说言，资源或多或少就是一张定点和纹理数据的列表。要将这些转换成令人兴奋的图形，显卡需要基于顶点创建三角形，计算他们怎么放置，绘制纹理像素在三角形上等。这个称之为state,Pipeline States。
@@ -108,7 +108,7 @@ Draw call是一个通知渲染**一个**mesh的指令。它是由cpu发起的，
 
 ![gif](/images/tut_cpu_commands_gpu_zzz.gif)
 
-幸好不是！原因是这种通信会产生瓶颈（当cpu不能足够快速地划分指令时）和是并行工作成为不可能。该解决方案是维护一个列表，由CPU添加命令而GPU读取 - 彼此独立！ 此列表称为：Command Buffer。
+幸好不是！原因是这种通信会产生瓶颈（当cpu不能足够快速地划分指令时）和是并行工作成为不可能。该解决方案是维护一个列表，由CPU添加命令而GPU读取 - 彼此独立！ 此列表称为：Command Buffer。<br>
 
 ## 5. Command Buffer
 > Command Buffer使得CPU和GPU独立工作成为了可能。当cpu需要渲染某样东西的时候，会把command放置到队列里，当gpu需要渲染的时候，gpu会从队列里取出并执行（FIFO，先进先出）。
