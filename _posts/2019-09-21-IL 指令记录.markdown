@@ -182,8 +182,8 @@ leave.s         | 退出代码的受保护区域(短格式)|
 localloc        | 从本地内存池中申请空间|
 mkrefany        | Push a typed reference to ptr of type class onto the stack|
 mul             | 乘积|
-mul.ovf         | 乘积, 并在溢出时引发 OverflowException|
-mul.ovf.un      | 无符号数据乘积, 并在溢出时引发 OverflowException|
+mul.ovf         | 乘积, 并在溢出时引发 OverflowException |
+mul.ovf.un      | 无符号数据乘积, 并在溢出时引发 OverflowException |
 neg             | 取反值 |
 newarr          | 创建指定元素类型的数组 |
 newobj          | 创建指定类型的对象 |
@@ -198,5 +198,45 @@ rem             | 余数 |
 rem.un          | 无符号整数除以两个数的余数 |
 ret             | 返回 |
 rethrow         | 返回当前异常 |
-shl             | 左移，(<<) |
+shl             | 无符号左移，(<<) |
 shr             | 右移，(>>) |
+shr.un          | 无符号右移，(>>) |
+sizeof          | 长度 |
+starg           | 将值存到下标为num的参数列表中 |
+starg.s         | 将值存到下标为num的参数列表中(短格式) |
+stelem          | 将栈顶的值替换数组index的值 |
+stelem.i        | 将栈顶的int值替换数组index的值 |
+stelem.i1       | 将栈顶的int8值替换数组index的值 |
+stelem.i2       | 将栈顶的int16值替换数组index的值 |
+stelem.i4       | 将栈顶的int32值替换数组index的值 |
+stelem.i8       | 将栈顶的int64值替换数组index的值 |
+stelem.r4       | 将栈顶的float32值替换数组index的值 |
+stelem.r8       | 将栈顶的float64值替换数组index的值 |
+stelem.ref      | 将栈顶的对象引用替换数组index的值 |
+stfld           | 替换对象field的值 |
+stind.i         | 将int值存到内存地址 |
+stind.i1        | 将int8值存到内存地址 |
+stind.i2        | 将int16值存到内存地址 |
+stind.i4        | 将int32值存到内存地址 |
+stind.i8        | 将int64值存到内存地址 |
+stind.r4        | 将float32值存到内存地址 |
+stind.r8        | 将float64值存到内存地址 |
+stind.ref       | 将对象的引用存到内存地址 |
+stloc           | 弹出栈顶的值，赋值到本地变量index |
+stloc.1         | 弹出栈顶的值，赋值到本地变量0 |
+stloc.2         | 弹出栈顶的值，赋值到本地变量0 |
+stloc.3         | 弹出栈顶的值，赋值到本地变量0 |
+stloc.s         | 弹出栈顶的值，赋值到本地变量index(短格式)  |
+stobj           | Store a value of type typeTok at an address |
+stsfld          | 替换静态field的值 |
+sub             | 减 |
+sub.ovf         | 减，并在溢出时引发 OverflowException |
+sub.ovf.un      | 无符号减，并在溢出时引发 OverflowException |
+switch          | 跳进指定分支 |
+tail            | 方法终止 |
+throw           | 抛出异常 |
+unaligned       | 指针未对齐 |
+unbox           | 拆箱 |
+unbox.any       | 拆箱 |
+volatile        | volatile声明的指针 |
+xor             | 返回整数的按位xor的值 |
