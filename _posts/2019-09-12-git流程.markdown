@@ -4,7 +4,8 @@ title:      "git代码版本管理"
 subtitle:   " \"流程\""
 date:       2019-09-12 15:45:00
 author:     "Conerlius"
-header-img: "img/post-bg-2015.jpg"
+category: 其他
+keywords: git
 tags:
     - 交流
 ---

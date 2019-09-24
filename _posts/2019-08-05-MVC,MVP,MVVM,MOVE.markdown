@@ -4,7 +4,8 @@ title:      "MVC,MVP,MVVM,MOVE"
 subtitle:   " \"MVC,MVP,MVVM,MOVE\""
 date:       2019-08-05 17:05:00
 author:     "Conerlius"
-header-img: "img/post-bg-2015.jpg"
+category: 其他
+keywords: CSharp
 tags:
     - 交流
 ---

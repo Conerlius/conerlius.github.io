@@ -4,7 +4,8 @@ title:      "GitLab CI在windows下的部署"
 subtitle:   " \"GitLab CI在windows下的部署\""
 date:       2019-08-05 17:26:00
 author:     "Conerlius"
-header-img: "img/post-bg-2015.jpg"
+category: 其他
+keywords: CI
 tags:
     - Tool
 ---

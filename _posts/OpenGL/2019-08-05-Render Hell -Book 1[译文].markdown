@@ -4,7 +4,8 @@ title:      "Render Hell -Book 1[译文]"
 subtitle:   " \"Graphic\""
 date:       2019-08-5 11:25:00
 author:     "Conerlius"
-header-img: "img/post-bg-2015.jpg"
+category: opengl
+keywords: opengl
 tags:
     - 译文
 ---

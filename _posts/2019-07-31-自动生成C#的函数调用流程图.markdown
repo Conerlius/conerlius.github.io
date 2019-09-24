@@ -4,7 +4,8 @@ title:      "自动生成C#的函数调用流程图"
 subtitle:   " \"graphviz\""
 date:       2019-07-31 18:25:00
 author:     "Conerlius"
-header-img: "img/post-bg-2015.jpg"
+category: 其他
+keywords: CSharp,unity
 tags:
     - CSharp
     - Unity

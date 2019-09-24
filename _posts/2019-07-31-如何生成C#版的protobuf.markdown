@@ -4,7 +4,8 @@ title:      "如何生成C#版的protobuf"
 subtitle:   " \"protobuf\""
 date:       2019-07-31 18:22:00
 author:     "Conerlius"
-header-img: "img/post-bg-2015.jpg"
+category: 其他
+keywords: CSharp
 tags:
     - CSharp
 ---

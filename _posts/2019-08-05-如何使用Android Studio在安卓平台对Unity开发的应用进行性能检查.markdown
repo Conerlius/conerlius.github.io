@@ -4,7 +4,8 @@ title:      "如何使用Android Studio在安卓平台对Unity开发的应用进
 subtitle:   " \"Android debug\""
 date:       2019-08-05 13:00:00
 author:     "Conerlius"
-header-img: "img/post-bg-2015.jpg"
+category: 其他
+keywords: android
 tags:
     - 转载
 ---
