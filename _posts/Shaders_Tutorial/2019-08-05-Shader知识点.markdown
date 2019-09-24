@@ -4,9 +4,10 @@ title:      "Shader知识点"
 subtitle:   " \"Shader知识点\""
 date:       2019-08-05 17:11:00
 author:     "Conerlius"
-header-img: "img/post-bg-2015.jpg"
+category: shader
+keywords: shader,unity
 tags:
-    - Shader
+    - shader
 ---
 
 ## 前言
