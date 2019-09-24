@@ -1,0 +1,53 @@
+---
+layout:     post
+title:      "opengl基础学习(3)"
+subtitle:   " \"三角形\""
+date:       2019-09-24 15:00:00
+author:     "Conerlius"
+header-img: "img/post-bg-2015.jpg"
+tags:
+    - opengl
+---
+
+目前的工程放置在github上[Link](https://github.com/Conerlius/LearnOpenGL)
+
+# 继上章
+在上一个章节里，我们定义了监听主动关闭窗口的while循环，现在我们需要在每次循环里绘制一个简单的三角形
+
+```
+while (!glfwWindowShouldClose(window))
+{
+    // m_curSession = new OpenGL_Session1();
+	m_curSession->drawView();
+    glfwPollEvents();
+	glfwSwapBuffers(window);
+}
+```
+通过一个对象`OpenGL_Session1`来绘制这个三角形，同时也是为了以后方便进行其他的内容；
+首先创建一个`OpenGL_Session1`的C++对象，添加器公开方法`drawView`,我们在`while`里每帧调起drawview去绘制；
+
+glfwPollEvents函数检查有没有触发什么事件（比如键盘输入、鼠标移动等），然后调用对应的回调函数（可以通过回调方法手动设置）。我们一般在游戏循环的开始调用事件处理函数
+
+## 事件监听
+> `GLFW`提供了`glfwSetKeyCallback(window, key_callback);`给我们绑定窗口的按钮事件,`key_callback`的格式 `void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);` <br>
+> eg:
+>> ```void key_callback(GLFWwindow* window, int key, int scancode, int >> action, int mode)
+>> {
+>>     // 当用户按下ESC键,我们设置window窗口的WindowShouldClose属性为true
+>>     // 关闭应用程序
+>>     if(key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+>>         glfwSetWindowShouldClose(window, GL_TRUE);
+>> }
+>> ```
+
+glfwSwapBuffers函数会交换颜色缓冲（它是一个储存着GLFW窗口每一个像素颜色的大缓冲），它在这一迭代中被用来绘制，并且将会作为输出显示在屏幕上。
+
+## 双缓冲(Double Buffer)
+
+> 应用程序使用单缓冲绘图时可能会存在图像闪烁的问题。 这是因为生成的图像不是一下子被绘制出来的，而是按照从左到右，由上而下逐像素地绘制而成的。最终图像不是在瞬间显示给用户，而是通过一步一步生成的，这会导致渲染的结果很不真实。为了规避这些问题，我们应用双缓冲渲染窗口应用程序。前缓冲保存着最终输出的图像，它会在屏幕上显示；而所有的的渲染指令都会在后缓冲上绘制。当所有的渲染指令执行完毕后，我们交换(Swap)前缓冲和后缓冲，这样图像就立即呈显出来，之前提到的不真实感就消除了。
+
+# 三角形的前提
+前面说了基本事件监听，以及buffer的交换,这里就大概讲一下渲染中的三角形是怎么一回事:
+
+首先要明确的是，在GPU里，万物皆数据,而一个占空间的物体（2D或3D）都是需要通过一系列的定点来确定基本的形状的，而GPU下，所有的定点都是用来构建三角形的，然后通过一个个三角形构建出更复杂的几何体；比如一个4边形就由两个三角形构成；<br>
+![png](/images/OpenGL/opengl_3_pipeline.png)
