@@ -13,7 +13,7 @@ tags:
 目前的工程放置在github上[Link](https://github.com/Conerlius/LearnOpenGL)
 
 # 继上章
-在上一个章节里，我们定义了监听主动关闭窗口的while循环，现在我们需要在每次循环里绘制一个简单的三角形
+> 在上一个章节里，我们定义了监听主动关闭窗口的while循环，现在我们需要在每次循环里绘制一个简单的三角形
 
 ```
 while (!glfwWindowShouldClose(window))

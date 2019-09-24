@@ -13,8 +13,7 @@ tags:
 目前的工程放置在github上[Link](https://github.com/Conerlius/LearnOpenGL)
 
 # 启动项目
-
-空的项目里，我们需要在`main.cpp`加上自己的逻辑
+> 空的项目里，我们需要在`main.cpp`加上自己的逻辑
 ```
 // 创建一个程序实例
 ApplicationStart* application = new ApplicationStart();
