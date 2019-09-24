@@ -21,8 +21,8 @@ github: conerlius
 #linkedin: suyan404
 
 # avatar and Favicon
-avatar: http://conerlius.github.io/img/avatar.jpg.png
-favicon: http://conerlius.github.io/img/favicon.ico
+avatar: https://conerlius.github.io/assets/img/avatar.jpg
+favicon: https://conerlius.github.io/assets/img/favicon.ico
 
 # disqus config
 disqus:
