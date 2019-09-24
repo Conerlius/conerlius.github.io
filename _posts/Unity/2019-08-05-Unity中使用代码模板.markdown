@@ -4,9 +4,10 @@ title:      "Unity中使用代码模板"
 subtitle:   " \"Unity中使用代码模板\""
 date:       2019-08-05 14:48:00
 author:     "Conerlius"
-header-img: "img/post-bg-2015.jpg"
+category: unity
+keywords: unity
 tags:
-    - Unity
+    - unity
 ---
 
 # 前言

@@ -4,9 +4,10 @@ title:      "Unity TimeLine(without Cinemachine)"
 subtitle:   " \"Unity TimeLine(without Cinemachine)\""
 date:       2019-08-05 17:28:00
 author:     "Conerlius"
-header-img: "img/post-bg-2015.jpg"
+category: unity
+keywords: unity
 tags:
-    - Unity
+    - unity
 ---
 
 # 什么是TimeLine

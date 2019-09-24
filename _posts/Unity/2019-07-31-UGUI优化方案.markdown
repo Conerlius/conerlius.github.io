@@ -4,9 +4,10 @@ title:      "UGUI优化方案"
 subtitle:   " \"ugui的一些注意事项\""
 date:       2019-07-31 18:00:00
 author:     "Conerlius"
-header-img: "img/post-bg-2015.jpg"
+category: unity
+keywords: unity,ugui
 tags:
-    - Unity
+    - unity
 ---
 
 [TOC]

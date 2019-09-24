@@ -4,9 +4,10 @@ title:      "Sounds in Unity"
 subtitle:   " \"Unity Sounds\""
 date:       2019-08-05 14:00:00
 author:     "Conerlius"
-header-img: "img/post-bg-2015.jpg"
+category: unity
+keywords: unity,tool,sound
 tags:
-    - Unity
+    - unity
     - Tool
 ---
 

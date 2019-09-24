@@ -4,9 +4,10 @@ title:      "unity资源加载方式比较"
 subtitle:   " \"unity资源加载方式比较\""
 date:       2019-08-05 17:22:00
 author:     "Conerlius"
-header-img: "img/post-bg-2015.jpg"
+category: unity
+keywords: unity
 tags:
-    - Unity
+    - unity
 ---
 
 # unity的资源加载方式介绍

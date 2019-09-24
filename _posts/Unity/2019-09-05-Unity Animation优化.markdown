@@ -4,9 +4,10 @@ title:      "Unity Animation优化"
 subtitle:   " \"Animation优化\""
 date:       2019-09-05 18:00:00
 author:     "Conerlius"
-header-img: "img/post-bg-2015.jpg"
+category: unity
+keywords: unity
 tags:
-    - Unity
+    - unity
 ---
 
 > Unity的动画系统一直比较让人无奈的，谁用谁知道！但是Unity的同时也提供了另外的一套解决方案，可以优化动画带来的部分问题
