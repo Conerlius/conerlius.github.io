@@ -48,7 +48,7 @@ gems:
   - jekyll-sitemap
   - jekyll-paginate
 
-markdown:kramdown
+#markdown:kramdown
 
 #markdown: redcarpet
 #redcarpet:
