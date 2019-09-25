@@ -1,52 +1,53 @@
-# Site settings
+permalink: /:year/:month/:day/:title.html
+paginate: 10
+markdown: redcarpet
+
+# 作者信息
+author: 
+  name: Conerlius
+  email: 747630335@qq.com
+  link: http://conerlius.github.io
+#  weibo: http://weibo.com/liqing215
+  github: http://github.com/conerlius
+#  zhihu: http://www.zhihu.com/people/lu-li-qing-90
+
+# 站点信息
 title: 菠菜的博客
-email: 747630335@qq.com
-description: > # this means to ignore newlines until "baseurl:"
-  菠菜的博客
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: http://conerlius.github.io/ # the base hostname & protocol for your site
-#rss_url: /pages/feed.xml
-author: Conerlius
+description: My personal blog.
+url: http://conerlius.github.io
+rss_url: /pages/atom.xml
 
-# Sidebar filter
-# Choose 'tag' or 'category' as filter in sidebar.
-filter: 'category'
-recent_num: 20
+# gavatar头像及Favicon
+gavatar: /public/img/gavatar.jpg
+favicon: /public/img/favicon.ico
 
-# Social account
-#twitter: suyan404
-#weibo: suyan0830
-github: conerlius
-#instagram: suyan404
-#linkedin: suyan404
-
-# avatar and Favicon
-avatar: https://conerlius.github.io/assets/img/avatar.jpg
-favicon: https://conerlius.github.io/assets/img/favicon.ico
-
-# disqus config
-disqus:
-  shortname: conerlius
-
-# google analytics config
+# google analytics 设置
 ga:
   id: UA-148607761-1
   url: conerlius.github.io
 
-# Build settings
-permalink: /:year/:month/:day/:title.html
-markdown: kramdown
-kramdown:
-  input: GFM 
-highlighter: rouge
-mathjax: disabled
-sass:
-  style: compressed
+# disqus 设置
+disqus:
+  shortname: gotoshare
 
-# Jekyll Plugin
-# https://help.github.com/articles/adding-jekyll-plugins-to-a-github-pages-site/
+# 主题设置，自动激活某个标签
+active: 编程
+
+# 首页除了最新文章外显示分类
+cates: 
+  - React
+
+# 中文本地化
+locals:
+  tags: 标签
+  about: 关于
+  newest: 最新文章
+  archive: 归档
+
 gems:
   - jekyll-sitemap
-  - jekyll-seo-tag
-  - jekyll-feed
+  - jekyll-paginate
 
+markdown: redcarpet
+redcarpet:
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "strikethrough", "superscript", "with_toc_data"]
