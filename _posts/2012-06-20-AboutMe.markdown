@@ -4,7 +4,6 @@ title:      "关于我"
 subtitle:   " \"关于我\""
 date:       2012-06-20 00:00:00
 author:     "Conerlius"
-category: 关于我
 keywords: Conerlius
 tags:
     - 交流
