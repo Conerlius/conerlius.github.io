@@ -53,7 +53,7 @@ ga:
 
 ### 集成disqus
 * 先去[disqus](https://disqus.com)注册一个账号，然后创建一个app，将获取到的`shortname`填写到`disqus.html`中
-* 
+  
 ```
 <div id="disqus_thread"></div>
 <script type="text/javascript">
