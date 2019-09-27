@@ -12,4 +12,5 @@ tags:
 
 ## il2cpp是什么
 ## unity的il2cpp命令
+[link](https://blogs.unity3d.com/cn/2015/05/06/an-introduction-to-ilcpp-internals/)
 ## 怎么查看il2cpp后的文件
