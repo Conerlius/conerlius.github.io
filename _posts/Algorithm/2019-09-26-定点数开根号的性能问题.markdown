@@ -5,9 +5,9 @@ subtitle:   " \"math\""
 date:       2019-09-26 15:00:00
 author:     "Conerlius"
 category: 算法
-keywords: Algorithm,开根,定点数,Fix64
+keywords: 算法,开根,定点数,Fix64
 tags:
-    - Algorithm
+    - 算法
 ---
 
 开根号有两种比较常见的方式:牛顿迭代法和二分法。
