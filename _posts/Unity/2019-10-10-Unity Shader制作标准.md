@@ -34,6 +34,7 @@ tags:
 - Unity默认自带的Shader不能直接使用；如果需要使用，应该从Unity里拷贝出来，修改前置归类后才可放入工程中使用；
 - Unity的Surface Sahder能不用就不用！优先使用Vertex Fragment Shader;
 - Shader文件应该进行功能性分类（eg:战斗才使用的放置在Fight目录）；
+- 从其他地方弄来的shader需要先经过检查没问题后方可使用，不可以直接使用
   
 #### Shader的书写规则
 - Shader的`Shader "Features/NoFog_Unlit_name"`应该有归类及其特性说明；
