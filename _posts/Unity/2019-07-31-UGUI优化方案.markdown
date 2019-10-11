@@ -23,7 +23,7 @@ tags:
 ### RaycastTarget消耗的原理
 > 直接上ui事件的大概流程图
 
-```
+```mermaid
 graph TB
 A["EventSystem.Update"]-->B["CurrentInputModule.Process"]
 B-->C["GetMousePointerEventData"]
