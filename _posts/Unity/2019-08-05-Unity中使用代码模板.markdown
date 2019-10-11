@@ -113,12 +113,18 @@ public class CSharpCreator : UnityEditor.AssetModificationProcessor
 
 ```
 ProjectWindowUtil.cs
+
+
+
 public static void CreateScriptAssetFromTemplateFile(string templatePath, string defaultNewFileName)
 {
 	if (templatePath == null)
 	{
 		throw new ArgumentNullException("templatePath");
 	}
+
+
+    
 	if (!File.Exists(templatePath))
 	{
 		throw new FileNotFoundException($"The template file \"{templatePath}\" could not be found.", templatePath);
