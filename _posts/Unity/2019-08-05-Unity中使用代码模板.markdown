@@ -32,7 +32,7 @@ tags:
 >
 > 我们来修改一下，就在文件头添加一些必要的文件信息, 如下
 
-```
+```c#
 /* Author:#AUTHOR#
 *  Date:#DATE#
 *  Company:#COMPANY#
@@ -62,9 +62,10 @@ public class #SCRIPTNAME# : MonoBehaviour
 
 > 保存后，进入到unity里，在次创建文件，都已经带有刚添加的文字了;
 > 但是我们想要的是能把`#AUTHOR#`等替换成创建者的名称,要如何处理呢？
->> unity文件修改完名字的时候，都有一个统一的对外api,我们只需要监听该接口，然后读取文件的文本信息，覆盖我们填入的信息就可以了，实现如下
+>
+> > unity文件修改完名字的时候，都有一个统一的对外api,我们只需要监听该接口，然后读取文件的文本信息，覆盖我们填入的信息就可以了，实现如下
 
-```
+```c#
 /// <summary>
 /// 从unity 模板中创建的时候修改的回调
 /// </summary>
@@ -103,7 +104,8 @@ public class CSharpCreator : UnityEditor.AssetModificationProcessor
 
 > 经过重新创建后，终于达到了我们想要的样子了！
 > 但是这这能是unity提供的，能不能生成其他的文件呢？比如Lua？
->> 能！我们继续往下看。
+>
+> > 能！我们继续往下看。
 
 
 ## 从0开始的代码模板
@@ -111,10 +113,8 @@ public class CSharpCreator : UnityEditor.AssetModificationProcessor
 > 在unity里，有这么一个方法`ProjectWindowUtil.StartNameEditingIfProjectWindowExists`
 > 我们先来看看unity的源代码是如何实现的
 
-```
+```c#
 ProjectWindowUtil.cs
-
-
 
 public static void CreateScriptAssetFromTemplateFile(string templatePath, string defaultNewFileName)
 {
@@ -122,9 +122,6 @@ public static void CreateScriptAssetFromTemplateFile(string templatePath, string
 	{
 		throw new ArgumentNullException("templatePath");
 	}
-
-
-    
 	if (!File.Exists(templatePath))
 	{
 		throw new FileNotFoundException($"The template file \"{templatePath}\" could not be found.", templatePath);
@@ -156,7 +153,7 @@ public static void CreateScriptAssetFromTemplateFile(string templatePath, string
 > 在这里，其使用了一个名为`StartNameEditingIfProjectWindowExists`的方法。
 > 那么``又做了什么呢？我们继续看看
 
-```
+```c#
 internal class DoCreateScriptAsset : EndNameEditAction
 {
 	public override void Action(int instanceId, string pathName, string resourceFile)
@@ -170,7 +167,7 @@ internal class DoCreateScriptAsset : EndNameEditAction
 > `DoCreateScriptAsset`集成了`EndNameEditAction`并且静态重载了它的`Action`方法
 > 继续看看`CreateScriptAssetFromTemplate`做了什么！
 
-```
+```c#
 internal static UnityEngine.Object CreateScriptAssetFromTemplate(string pathName, string resourceFile)
 {
 	string text = File.ReadAllText(resourceFile);
@@ -199,7 +196,7 @@ internal static UnityEngine.Object CreateScriptAssetFromTemplate(string pathName
 ### lua代码模板
 > 1.我们先把lua的代码模板写一下
 
-```
+```lua
 --!@Author  #AUTHOR#
 --!@Date  #DATE#
 --!@Copyright  #COPYRIGHT#
@@ -218,9 +215,10 @@ return #FILE_NAME#
 ```
 
 > 有了前面的分析，我们照着写一遍
+>
 > 1. 先写个menu的方法
 
-```
+```c#
 // 脚本文件的icon
 private static Texture2D scriptIcon = (EditorGUIUtility.IconContent("TextAsset Icon").image as Texture2D);
 
@@ -258,7 +256,7 @@ static void CreateLuaFile()
 
 > 2. `DoCreateScriptFile`必须继承`UnityEditor.ProjectWindowCallback.EndNameEditAction`
 
-```
+```c#
 /// <summary>
 /// 必须继承UnityEditor.ProjectWindowCallback.EndNameEditAction
 /// </summary>
@@ -275,7 +273,7 @@ public class DoCreateScriptFile : UnityEditor.ProjectWindowCallback.EndNameEditA
 
 > 3. 替换文件中的模板关键key
 
-```
+```c#
 /// <summary>
 /// 替换文件中的文本
 /// </summary>
@@ -312,3 +310,4 @@ internal static UnityEngine.Object CreateScript(string pathName, string template
     return null;
 }
 ```
+
