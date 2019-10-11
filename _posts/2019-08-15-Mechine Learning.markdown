@@ -1,5 +1,6 @@
 ---
 layout:     post
+mathjax: true
 title:      "Mechine Learning"
 subtitle:   " \"Mechine Learning\""
 date:       2019-08-15 14:38:00
