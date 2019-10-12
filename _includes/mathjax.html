@@ -21,32 +21,24 @@
 </script>
 
 <!--流程图mermaid 脚本-->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/7.1.0/mermaid.min.js"></script>
+<!-- <script> -->
+  <!-- window.Lazyload.js('https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js', function() { -->
+    <!-- mermaid.initialize({ -->
+      <!-- startOnLoad: true -->
+    <!-- }); -->
+    <!-- mermaid.init(undefined, '.language-mermaid'); -->
+  <!-- }); -->
+<!-- </script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/8.0.0/mermaid.min.js"></script>
 <script>
-    var config = {
-        startOnLoad:true,
-        flowchart:{
+var config = {
+    startOnLoad:true,
+    theme: 'forest',
+    flowchart:{
             useMaxWidth:false,
             htmlLabels:true
         }
-    };
-    mermaid.initialize(config);
-    $(function(){
-        var elements = document.getElementsByClassName("language-mermaid");
-        for (var i = elements.length; i--;) {
-            element = elements[i];
-            var graphDefinition = element.innerText;
-            if (graphDefinition) {
-                var svg = mermaid.render('ha_mermaid_' + i, graphDefinition, function(svg){});
-                if (svg) {
-                    var svgElement = document.createElement('div');
-                    preNode = element.parentNode;
-                    svgElement.innerHTML = svg;
-                    svgElement.setAttribute('class', 'mermaid');
-                    svgElement.setAttribute('data-processed', 'true');
-                    preNode.parentNode.replaceChild(svgElement, preNode);
-                }
-            }
-        }
-    });
+};
+mermaid.initialize(config);
+mermaid.init(undefined, '.language-mermaid');
 </script>
