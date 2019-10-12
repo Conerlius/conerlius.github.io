@@ -27,18 +27,6 @@
     </div>
     <div class="col-md-9 col-xs-9 aside2">
       <div class="row navside2">
-          <div id="posts-list">
-              <form action="" id="search-form">
-                <!-- NOTE: input field is disabled by default -->
-                <input id="search-input" type="text" placeholder="Search..." >
-              </form>
-          
-              <nav id="pl__container">
-              {% for post in site.posts %}
-                <a class="{{ post.categories }} pl__all" href="{{ post.url }}"><span class="pl__circle"></span><span class="pl__title">{{ post.title }}</span><span class="pl__date">{{ post.date | date: "%y/%m/%d" }}</span></a>
-              {% endfor %}
-              </nav>
-          </div> <!-- end #posts-list -->
         <div class="tab-content"> 
           {% for category in site.categories %} 
             <div class="tab-pane" id="{{ category[0] }}">
