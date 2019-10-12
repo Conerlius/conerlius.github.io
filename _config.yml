@@ -1,55 +1,50 @@
-permalink: /:year/:month/:day/:title.html
-paginate: 10
-markdown: kramdown
-
-# 作者信息
-author: 
-  name: Conerlius
-  email: 747630335@qq.com
-  link: http://conerlius.github.io
-#  weibo: http://weibo.com/liqing215
-  github: http://github.com/conerlius
-#  zhihu: http://www.zhihu.com/people/lu-li-qing-90
-
-# 站点信息
+# Site settings
 title: 菠菜的博客
-description: My personal blog.
-url: http://conerlius.github.io
-rss_url: /pages/atom.xml
+email: 747630335@qq.com
+description: > # this means to ignore newlines until "baseurl:"
+  菠菜的博客
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: http://conerlius.github.io # the base hostname & protocol for your site
+rss_url: /pages/feed.xml
+author: Conerlius
 
-# gavatar头像及Favicon
-gavatar: /public/img/gavatar.jpg
-favicon: /public/img/favicon.ico
+# Sidebar filter
+# Choose 'tag' or 'category' as filter in sidebar.
+filter: 'category'
+recent_num: 20
 
-# google analytics 设置
+# Social account
+#twitter: suyan404
+#weibo: suyan0830
+github: conerlius
+#instagram: suyan404
+#linkedin: suyan404
+
+# avatar and Favicon
+avatar: /assets/img/avatar.jpg
+favicon: /assets/img/favicon.ico
+
+# disqus config
+disqus:
+  shortname: conerlius
+
+# google analytics config
 ga:
   id: UA-148607761-1
   url: conerlius.github.io
 
-# disqus 设置
-disqus:
-  shortname: gotoshare
+# Build settings
+permalink: /:year/:month/:day/:title.html
+markdown: kramdown
+highlighter: rouge
+mathjax: enabled
+sass:
+  style: compressed
 
-# 主题设置，自动激活某个标签
-active: 编程
-
-# 首页除了最新文章外显示分类
-cates: 
-  - React
-
-# 中文本地化
-locals:
-  tags: 标签
-  about: 关于
-  newest: 最新文章
-  archive: 归档
-
+# Jekyll Plugin
+# https://help.github.com/articles/adding-jekyll-plugins-to-a-github-pages-site/
 gems:
   - jekyll-sitemap
-  - jekyll-paginate
+  - jekyll-seo-tag
+  - jekyll-feed
 
-#markdown:kramdown
-
-#markdown: redcarpet
-#redcarpet:
-#  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "strikethrough", "superscript", "with_toc_data"]
