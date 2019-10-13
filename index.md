@@ -4,6 +4,6 @@
           {{post.title}}
           <span class="badge">{{ post.date | date:"%Y年%m月%d日" }}</span>
         </a>
-      {% endfor %}
+{% endfor %}
 	  
-	  <html>
+</html>
