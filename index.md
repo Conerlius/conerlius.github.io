@@ -11,7 +11,7 @@
           <th>标题</th>
           <th>日期</th>
         </tr>
-      {% for post in site.posts %}
+      {% for post in site.related_posts %}
       <tr>
         <td>
           <a  href='{{ post.url }}' class="list-group-item pjaxlink clearfix">
