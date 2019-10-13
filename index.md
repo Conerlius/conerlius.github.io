@@ -11,8 +11,19 @@
           <th>标题</th>
           <th>日期</th>
         </tr>
+        {% for po in site.recent_num  %}
+      <tr>
+        <td>
+          <a  href='' class="list-group-item pjaxlink clearfix">
+          aaa</a>
+        </td>
+        <td>
+          <span class="badge">bbb</span>
+        </td>
+        </tr>
+      {% endfor %}
       {% for post in site.posts  %}
-        {% if forloop.rindex <= site.recent_num %}
+        {% if forloop.index  <= site.recent_num %}
       <tr>
         <td>
           <a  href='{{ post.url }}' class="list-group-item pjaxlink clearfix">
