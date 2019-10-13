@@ -1,3 +1,6 @@
+
+真的是什么都没有？
+
  <html>
  {% for post in paginator.posts %}
         <a  href='{{ post.url }}' class="list-group-item pjaxlink clearfix">
