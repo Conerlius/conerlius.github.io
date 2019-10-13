@@ -5,14 +5,14 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         <center><h1>最新文章</h1></center>
-        {{paginator.page}}
       </div>
       <table>
         <tr>
           <th>标题</th>
           <th>日期</th>
         </tr>
-      {% for post in paginator.posts %}
+      {% for post in site.posts  %}
+        {% if forloop.rindex <= site.recent_num %}
       <tr>
         <td>
           <a  href='{{ post.url }}' class="list-group-item pjaxlink clearfix">
@@ -22,6 +22,7 @@
           <span class="badge">{{ post.date | date:"%Y年%m月%d日" }}</span>
         </td>
         </tr>
+        {% endif %}
       {% endfor %}
       </table>
     </div>
