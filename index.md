@@ -5,6 +5,7 @@
     <div class="panel panel-primary">
       <div class="panel-heading">
         <center><h1>最新文章</h1></center>
+        {{paginator.page}}
       </div>
       <table>
         <tr>
