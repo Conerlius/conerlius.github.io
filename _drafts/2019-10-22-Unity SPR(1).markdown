@@ -1,0 +1,14 @@
+---
+layout:     post
+title:      "Unity Android Profile"
+subtitle:   " \"Profile\""
+date:       2019-10-22 11:25:00
+author:     "Conerlius"
+category: unity
+keywords: unity,srp
+tags:
+    - unity
+---
+
+
+[笔记二十五——初识Unity SRP](https://zhuanlan.zhihu.com/p/46832026)
