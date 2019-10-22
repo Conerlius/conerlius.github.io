@@ -2,6 +2,7 @@
 layout:     post
 title:      "Mechine Learning"
 subtitle:   " \"Mechine Learning\""
+mathjax: true
 date:       2019-08-15 14:38:00
 author:     "Conerlius"
 category: 其他
