@@ -100,4 +100,56 @@ glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 > - GL_DYNAMIC_DRAW：数据会被改变很多。
 > - GL_STREAM_DRAW ：数据每次绘制时都会改变。
 
-现在来谈谈VBO和VAO之间的关系!
+至于VBO和VAO之间的关系，这里不谈，先记住这两个怎么使用先!
+
+## 三角形
+前文已经说过了定点是什么，现在我们定义一下要绘制的定点数据
+```
+float vertices[] = {
+	-0.5f, -0.5f, 0.0f,
+	 0.5f, -0.5f, 0.0f,
+	 0.0f,  0.5f, 0.0f
+};
+```
+定点数据声明完成后，我们需要把这些数据存放到显存里
+``` CPP
+// 声明一下要使用的VAO和VBO
+// 使用无符号short性能更优
+GLuint VAO,VBO;
+void OpenGL_Session1::Start(ApplicationStart* application)
+{
+	// 生成VAO
+	glGenVertexArrays(1, &VAO);
+	// 绑定VAO
+	glBindVertexArray(VAO);
+	// 生成VBO
+	glGenBuffers(1, &VBO);
+	// 把顶点数组复制到缓冲中供OpenGL使用
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	// 设置顶点属性指针
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+}
+```
+上面的数据绑定和生成我们只需要执行一次就可以，当前还不需要每帧对数据进行修改。
+
+下面开始绘制三角形
+```CPP
+// 绘制
+void OpenGL_Session1::drawView() {
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+	// 启动数组
+	glEnableVertexAttribArray(0);
+	// 指定VAO
+	glBindVertexArray(VAO);
+	// 绘制三角形
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+
+	glDisableVertexAttribArray(0);
+}
+```
+
+[代码](https://github.com/Conerlius/LearnOpenGL/blob/master/Project1/OpenGL_Session1.cpp)
+
+![png](/images/OpenGL/opengl3-result.png)
