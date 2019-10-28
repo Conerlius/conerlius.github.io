@@ -64,3 +64,40 @@ glfwSwapBuffers函数会交换颜色缓冲（它是一个储存着GLFW窗口每�
 与通常的屏幕坐标不同，y轴正方向为向上，(0, 0)坐标是这个图像的中心，而不是左上角。最终你希望所有(变换过的)坐标都在这个坐标空间中，否则它们就不可见了。
 
 你的标准化设备坐标接着会变换为屏幕空间坐标(Screen-space Coordinates)，这是使用你通过glViewport函数提供的数据，进行视口变换(Viewport Transform)完成的。所得的屏幕空间坐标又会被变换为片段输入到片段着色器中。
+
+下面讲一下如何将顶点数组输入到GPU里
+
+常用的有两种VAO(顶点数组对象)和VBO(顶点缓冲对象)
+
+### VAO
+```
+// 数组对象的唯一id
+GLuint VertexArrayID;
+// 生成一个VAO对象放置到指定的id下
+glGenVertexArrays(1, &VertexArrayID);
+// 新创建的数组绑定到GL_ARRAY_BUFFER目标
+glBindVertexArray(VertexArrayID);
+// 顶点数据复制到数组的内存
+glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+```
+
+### VBO
+```
+// 数组缓冲的唯一id
+unsigned int VBO;
+// 生成一个VBO对象放置到指定的id下
+glGenBuffers(1, &VBO);
+// 新创建的缓冲绑定到GL_ARRAY_BUFFER目标
+glBindBuffer(GL_ARRAY_BUFFER, VBO); 
+// 顶点数据复制到缓冲的内存
+
+glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+```
+
+> 显卡管理给定的数据有三种形式：
+>
+> - GL_STATIC_DRAW ：数据不会或几乎不会改变。
+> - GL_DYNAMIC_DRAW：数据会被改变很多。
+> - GL_STREAM_DRAW ：数据每次绘制时都会改变。
+
+现在来谈谈VBO和VAO之间的关系!

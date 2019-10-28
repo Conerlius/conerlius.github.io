@@ -56,3 +56,8 @@ public abstract class MaskableGraphic : Graphic, IClippable, IMaskable, IMateria
 > 减少` raycastTarget`的开启
 
 ## Canvas的Rebuild消耗及其原理
+
+## 分辨率
+不同机型对应不同的ScreenResolution,降低移动设备的渲染损耗
+
+
