@@ -60,4 +60,7 @@ public abstract class MaskableGraphic : Graphic, IClippable, IMaskable, IMateria
 ## 分辨率
 不同机型对应不同的ScreenResolution,降低移动设备的渲染损耗
 
+## 字体库不要使用过度庞大的
+一般游戏都是使用2钟左右，每种字体库大小一般是10m左右
+
 
