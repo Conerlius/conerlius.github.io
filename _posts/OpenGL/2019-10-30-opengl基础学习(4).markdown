@@ -1,0 +1,221 @@
+---
+layout:     post
+title:      "opengl基础学习(4)"
+subtitle:   " \"shader\""
+date:       2019-10-30 15:00:00
+author:     "Conerlius"
+category: opengl
+keywords: opengl
+tags:
+    - opengl
+---
+
+## shader
+在最简配置下，您得有两个着色器：一个叫顶点着色器（vertex shader），它将作用于每个顶点上；另一个叫片段着色器（fragment shader），它将作用于每一个采样点。
+
+首先要做的是创建一个着色器对象，注意还是用ID来引用的。所以我们储存这个顶点着色器为unsigned int，然后用`glCreateShader`创建这个着色器：
+```CPP
+GLuint vertexShader;
+vertexShader = glCreateShader(GL_VERTEX_SHADER);
+```
+我们把需要创建的着色器类型以参数形式提供给`glCreateShader`。由于我们正在创建一个顶点着色器，传递的参数是`GL_VERTEX_SHADER`也可以是`GL_FRAGMENT_SHADER`。
+
+下一步我们把这个着色器源码附加到着色器对象上，然后编译它：
+```CPP
+glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+glCompileShader(vertexShader);
+```
+
+### 顶点着色器
+由于上面讲到shader的时候用的就是`定点着色器`那么这里就不再重复了。
+```GLSL
+#version 330 core
+layout (location = 0) in vec3 aPos;
+
+void main()
+{
+    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+}
+```
+
+```CPP
+GLuint vertexShader;
+vertexShader = glCreateShader(GL_VERTEX_SHADER);
+// vertexShaderSource就是上面的GLSL字符串
+glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+glCompileShader(vertexShader);
+```
+### 片段着色器
+`片段着色器`和`定点着色器`一样
+```GLSL
+#version 330 core
+out vec4 FragColor;
+
+void main()
+{
+    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+} 
+```
+
+```CPP
+GLuint fragmentShader;
+fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+// fragmentShaderSource就是上面的GLSL字符串
+glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+glCompileShader(fragmentShader);
+```
+
+### 着色器程序
+前面已经把`Vertex shader`和`Fragment shader`将完了，也编译了，那么要如何将这两个变成着色器程序?
+创建一个程序对象
+
+```CPP
+GLunit shaderProgram;
+shaderProgram = glCreateProgram();
+```
+
+glCreateProgram函数创建一个程序，并返回新创建程序对象的ID引用。现在我们需要把之前编译的着色器附加到程序对象上，然后用glLinkProgram链接它们：
+```CPP
+glAttachShader(shaderProgram, vertexShader);
+glAttachShader(shaderProgram, fragmentShader);
+glLinkProgram(shaderProgram);
+```
+在把着色器对象链接到程序对象以后，记得删除着色器对象，我们不再需要它们了
+```CPP
+glDeleteShader(vertexShader);
+glDeleteShader(fragmentShader);
+```
+
+在上述的着色器程序link完成后，如果需要使用该着色器程序：
+```CPP
+glUseProgram(shaderProgram);
+```
+
+## 着色器解释方法
+通过上面的学习，我们知道`Vertex shader`和`Fragment shader`的编译方式，也知道了ink成着色器程序，那么我们就需要实现一个可以重用的shader解释器
+```CPP
+#include "OpenGl_Tools.h"
+#include <fstream>
+#include <sstream>
+#include <vector>
+using namespace std;
+
+OpenGl_Tools::OpenGl_Tools()
+{
+}
+OpenGl_Tools::~OpenGl_Tools()
+{
+}
+// 获取已经编译的shader
+GLuint OpenGl_Tools::GetShader(string name) 
+{
+	map<string, GLuint>::iterator it = shader_map.find(name);
+	if (it != shader_map.end()) {
+		return it->second;
+	}
+	else
+	{
+		return -1;
+	}
+	return -1;
+}
+// 编译shader
+// vertex_path	vertex文件路径
+// fragment_path	fragment文件路径
+// name		shader名称
+void OpenGl_Tools::CompileShader(const char* vertex_path, const char* fragment_path, string name)
+{
+	// 声明Vertex和Fragment的对象id
+	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
+	GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
+	// 打开Vertex文本
+	std::string VertexShaderCode;
+	std::ifstream VertexShaderStream (vertex_path, std::ios::in);
+	if (VertexShaderStream.is_open()) {
+		std::stringstream sstr;
+		sstr << VertexShaderStream.rdbuf();
+		VertexShaderCode = sstr.str();
+		VertexShaderStream.close();
+	}
+	else {
+		printf("Impossible to open %s. Are you in the right directory ? Don't forget to read the FAQ !\n", vertex_path);
+		getchar();
+		return ;
+	}
+	// 打开Fragment文本
+	std::string FragmentShaderCode;
+	std::ifstream FragmentShaderStream(fragment_path, std::ios::in);
+	if (FragmentShaderStream.is_open()) {
+		std::stringstream sstr;
+		sstr << FragmentShaderStream.rdbuf();
+		FragmentShaderCode = sstr.str();
+		FragmentShaderStream.close();
+	}
+	else {
+		printf("Impossible to open %s. Are you in the right directory ? Don't forget to read the FAQ !\n", fragment_path);
+		getchar();
+		return ;
+	}
+	// 开始编译
+	GLint Result = GL_FALSE;
+	int InfoLogLength;
+	// Compile Vertex Shader
+	printf("Compiling shader : %s\n", vertex_path);
+	char const* VertexSourcePointer = VertexShaderCode.c_str();
+	glShaderSource(VertexShaderID, 1, &VertexSourcePointer, NULL);
+	glCompileShader(VertexShaderID);
+
+	// 检查Vertex编译情况
+	glGetShaderiv(VertexShaderID, GL_COMPILE_STATUS, &Result);
+	glGetShaderiv(VertexShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
+	if (InfoLogLength > 0) {
+		std::vector<char> VertexShaderErrorMessage(InfoLogLength + 1);
+		glGetShaderInfoLog(VertexShaderID, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
+		printf("%s\n", &VertexShaderErrorMessage[0]);
+	}
+	// Compile Fragment Shader
+	printf("Compiling shader : %s\n", fragment_path);
+	char const* FragmentSourcePointer = FragmentShaderCode.c_str();
+	glShaderSource(FragmentShaderID, 1, &FragmentSourcePointer, NULL);
+	glCompileShader(FragmentShaderID);
+
+	// 检查Fragment编译情况
+	glGetShaderiv(FragmentShaderID, GL_COMPILE_STATUS, &Result);
+	glGetShaderiv(FragmentShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
+	if (InfoLogLength > 0) {
+		std::vector<char> FragmentShaderErrorMessage(InfoLogLength + 1);
+		glGetShaderInfoLog(FragmentShaderID, InfoLogLength, NULL, &FragmentShaderErrorMessage[0]);
+		printf("%s\n", &FragmentShaderErrorMessage[0]);
+	}
+
+	// Link the program
+	printf("Linking program\n");
+	GLuint ProgramID = glCreateProgram();
+	glAttachShader(ProgramID, VertexShaderID);
+	glAttachShader(ProgramID, FragmentShaderID);
+	glLinkProgram(ProgramID);
+
+	// 检查 shader program的情况
+	glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
+	glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
+	if (InfoLogLength > 0) {
+		std::vector<char> ProgramErrorMessage(InfoLogLength + 1);
+		glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
+		printf("%s\n", &ProgramErrorMessage[0]);
+	}
+
+	glDetachShader(ProgramID, VertexShaderID);
+	glDetachShader(ProgramID, FragmentShaderID);
+
+	glDeleteShader(VertexShaderID);
+	glDeleteShader(FragmentShaderID);
+	// 记录
+	shader_map.insert(std::pair<string, GLuint>(name, ProgramID));
+}
+```
+
+我们当前章节先不使用该shader解释工具编译，下一章再使用！
+
+[代码]([代码](https://github.com/Conerlius/LearnOpenGL/blob/master/Project1/OpenGL_Session2.cpp)
+
+![png](/images/opengl/opengl_4_result.jpg)
