@@ -218,4 +218,4 @@ void OpenGl_Tools::CompileShader(const char* vertex_path, const char* fragment_p
 
 [代码](https://github.com/Conerlius/LearnOpenGL/blob/master/Project1/OpenGL_Session2.cpp)
 
-![png](/images/opengl/opengl_4_result.jpg)
+![png](/images/OpenGL/opengl_4_result.jpg)
