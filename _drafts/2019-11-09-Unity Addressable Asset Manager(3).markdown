@@ -2,7 +2,7 @@
 layout:     post
 title:      "Unity可寻址资源系统(3)"
 subtitle:   " \"opengl\""
-date:       2019-11-08 22:00:00
+date:       2019-11-09 22:00:00
 author:     "Conerlius"
 category: unity
 keywords: unity,可寻址系统
@@ -37,24 +37,25 @@ tags:
 如果是第一次启动使用可寻址系统，系统会保存edit和运行时的资源数据，将其放置在`Assets/AddressableAssetsData` 文件中, 这也将添加到你的资源版本控制中
 
 ### Building your Addressable content
-The Addressables Asset System needs to build your content into files that can be consumed by the running game before you build the application. This step is not automatic. You can build this content via the Editor or API:
+可寻址系统需要把运行需要的资源构建到文件系统中，这个步骤是不会自动执行的，可以通过一下方式去构建:
 
-To build content in the Editor, open the Addressables window, then select Build > Build Player Content.
-To build content using the API, use AddressableAssetSettings.BuildPlayerContent().
+* 打开`Addressables window`, 选择`Build` > `Build Player Content`。
+* 或者使用api ```AddressableAssetSettings.BuildPlayerContent()```。
+
 ## Using Addressable Assets
 ### Loading or instantiating by address
-You can load or instantiate an Addressable Asset at run-time. Loading an asset loads all dependencies into memory (including the asset's bundle data if applicable), allowing you to use the asset when you need to. This does not actually put the desired asset into your scene. To add the asset to your scene you must instantiate. Using Addressables instantiation intefraces will load the asset, then immediately adds it to your Scene.
-
-To access an asset from your game script using a string address, declare the UnityEngine.AddressableAssets namespace, then call the following methods:
-
+在运行时加载`adressable Assets`，首先要声明``UnityEngine.AddressableAssets``，然后调用一下的方法去加载:
+```
 Addressables.LoadAssetAsync<GameObject>("AssetAddress");
-This loads the asset with the specified address.
-
+```
+上面的就是通过制定的`adress`地址去加载`asset`资源。
+```
 Addressables.InstantiateAsync("AssetAddress");
-This instantiates the asset with the specified address into your Scene.
+```
+上面的就是通过制定的`adress`地址去实例化`asset`资源到场景上。
 
-Note: LoadAssetAsync and InstantiateAsync are asynchronous operations. You may provide a callback to work with the asset when it finishes loading (see documentation on Async operation handling for more information).
-
+Note: `LoadAssetAsync` 和 `InstantiateAsync` 都是异步操作。 你可以在加载的时候添加回调来监听该操作
+```
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AddressableAssets;
@@ -74,14 +75,19 @@ public class AddressablesExample : MonoBehaviour {
         myGameObject = obj.Result;
     }
 }
-Sub-assets and components
+```
+
+### Sub-assets and components
 Sub-assets and components are special cases for asset loading.
 
-Components: You cannot load a GameObject's component directly as an asset. You must load or instantiate the GameObject, then retrieve the component reference from it.
-Sub-assets: The system supports loading sub-assets, but requires special syntax. Examples of potential sub-assets include sprites in a sprite sheet, or animation clips in an FBX file. To load them, use the following example syntax:
-Addressables.LoadAssetAsync<IList<Sprite>>("MySpriteSheetAddress");
+* Components: You cannot load a GameObject's component directly as an asset. You must load or instantiate the GameObject, then retrieve the component reference from it.
+* Sub-assets: The system supports loading sub-assets, but requires special syntax. Examples of potential sub-assets include sprites in a sprite sheet, or animation clips in an FBX file. To load them, use the following example syntax:
 
-Using the AssetReference class
+```
+Addressables.LoadAssetAsync<IList<Sprite>>("MySpriteSheetAddress");
+```
+
+## Using the AssetReference class
 The AssetReference class provides a way to access Addressable Assets without needing to know their addresses. To access an Addressable Asset using the AssetReference class:
 
 Select a GameObject from your Scene hierarchy or Project window.
