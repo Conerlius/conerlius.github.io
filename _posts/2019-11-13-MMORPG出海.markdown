@@ -14,3 +14,7 @@ tags:
 <html>
 <video id="html5player_html5_api" class="vjs-tech" autoplay="" preload="none" src="blob:https://pan.baidu.com/3c6b5e56-ebc4-4622-856b-3649550decbd" poster="https://thumbnail0.baidupcs.com/thumbnail/55f317d6084b59db8722a7e1ce2ba745?fid=1158581685-250528-1071462340620102&amp;time=1573650000&amp;rt=sh&amp;sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-1xl5bCh2YBCB7YC0uQWHC36QO7M%3D&amp;expires=8h&amp;chkv=0&amp;chkbd=0&amp;chkpc=&amp;dp-logid=7349299286377410095&amp;dp-callid=0&amp;size=c850_u580&amp;quality=100&amp;vuk=-&amp;ft=video"><source src="https://pan.baidu.com/share/streaming?channel=chunlei&amp;uk=1158581685&amp;fid=1071462340620102&amp;sign=a2dc6b3a9356fa2f272c49d4025e6d4ef2f297eb&amp;timestamp=1573650273&amp;shareid=4171319067&amp;type=M3U8_FLV_264_480&amp;vip=0&amp;adToken=8ZEidOh%2BBDZ4qn21LRkIoen8UO9eoF2r5Rv9U6OmCE5NsbvZPIz007yftrOdMHr1NV7oyONv2bVo%2FTaLZU6a%2FhV2PyxAMRNt3Ay%2FMdsAHk7oB3dKWKk0uOY3wQ226g%2FNpMqhr03RtmC3IUn8jr3kbNzjQ8y%2B9DmJpEiRh7qwqTY%3D" type="application/x-flvURL"></video>
 </html>
+
+如果这里视频看不了，可以跳转下面的link
+
+[https://pan.baidu.com/s/1JQINkL8EQFjwGAL3DmNN5Q](https://pan.baidu.com/s/1JQINkL8EQFjwGAL3DmNN5Q)
