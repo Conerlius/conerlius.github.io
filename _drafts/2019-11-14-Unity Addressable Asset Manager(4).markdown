@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "Unity可寻址资源系统(5)"
+title:      "Unity可寻址资源系统(4)"
 subtitle:   " \"unity\""
 date:       2019-11-14 22:00:00
 author:     "Conerlius"
@@ -16,39 +16,40 @@ tags:
 一个重要的指标就是怎么安排资源间的截藕，构建，和加载内容。 通常在开发的时候都是大量捆绑一起的。
 
 ### Traditional asset management
-如果将资源安排到`Resources`目录，那么资源就会打包到应用程序内，必须通过`Resources.Load`来加载，该方法支持路径参数。你可以使用`direct references`或者`asset bundles`来访问其他地方的资源。如果使用的是`asset bundles`
- If you use asset bundles, you would again load by path, tying your load and organization strategies together. If your asset bundles are remote, or have dependencies on other bundles, you have to write code to manage downloading, loading, and unloading all of your bundles.
+如果将资源安排到`Resources`目录，那么资源就会打包到应用程序内，必须通过`Resources.Load`来加载，该方法支持路径参数。你可以使用`direct references`或者`asset bundles`来访问其他地方的资源。如果使用的是`asset bundles`，也是通过路径去加载和组织他们，如果`asset bundles`是远端的，就需要写代码去管理下载、加载和卸载了。
 
 ## Addressable Asset management
-Giving an asset an address allows you to load it using that address, no matter where it is in your Project or how you built the asset. You can change an Addressable Asset’s path or filename without issue. You can also move the Addressable Asset from the Resources folder, or from a local build destination, to some other build location (including remote ones), without ever changing your loading code.
+你可以通过地址来加载资源，无论该资源你放在工程的哪里或者是以何种方式打包。你随意可以修改可寻址资源的路径或文件名也不会产生问题。甚至可以在不改动代码的情况下改变其加载方式
 
 ### Asset group schemas
-Schemas define a set of data. You can attach schemas to asset groups in the Inspector. The set of schemas attached to a group defines how the build processes its contents. For example, when building in packed mode, groups with the BundledAssetGroupSchema schema attached to them act as sources for asset bundles. You can combine sets of schemas into templates that you use to define new groups. You can add schema templates via the AddressableAssetsSettings Inspector.
+你可以在`Inspector`中指定`asset groups`的模式，这定义了构建管线怎么处理这些内容。eg:当使用的是`packed mode`去构建时, `asset groups`的`Inspector`里面的`BundledAssetGroupSchema`有上设置的模板，可以修改其设置。`AddressableAssetsSettings `还可以添加模式。
 
-Build scripts
-Build scripts are represented as ScriptableObject assets in the Project that implement the IDataBuilder interface. Users can create their own build scripts and add them to the AddressableAssetSettings object through its Inspector. To apply a build script in the Addressables window (Window > Asset Management > Addressables), select Build Script, and choose a dropdown option. Currently, there are three scripts implemented to support the full application build, and three Play mode scripts for iterating in the Editor.
+## Build scripts
+构建脚本是工程中实现`IDataBuilder`接口的`ScriptableObject`资源。 你可以创建自己的构建脚本，然后透过`Inspector`将它们添加到`AddressableAssetSettings`。想要使用构建脚本,打开`Addressables window`(`Window` > `Asset Management` > `Addressables`)，请选择`Build Script`，然后选择一个下拉选项。 当前，已实现三个脚本来支持完整的应用程序构建，并提供三个用于在编辑器中进行迭代的播放模式脚本。
 
-Play mode scripts
-The Addressable Assets package has three build scripts that create Play mode data to help you accelerate app development.
+### Play mode scripts
+可寻址资源打包有3种构建脚本来加速开发
 
-Fast mode
-Fast mode (BuildScriptFastMode) allows you to run the game quickly as you work through the flow of your game. Fast mode loads assets directly through the asset database for quick iteration with no analysis or asset bundle creation.
+#### Fast mode
+Fast mode (BuildScriptFastMode) :使得你可以快速启动游戏。`Fast mode`通过直接快速从`asset database`中加载，且不带分析非`asset bundle`的官方是创建。
 
-Virtual mode
-Virtual mode (BuildScriptVirtualMode) analyzes content for layout and dependencies without creating asset bundles. Assets load from the asset database though the ResourceManager, as if they were loaded through bundles. To see when bundles load or unload during game play, view the asset usage in the Addressable Profiler window (Window > Asset Management > Addressable Profiler).
+#### Virtual mode
+Virtual mode (BuildScriptVirtualMode)：在没有构建`asset bundles`的情况下分析内容和依赖。通过`ResourceManager`从`asset database`加载资源，如同通过`bundles`来加载（模拟）。可以通过`Addressable Profiler window` (`Window` > `Asset Management` > `Addressable Profiler`) 来观察
 
-Virtual mode helps you simulate load strategies and tweak your content groups to find the right balance for a production release.
+`Virtual mode`可以帮助你模拟加载策略和协助你去平衡`release`版本的`group`均衡。
 
-Packed Play mode
+#### Packed Play mode
 Packed Play mode (BuildScriptPackedPlayMode) uses asset bundles that are already built. This mode most closely matches a deployed application build, but it requires you to build the data as a separate step. If you aren't modifying assets, this mode is the fastest since it does not process any data when entering Play mode. You must either build the content for this mode in the Addressables window (Window > Asset Management > Addressables) by selecting Build > Build Player Content, or using the AddressableAssetSettings.BuildPlayerContent() method in your game script.
 
 Choosing the right script
 To apply a Play mode script, from the Addressables window menu (Window > Asset Management > Addressables), select Play Mode Script and choose from the dropdown options. Each mode has its own time and place during development and deployment. The following table illustrates stages of the development cycle, in which a particular mode is useful.
 
-Design	Develop	Build	Test / Play	Publish
-Fast	x	x		In-Editor only	
-Virtual	x	x	Asset bundle layout	In-Editor only	
-Packed			Asset bundles	x	x
+| - | Design | Develop | Build | Test / Play | Publish|
+| --- | --- | --- | --- | --- | --- |
+| Fast | x | x | | In-Editor only	|
+|Virtual | x | x | Asset bundle layout | In-Editor only	|
+|Packed| | |Asset bundles|x|x
+
 Analysis and debugging
 By default, Addressable Assets only logs warnings and errors. You can enable detailed logging by opening the Player settings window (Edit > Project Settings > Player), navigating to the Other Settings > Configuration section, and adding "ADDRESSABLES_LOG_ALL" to the Scripting Define Symbols field.
 
@@ -102,18 +103,21 @@ The system also builds asset bundles for static content, but you do not need to 
 Content update examples
 In this example, a shipped application is aware of the following groups:
 
-Local_Static	Remote_Static	Remote_NonStatic
-AssetA	AssetL	AssetX
-AssetB	AssetM	AssetY
-AssetC	AssetN	AssetZ
+|Local_Static|Remote_Static|Remote_NonStatic|
+|---|---|---|
+|AssetA|AssetL|AssetX|
+|AssetB|AssetM|AssetY|
+|AssetC|AssetN|AssetZ|
+
 As this version is live, there are players that have Local_Static on their devices, and potentially have either or both of the remote bundles cached locally.
 
 If you modify one asset from each group (AssetA, AssetL, and AssetX), then run Prepare For Content Update, the results in your local Addressable settings are now:
 
-Local_Static	Remote_Static	Remote_NonStatic	content_update_group (non-static)
-AssetX	AssetA
-AssetB	AssetM	AssetY	AssetL
-AssetC	AssetN	AssetZ	
+|Local_Static|Remote_Static|Remote_NonStatic|content_update_group (non-static)|
+|---|---|---|---|
+| | |AssetX|AssetA|
+|AssetB|AssetM|AssetY|AssetL|
+|AssetC|AssetN|AssetZ|	
 Note that the prepare operation actually edits the static groups, which may seem counter intuitive. The key, however, is that the system builds the above layout, but discards the build results for any static groups. As such, you end up with the following from a player's perspective:
 
 Local_Static
