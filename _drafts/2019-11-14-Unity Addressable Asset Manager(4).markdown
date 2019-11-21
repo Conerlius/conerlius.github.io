@@ -39,7 +39,7 @@ Virtual mode (BuildScriptVirtualMode)：在没有构建`asset bundles`的情况�
 `Virtual mode`可以帮助你模拟加载策略和协助你去平衡`release`版本的`group`均衡。
 
 #### Packed Play mode
-Packed Play mode (BuildScriptPackedPlayMode) uses asset bundles that are already built. This mode most closely matches a deployed application build, but it requires you to build the data as a separate step. If you aren't modifying assets, this mode is the fastest since it does not process any data when entering Play mode. You must either build the content for this mode in the Addressables window (Window > Asset Management > Addressables) by selecting Build > Build Player Content, or using the AddressableAssetSettings.BuildPlayerContent() method in your game script.
+Packed Play mode (BuildScriptPackedPlayMode)：使用的是已经打包完成的`bundle`. 这个模式是分接近正式部署的应用，但是这个需要独立的步骤去构建内容。 如果在没有改动资源的情况下，在次模式就不需要处理任何资源了。 该模式也需要先构建资源内容 (`Window` > `Asset Management` > `Addressables`) 选中 `Build` > `Build Player Content`, 或者执行`AddressableAssetSettings.BuildPlayerContent() `。
 
 Choosing the right script
 To apply a Play mode script, from the Addressables window menu (Window > Asset Management > Addressables), select Play Mode Script and choose from the dropdown options. Each mode has its own time and place during development and deployment. The following table illustrates stages of the development cycle, in which a particular mode is useful.
