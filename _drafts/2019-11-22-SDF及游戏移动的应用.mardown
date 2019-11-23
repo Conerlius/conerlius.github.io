@@ -1,0 +1,16 @@
+---
+layout:     post
+title:      "SDF及游戏移动的应用"
+subtitle:   " \"算法\""
+date:       2019-11-22 11:25:00
+author:     "Conerlius"
+category: unity
+keywords: unity,sdf
+tags:
+    - unity
+---
+
+## SDF
+
+### Meijster算法(EDT)
+点到最近阻挡的距离生成的图
