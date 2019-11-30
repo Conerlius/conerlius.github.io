@@ -1,0 +1,21 @@
+---
+layout:     post
+title:      "SDF及游戏移动的应用"
+subtitle:   " \"算法\""
+date:       2019-11-22 11:25:00
+author:     "Conerlius"
+category: unity
+keywords: unity,sdf
+tags:
+    - unity
+---
+
+## SDF
+SDF(Signed Distance Field)有信号距离场，表示点到最近的有形物体表面的距离；一般用用正值表示形状的外部，用负值表示形状的内部。
+如下图
+![png](/images/Algorithm/sdf_1.jpg)
+
+通过算法生成的sdf表视图大致如下：
+![png](/images/Algorithm/sdf_2.png)
+### Meijster算法(EDT)
+点到最近阻挡的距离生成的图
