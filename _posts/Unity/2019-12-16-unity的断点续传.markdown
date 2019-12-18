@@ -30,9 +30,10 @@ unity的常规下载我们都知道怎么做，但是如果网络不稳定等，
 
 ```
 using System.IO;
+using UnityEngine;
 using UnityEngine.Networking;
 
-namespace WDFramework
+namespace WDframework
 {
     /// <summary>
     /// 下载句柄
@@ -58,8 +59,9 @@ namespace WDFramework
         private long LocalFileSize = 0;
         /// <summary>
         /// 文件的总大小
+        /// 无奈开启
         /// </summary>
-        private long TotalFileSize = 0;
+        public long TotalFileSize = 0;
         /// <summary>
         /// 当前的文件大小
         /// </summary>
@@ -99,6 +101,7 @@ namespace WDFramework
         /// </summary>
         ~DownloadHandle()
         {
+            Debug.LogError("~DownloadHandle");
             Clean();
         }
         /// <summary>
@@ -134,6 +137,7 @@ namespace WDFramework
             {
                 return false;
             }
+            Debug.LogError("ReceiveData=>"+dataLength);
             FileStream.Write(data, 0, dataLength);
             CurFileSize += dataLength;
             //统计下载速度
@@ -197,6 +201,7 @@ namespace WDFramework
         /// </summary>
         public void Clean()
         {
+            this.Dispose();
             DownloadSpeed = 0.0f;
             if (FileStream != null)
             {
