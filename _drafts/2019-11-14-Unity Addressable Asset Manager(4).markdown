@@ -31,7 +31,7 @@ tags:
 可寻址资源打包有3种构建脚本来加速开发
 
 #### Fast mode
-Fast mode (BuildScriptFastMode) :使得你可以快速启动游戏。`Fast mode`通过直接快速从`asset database`中加载，且不带分析非`asset bundle`的官方是创建。
+Fast mode (BuildScriptFastMode) :使得你可以快速启动游戏。`Fast mode`通过直接快速从`asset database`中加载，且不带分析也不需要构建`asset bundle`的。
 
 #### Virtual mode
 Virtual mode (BuildScriptVirtualMode)：在没有构建`asset bundles`的情况下分析内容和依赖。通过`ResourceManager`从`asset database`加载资源，如同通过`bundles`来加载（模拟）。可以通过`Addressable Profiler window` (`Window` > `Asset Management` > `Addressable Profiler`) 来观察
