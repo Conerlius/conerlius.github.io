@@ -19,7 +19,7 @@ tags:
 如果将资源安排到`Resources`目录，那么资源就会打包到应用程序内，必须通过`Resources.Load`来加载，该方法支持路径参数。你可以使用`direct references`或者`asset bundles`来访问其他地方的资源。如果使用的是`asset bundles`，也是通过路径去加载和组织他们，如果`asset bundles`是远端的，就需要写代码去管理下载、加载和卸载了。
 
 ## Addressable Asset management
-你可以通过地址来加载资源，无论该资源你放在工程的哪里或者是以何种方式打包。你随意可以修改可寻址资源的路径或文件名也不会产生问题。甚至可以在不改动代码的情况下改变其加载方式
+你可以通过地址来加载资源，无论该资源你放在工程的哪里或者是以何种方式打包。你可以随意修改可寻址资源的路径或文件名也不会产生问题。甚至可以在不改动代码的情况下改变其加载方式
 
 ### Asset group schemas
 你可以在`Inspector`中指定`asset groups`的模式，这定义了构建管线怎么处理这些内容。eg:当使用的是`packed mode`去构建时, `asset groups`的`Inspector`里面的`BundledAssetGroupSchema`有上设置的模板，可以修改其设置。`AddressableAssetsSettings `还可以添加模式。
@@ -36,38 +36,40 @@ Fast mode (BuildScriptFastMode) :使得你可以快速启动游戏。`Fast mode`
 #### Virtual mode
 Virtual mode (BuildScriptVirtualMode)：在没有构建`asset bundles`的情况下分析内容和依赖。通过`ResourceManager`从`asset database`加载资源，如同通过`bundles`来加载（模拟）。可以通过`Addressable Profiler window` (`Window` > `Asset Management` > `Addressable Profiler`) 来观察
 
-`Virtual mode`可以帮助你模拟加载策略和协助你去平衡`release`版本的`group`均衡。
+`Virtual mode`可以帮助你模拟加载策略和协助你去平衡`release`版本的资源内容均衡。
 
 #### Packed Play mode
-Packed Play mode (BuildScriptPackedPlayMode)：使用的是已经打包完成的`bundle`. 这个模式是分接近正式部署的应用，但是这个需要独立的步骤去构建内容。 如果在没有改动资源的情况下，在次模式就不需要处理任何资源了。 该模式也需要先构建资源内容 (`Window` > `Asset Management` > `Addressables`) 选中 `Build` > `Build Player Content`, 或者执行`AddressableAssetSettings.BuildPlayerContent() `。
+Packed Play mode (BuildScriptPackedPlayMode)：使用的是已经打包完成的`bundle`. 这个模式是是十分接近正式部署的应用，但是这个需要独立的步骤去构建内容。 如果在没有改动资源的情况下，在次模式就不需要处理任何资源了。 该模式也需要先构建资源内容 (`Window` > `Asset Management` > `Addressables`) 选中 `Build` > `Build Player Content`, 或者执行`AddressableAssetSettings.BuildPlayerContent() `。
 
-Choosing the right script
-To apply a Play mode script, from the Addressables window menu (Window > Asset Management > Addressables), select Play Mode Script and choose from the dropdown options. Each mode has its own time and place during development and deployment. The following table illustrates stages of the development cycle, in which a particular mode is useful.
-
+#### Choosing the right script
+通过`Addressables window`菜单(`Window` > `Asset Management` > `Addressables`)选中`Play Mode Script`并且下拉选项。在开发或正式部署环境，每一种模式都有它的时效；下图展示了他们在各个阶段的可用性。
 | - | Design | Develop | Build | Test / Play | Publish|
 | --- | --- | --- | --- | --- | --- |
 | Fast | x | x | | In-Editor only	|
 |Virtual | x | x | Asset bundle layout | In-Editor only	|
 |Packed| | |Asset bundles|x|x
 
-Analysis and debugging
-By default, Addressable Assets only logs warnings and errors. You can enable detailed logging by opening the Player settings window (Edit > Project Settings > Player), navigating to the Other Settings > Configuration section, and adding "ADDRESSABLES_LOG_ALL" to the Scripting Define Symbols field.
+## Analysis and debugging
+一般而言，该系统只输出`warnings`和`errors`，可以在`Player settings window`(`Edit` > `Project Settings` > `Player`,进入`Other Settings `,在`Scripting Define Symbols`中添加`ADDRESSABLES_LOG_AL`)中打开日志输出更详细的信息。
 
-You can also disable exceptions by unchecking the Log Runtime Exceptions option in the AddressableAssetSettings object Inspector. You can implement the ResourceManager.ExceptionHandler property with your own exception handler if desired, but this should be done after Addressables finishes runtime initialization (see below).
+也可以通过在` AddressableAssetSettings object`的`Inspector`界面去掉勾选`Log Runtime Exceptions`关闭异常信息打印
+![png](/images/Unity/addressableswindow_1.png)
 
-Initialization objects
-You can attach objects to the Addressable Assets settings and pass them to the initialization process at runtime. The CacheInitializationSettings object controls Unity's caching API at runtime. To create your own initialization object, create a ScriptableObject that implements the IObjectInitializationDataProvider interface. This is the Editor component of the system responsible for creating the ObjectInitializationData that is serialized with the runtime data.
+也可以通过实现`ResourceManager.ExceptionHandler`处理，但是该处理必须在可寻址系统初始化完成后才行！
 
-Content update workflow
-Unity recommends structuring your game content into two categories:
+### Initialization objects
+可以在初始化的过程中挂载对象到系统的资源配置。`CacheInitializationSettings`对象控制unity运行时的缓存api。构建`ScriptableObject`并实现`IObjectInitializationDataProvider`去创建属于自己的对象。该`Editor`组件主要负责构建运行时需要的序列化后的`ObjectInitializationData`对象。
 
-Static content that you never expect to update.
-Dynamic content that you expect to update.
-In this structure, static content ships with the application (or downloads soon after install), and resides in very few large bundles. Dynamic content resides online, ideally in smaller bundles to minimize the amount of data needed for each update. One of the goals of the Addressable Assets System is to make this structure easy to work with and modify without having to change your scripts.
+### Content update workflow
+unity推荐使用一下两种方式组织游戏的内容:
 
-However, the Addressable Assets System can also accommodate situations that require changes to the "static" content, when you don't want to publish a whole new application build.
+* **Static** 永远不需要更新的
+* **Dynamic** 希望能更新的
+  
+在这种组织下，**Static Content**（安装完后会尽快下载）存放在少数几个大的`bundles`中。**Dynamic content**存放在线上，以比较理想的大小，数量比较多的形式去更新。
+尽管如此，系统也能通过线上的**Static Content**
 
-How it works
+#### How it works
 Addressables uses a content catalog to map an address to each asset, specifying where and how to load it. In order to provide your app with the ability to modify that mapping, your original app must be aware of an online copy of this catalog. To set that up, enable the Build Remote Catalog setting on the AddressableAssetSettings Inspector. This ensures that a copy of the catalog gets built to and loaded from the specified paths. This load path cannot change once your app has shipped. The content update process creates a new version of the catalog (with the same file name) to overwrite the file at the previously specified load path.
 
 Building an application generates a unique app content version string, which identifies what content catalog each app should load. A given server can contain catalogs of multiple versions of your app without conflict. We store the data we need in the addressables_content_state.bin file. This includes the version string, along with hash information for any asset that is contained in a group marked as StaticContent. By default, this file is located in the same folder as your AddressableAssetSettings.asset file.
