@@ -37,6 +37,7 @@ namespace WDframework
 {
     /// <summary>
     /// 下载句柄
+    /// 注意，如果unity的权限不是require的话，下载会失败
     /// </summary>
     public class DownloadHandle : DownloadHandlerScript
     {
