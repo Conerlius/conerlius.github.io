@@ -17,5 +17,5 @@ SDF(Signed Distance Field)有信号距离场，表示点到最近的有形物体
 
 通过算法生成的sdf表视图大致如下：
 ![png](/images/Algorithm/sdf_2.png)
-### Meijster算法(EDT)
+### 欧几里得距离转换(Euclidean Distance Transform, EDT)
 点到最近阻挡的距离生成的图

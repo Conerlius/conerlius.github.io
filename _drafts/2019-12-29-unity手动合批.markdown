@@ -1,0 +1,28 @@
+---
+layout:     post
+title:      "unity手动合批"
+subtitle:   " \"Batch\""
+date:       2019-12-29 15:00:00
+author:     "Conerlius"
+category: unity
+keywords: unity,batch
+tags:
+    - unity
+---
+
+## 背景
+unity的静态合批在特定的情况下不能有效地合批，但是在scene的场景中缺有大量的静态物体！
+
+## 技术原理
+通过代码手动合批，生成一个个合并后的mesh和纹理材质，然后替换场景中原有的物体！
+
+## 具体
+unity本身也提供了相应的api给我们处理,在说到实现前，需要先说明一下合批的一些前提条件：
+### 前提
+* 材质（Material）：材质球要相同，如果材质球不同，unity则无法进行静态合批！
+* 静态（static）： 必须是静态的对象！
+  
+![png](/images/Unity/unity_manual_batch.jpg)
+### CombineInstance
+
+### CombineMeshes
