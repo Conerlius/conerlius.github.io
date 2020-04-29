@@ -224,9 +224,9 @@ stind.r4        | 将float32值存到内存地址 |
 stind.r8        | 将float64值存到内存地址 |
 stind.ref       | 将对象的引用存到内存地址 |
 stloc           | 弹出栈顶的值，赋值到本地变量index |
-stloc.1         | 弹出栈顶的值，赋值到本地变量0 |
-stloc.2         | 弹出栈顶的值，赋值到本地变量0 |
-stloc.3         | 弹出栈顶的值，赋值到本地变量0 |
+stloc.1         | 弹出栈顶的值，赋值到本地变量1 |
+stloc.2         | 弹出栈顶的值，赋值到本地变量2 |
+stloc.3         | 弹出栈顶的值，赋值到本地变量3 |
 stloc.s         | 弹出栈顶的值，赋值到本地变量index(短格式)  |
 stobj           | Store a value of type typeTok at an address |
 stsfld          | 替换静态field的值 |
