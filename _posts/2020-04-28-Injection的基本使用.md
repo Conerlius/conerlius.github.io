@@ -59,7 +59,7 @@ tags:
 
   这份代码编译后的il如果，我顺带不上了一下说明，方便大家理解
 
-  ```assembly
+  ```c#
   // Type: TestInject 
   // Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   // MVID: 7F10B9DF-01DB-4FCF-9D05-6C8A452F2206
