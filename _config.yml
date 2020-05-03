@@ -25,6 +25,8 @@ dribbble_username:
 
 description_footer: 个人小笔记
 
+description_index: 个人小笔记
+
 # comments
 # two ways to comment, only choose one, and use your own short name
 # 两种评论插件，选一个就好了，使用自己的 short_name
