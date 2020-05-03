@@ -9,7 +9,8 @@ keywords: unity,getcomponent,gameobject
 tags:
     - unity
 ---
-
+* content
+{:toc}
 
 ## 基本的原因
 

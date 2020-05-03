@@ -9,6 +9,8 @@ keywords: unity,batch
 tags:
     - unity
 ---
+* content
+{:toc}
 
 ## 背景
 unity的静态合批在特定的情况下不能有效地合批，但是在scene的场景中缺有大量的静态物体！

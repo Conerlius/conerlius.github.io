@@ -10,24 +10,26 @@ tags:
     - CSharp
     - unity
 ---
+* content
+{:toc}
 
-# 需求
+## 需求
 1. 在一个项目里，不是每一块功能或代码块都是由一个人从头到尾去书写的;
 2. 也不是每个项目组都有完整的项目规范的，我就经历过一次了；
 3. 庞大的代码量，没有注释的代码块；
-# 解决方案
+## 解决方案
 > 使用doxygen和graphviz来自动分析函数间的调用关系
-## 工具介绍
+### 工具介绍
 1. doxygen
 > [下载](http://www.doxygen.nl/download.html#srcbin) [gitlink](https://github.com/doxygen/doxygen)
 2. graphviz
 > [下载](http://www.graphviz.org/)
-## 工具安装
-### doxygen
+### 工具安装
+#### doxygen
 > 我是从官网上直接下载的安装文件，所以我直接安装就可以使用，如果你下载的是其他的，那可以自行看一下官方的安装或编译文档。
-### graphviz
+#### graphviz
 > 安装的时候直接next就行了，无须注意什么！
-## 如何生成
+### 如何生成
 > 1. 打开doxygen ![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenIcon.png)
 > ![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenStep1.png)
 > 
@@ -64,11 +66,11 @@ tags:
 >
 > ![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenStep9.png)
 > 到这里就只有等待其生成完成了！
-# 结果
+## 结果
 ![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenResult1.png)
 ![png](http://www.conerlius.cn/wp-content/uploads/2019/04/DoxygenResult2.png)
 
-# 补充
+## 补充
 > 每次生成都需要配置那么多的话，相信不少人早就想放弃了，那么现在我补充一下如何快速用命令行生成；
 > 这里我取了一下巧，纯命令大神勿喷！
 

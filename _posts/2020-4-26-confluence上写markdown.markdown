@@ -11,6 +11,9 @@ tags:
     - confluence
 ---
 
+* content
+{:toc}
+
 ## Confluence
 Confluence是目前公司的的集成wiki，但是由于其markdown的宏对真正的markdown的支持很有限，（各种样式都没有）。
 ## wiki标志

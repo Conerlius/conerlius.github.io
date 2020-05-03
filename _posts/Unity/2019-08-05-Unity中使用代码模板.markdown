@@ -9,8 +9,10 @@ keywords: unity
 tags:
     - unity
 ---
+* content
+{:toc}
 
-# 前言
+## 前言
 > 作为一个爱学习的程序员，从各种繁忙的工作中抽取时间去学习，那是一件很重要的事情。
 >
 > 工作内容那是肯定不可能少的了，那么我们就只能尽可能地减少我手动执行事件和提高工作效率
@@ -25,9 +27,9 @@ tags:
 >> 
 >> [Visual studio](http://www.conerlius.cn/2019/04/25/snippets_for_vs/?preview_id=325&preview_nonce=d4f5c56309&_thumbnail_id=-1&preview=true)
 
-# Unity中文件的模板
+## Unity中文件的模板
 > unity是一个工具型的ide，而且不少东西都可以自行扩展，尤其是到了这几年，越来越开放了底层的api
-## unity自带的部分代码模板
+### unity自带的部分代码模板
 > 在使用unity的时候，大家都知道，在` Assets->Create->C# Script`创建C#的文件，文件生成的时候就已经自动集成` MonoBehaviour`，并且还生成了`Start`和`Update`方法,相信大部分人都知道，unity是有代码模板，路径就在安装目录的`Editor\Data\Resources\ScriptTemplates`下;
 >
 > 我们来修改一下，就在文件头添加一些必要的文件信息, 如下
@@ -108,8 +110,8 @@ public class CSharpCreator : UnityEditor.AssetModificationProcessor
 > > 能！我们继续往下看。
 
 
-## 从0开始的代码模板
-### 原理
+### 从0开始的代码模板
+#### 原理
 > 在unity里，有这么一个方法`ProjectWindowUtil.StartNameEditingIfProjectWindowExists`
 > 我们先来看看unity的源代码是如何实现的
 
@@ -193,7 +195,7 @@ internal static UnityEngine.Object CreateScriptAssetFromTemplate(string pathName
 > 看到这里，大家应该明白unity是怎么创建脚本的了。
 > 现在我们来自己些一下lua的代码模板
 
-### lua代码模板
+#### lua代码模板
 > 1.我们先把lua的代码模板写一下
 
 ```lua

@@ -9,6 +9,8 @@ keywords: 算法,快排
 tags:
     - 算法
 ---
+* content
+{:toc}
 
 ## 动态图说明
 先借用一下wikipedia的一张图

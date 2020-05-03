@@ -10,6 +10,9 @@ tags:
     - unity
 ---
 
+* content
+{:toc}
+
 > Unity的动画系统一直比较让人无奈的，谁用谁知道！但是Unity的同时也提供了另外的一套解决方案，可以优化动画带来的部分问题
 > * 减少有动作的骨骼数量
 >> 一个骨骼(Transform)是有position(x,y,z),rotation(x,y,z,w),scale(x,y,z)3个数据，在unity里，我们可以打开animation观察

@@ -10,6 +10,9 @@ tags:
     - jekyll
 ---
 
+* content
+{:toc}
+
 ## 前提说明
 此搭建方式是基于github pages来搭建的，而github pages就是搭建了jekyll，所以这里仅仅只是简单的搭建，如果有大佬要自己写样式，请忽略本文！
 ## Blog模板

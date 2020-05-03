@@ -9,6 +9,8 @@ keywords: opengl
 tags:
     - 译文
 ---
+* content
+{:toc}
 
 本文翻译自：[link](https://simonschreibt.de/gat/renderhell-book1/)
 

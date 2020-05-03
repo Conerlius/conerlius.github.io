@@ -10,11 +10,14 @@ tags:
     - Tool
 ---
 
-# 开发环境
-## idea-2019.2.1
-## Java swing
+* content
+{:toc}
 
-# 创建项目
+## 开发环境
+### idea-2019.2.1
+### Java swing
+
+## 创建项目
 > 在启动界面`Create New Project`
 > ![png](/images/java_swing/java_swing_create_window1.jpg)
 > 
@@ -48,7 +51,7 @@ tags:
 >> * GridLayoutManager(Intellij)
 > 这里本文使用的是`GridLayoutManager(Intellij)`
 
-# 应用
+## 应用
 > 创建完成后，需要怎么样才能把GUI的布局在窗口中展示呢？
 > ```
 > package com.conerlius.WDTools;
@@ -79,27 +82,27 @@ tags:
 >}
 > ```
 
-# 控件
+## 控件
 > 其他的空间我就不一一说明了，列举几个比较特殊的使用方式说明一下
-## 如何放置控件
+### 如何放置控件
 > ![gif](/images/java_swing/java_swing_label.gif)
-## JPanel
+### JPanel
 > Java swing的展示面板，一般都是用作大容器使用
 >> 前文使用的`JPanel panel = new MainView().mainPanel;`就是一个`JPanel`
-## JLabel
+### JLabel
 > 上图的gif就是一个JLabel的使用方式，现在在这里补充一下JLabel的一些常用字段属性的意义;
 > * Field Name : 绑定在java类中的property名称，用于访问和修改的，如果需要`public`，可以去看看绑定的class里将`private`改为`public`
 >> ![png](/images/java_swing/java_swing_label2.png)
 >> 
 >> 第一个框出来的是jlabel的对齐方式
 >> 黑色的框是JLabel的大小设置 
-## JButton
+### JButton
 > 基本属性同JLabel，但是JButton多了一个事件监听；
 > 如果需要怼JButton的点击进行监听，操作如下:
 >> ![gif](/images/java_swing/java_swing_button.gif)
 >
 > 选中JButton，右键--> `Create Listener`->`MouseListener`->`mouseClicked`
 > 
-## JCheckBox
-## JList
-## JFileChooser
+### JCheckBox
+### JList
+### JFileChooser

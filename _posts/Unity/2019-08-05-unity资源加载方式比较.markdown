@@ -9,27 +9,29 @@ keywords: unity
 tags:
     - unity
 ---
+* content
+{:toc}
 
-# unity的资源加载方式介绍
+## unity的资源加载方式介绍
 > 先声明，本文仅只限于unity2017.4<br>
 >
 > unity2017里提供了比较多且完善的资源加载方式，，在本文里，就不比较从网络远程加载的问题,仅只是比较本地的加载，其中牵扯到压缩格式等。本文会有点冗余！<br>
-## unity提供的几种压缩格式
-### uncompressed
+### unity提供的几种压缩格式
+#### uncompressed
 > 顾名思义，就是没有对assetbundle进行压缩处理。没有经过压缩的包体积最大，但是访问速度最快。
-### LZMA
+#### LZMA
 > 在默认情况下，打包生成的AssetBundle都会被压缩。在U3D中，AssetBundle的标准压缩格式便是LZMA（LZMA是一种序列化流文件），因此在默认情况下，打出的AssetBundle包处于LZMA格式的压缩状态，在使用AssetBundle前需要先解压缩。
 >
 > 使用LZMA格式压缩的AssetBundle的包体积最小（高压缩比），但是相应的会增加解压缩时的时间
-### LZ4
+#### LZ4
 > Unity 5.3之后的版本增加了LZ4格式压缩，由于LZ4的压缩比一般，因此经过压缩后的AssetBundle包体的体积较大（该算法基于chunk）。但是，使用LZ4格式的好处在于解压缩的时间相对要短。
 
 >unity主要一下几种资源加载方式` AssetBundle `,` WWW `,` UnityWebRequest `,` AssetDatabase `;
-## AssetDatabase
+### AssetDatabase
 > 这个加载方式比较特别，是存在于` UnityEditor `的，由于unityEditor并不参与到实际发布产品里，所以脱离unity编辑器后就不能用了（如果使用的话，在发布产品的时候编译就报错了！）。那么这个加载方式就不参与本文的比较中了!
-## AssetBundle
+### AssetBundle
 > 实际上`AssetBundle`本身就提供了两种加载方式
-### AssetBundle.LoadFromMemoryAsync
+#### AssetBundle.LoadFromMemoryAsync
 > 从```内存系统```中异步加载`assetbundle`。如果已经对`assetbundle`进行过加密，那么该方法会在异步的时候进行解压。大概的使用方法如下（录自unity文档），
 
 ```
@@ -50,9 +52,9 @@ public class Example : MonoBehaviour
 ```
 
 
-### AssetBundle.LoadFromMemory
+#### AssetBundle.LoadFromMemory
 > 功能和`AssetBundle.LoadFromMemoryAsync`一样，不过`AssetBundle.LoadFromMemoryAsync`是异步的，这个则是同步的！
-### AssetBundle.LoadFromFile
+#### AssetBundle.LoadFromFile
 > 从```文件系统```中异步加载`assetbundle`。如果已经对`assetbundle`进行过加密，那么该方法会在异步的时候进行解压。大概的使用方法如下（录自unity文档），
 >
 ```
@@ -69,11 +71,11 @@ public class LoadFromFileExample extends MonoBehaviour {
 }
 ```
 
-### AssetBundle.LoadFromFileAsync
+#### AssetBundle.LoadFromFileAsync
 > 功能和`AssetBundle.LoadFromFile`一样，不过`AssetBundle.LoadFromFile`是同步的，这个则是异步的！
-## WWW
+### WWW
 > `www`这个即将要废弃的，在这里我们就不评价了。
-### WWW.LoadFromCacheOrDownload
+#### WWW.LoadFromCacheOrDownload
 > 从远程加载资源并缓存成`assetbundle`。如果该`assetbundle`是压缩的，那么就先解压后再缓存。一旦已经解压和缓存，那么它的加载就和`AssetBundle.LoadFromFileAsync`非常像了（官方用`exactly like`）。(友好提醒，要主要内存空间、包体大小的问题)
 
 ```
@@ -98,11 +100,11 @@ public class LoadFromCacheOrDownloadExample : MonoBehaviour
 }
 ```
 
-## UnityWebRequest
+### UnityWebRequest
 
 > 这个方法比较特殊，是unity新加的。可以说是上面的这些的总和，什么都能干！
 
-# unity资源加载方式比较
+## unity资源加载方式比较
 > 先说明一下测试环境
 
 ```
@@ -114,9 +116,10 @@ CPU-->i7 7700
 显卡-->1050Ti
 ```
 
-## 加载方式比较
+### 加载方式比较
 > ![iamge](/images/unity_assetbundle_compare_1.png)
-## 速度比较
+
+### 速度比较
 > ![image](/images/unity_assetbundle_compare_2.png)
 
 > ![iamge](/images/unity_assetbundle_compare_3.png)

@@ -9,8 +9,12 @@ keywords: android
 tags:
     - 转载
 ---
+
+* content
+{:toc}
+
 [原文link:https://www.cnblogs.com/murongxiaopifu/p/10605053.html](https://www.cnblogs.com/murongxiaopifu/p/10605053.html)
-# 前言
+## 前言
 > 大家常常会抱怨安卓平台没有一个统一、好用的性能检查工具。不能像iOS的instrument那样方便。
 > ![](https://pic4.zhimg.com/80/v2-36c80a6f7cbbb34cf3d981bf1875f023_hd.jpg)
 > 图片来自：Instruments Help
@@ -20,7 +24,7 @@ tags:
 > https://developer.android.com/studio/profile
 > 这里主要介绍CPU Profiler来检查Unity原生函数的性能。就像iOS上的instrument一样。
 > 图形相关的性能检测，可以使用https://github.com/google/gapid。
-# 导出设置
+## 导出设置
 > 下文中我使用的Android Studio版本为：3.5 preview，Unity版本为：2018.3.0b11。测试工程为：SurvivalShooter（Asset Store） 。
 > 首先，根据android studio的文档：
 https://developer.android.com/studio/profile/cpu-profiler?hl=en
@@ -35,7 +39,7 @@ https://developer.android.com/studio/profile/cpu-profiler?hl=en
 > ！[](https://pic4.zhimg.com/80/v2-1e4975e34bd86c9763e845ead85a6def_hd.jpg)
 > 之后，我们把工程按照Gradle的形式导出，以便之后使用as打开。
 > ![](https://pic3.zhimg.com/80/v2-0662dd5bd7735d6a1ecff8a053a704c6_hd.jpg)
-# 符号信息
+## 符号信息
 > 正常使用as打开导出的工程。在
 > src/main/jniLibs/armeabi-v7a/
 > 目录下，可以找到相关的so文件。我们主要关注libunity.so以及libil2cpp.so。前者是引擎部分，后者是开发者的脚本部分。此时的so都是符号信息不全的。所以我们要做的只是替换符号信息更全的so。
@@ -49,7 +53,7 @@ https://developer.android.com/studio/profile/cpu-profiler?hl=en
 > 工程``/Temp/StagingArea/symbols/armeabi-v7a/libil2cpp.so.debug``
 > ![](https://pic3.zhimg.com/80/v2-8f935db1b74765e481106841994d16ba_hd.jpg)
 > 可以看到，gradle工程中的libil2cpp.so只有7.7mb，而带符号信息的libil2cpp则有88.3mb。
-# Profiling!
+## Profiling!
 > ![](https://pic1.zhimg.com/80/v2-406ca0862ebba948449e276a9b2b14f0_hd.jpg)
 > 点击右上角的Profile Button，就可以开始进行性能检测了。
 > 选中CPU栏，检测项目中有Java Method、Sample C/C++等等。选择C/C++，即可看到一个timeline。点击recorde，则开始记录call trace。
