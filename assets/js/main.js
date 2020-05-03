@@ -103,9 +103,6 @@ $(function() {
     } else {
       $('.toc-link[data-tags~=' + filter + ']').fadeIn(350);
     }
-    if (filter === 'myabout'){
-      
-    }
     $(this).addClass('active').siblings().removeClass('active');
   });
   // Only show recent
