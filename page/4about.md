@@ -9,23 +9,23 @@ type: page
 * content
 {:toc}
 
-## 关于我
+## 个人说明
+从2014年开始担任主程，有好几年的项目管理经验；两款以上完整上线项目。
+目前主要是在学习图程和研究Unity引擎框架。
 
-<iframe src="https://githubbadge.appspot.com/gaohaoyang?s=1" style="border: 0;height: 142px;width: 200px;overflow: hidden;" frameBorder="0"></iframe>
+## 工作经验
 
-## 联系我
+| 年份 | 企业 |
+| -- | -- |
+| 2020/04-至今       | 广州百田信息科技有限公司 |
+| 2020/01-2020/4    | 星辉互动娱乐股份有限公司 |
+| 2019/03-2020/1    | 浙江金科金科文化有限公司 |
+| 2017/07-2019/03   | 广州百田信息科技有限公司 |
+| 2013/03-2017/06   | 广州谷得网络科技有限公司 |
 
-* GitHub：[Gaohaoyang](https://github.com/Gaohaoyang)
-* email：gaohaoyang126@126.com
-* [Weibo](http://weibo.com/3115521wh)
-* [知乎](https://www.zhihu.com/people/gaohaoyang)
-* [Facebook](https://www.facebook.com/gaohaoyang.water)
-* [豆瓣](https://www.douban.com/people/42525035/)
-* [豆瓣音乐人-浩阳的小站](https://site.douban.com/haoyangaiyinyue/)
 
-## 友情链接
-
-[羡辙杂俎](http://zhangwenli.com/blog) \| [Anotherhome](https://www.anotherhome.net) \| [Reverland](http://reverland.org/) \| [ZhiLi](http://lizhipower.github.io/) \| [Simmer](http://simmer-jun.github.io/) \| [awthink](http://awthink.net/) \| [Aralic](http://aralic.github.io/) \| [zchen9](http://www.chen9.info/) \| [wuhuaji](http://wuhuaji.me/) \| [lisheng](http://www.lishengcn.cn/) \| [薛彬XueBin](http://axuebin.com/blog/) \| [TBOOX](http://www.tboox.org/cn/) \|  [Ling](http://linglinyp.com/)
+## 联系方式
+Email: conerlius@foxmail.com<br>
 
 ## Comments
 
