@@ -11,8 +11,7 @@ tags:
     - CSharp
 ---
 
-* content
-{:toc}
+[TOC]
 
 ## Injection的基本理论
 
