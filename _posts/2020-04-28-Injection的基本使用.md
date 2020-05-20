@@ -11,8 +11,6 @@ tags:
     - CSharp
 ---
 
-* content
-{:toc}
 
 ##  前提
 
@@ -259,101 +257,100 @@ tags:
 
 下面举个demo说明一下!
 
-比如我们有一下一个类型:
+> 比如我们有一下一个类型:
 
-  ```C#
-  using UnityEngine;
+```C#
+using UnityEngine;
 
-  [MyAttr]
-  public class ClassB
-  {
-    public int Print()
+[MyAttr]
+public class ClassB
+{
+	public int Print()
+	{
+		Debug.LogError("ClassB");
+		return 1;
+	}
+}
+```
+
+
+> 现在我们需要使得在打印`“ClassB”`之前，创建一个`ClassA`并执行其打印,一下就是injection的代码:
+
+```C#
+static void Inject(string path)
     {
-      Debug.LogError("ClassB");
-      return 1;
+        // 加载第一个Assembly-CSharp.dll
+        AssemblyDefinition csharp  = AssemblyDefinition.ReadAssembly($"{path}/Assembly-CSharp.dll");
+        // 依赖的dll
+        AssemblyDefinition DLL1  = AssemblyDefinition.ReadAssembly($"{path}/DLL1.dll");
+        // 因为dll1中只有一个自定义attributes，所以这里就直接取0
+        var customAttribute = DLL1.CustomAttributes[0];
+        // ClassA是DLL1的，在这里我们可以直接访问使用,并将之导入到Assembly-CSharp.dll
+        var Constructor = csharp.MainModule.ImportReference(typeof(ClassA).GetConstructor(new Type[] { }));
+        //var claDef = DLL1.MainModule.Types.Single(definition =>  definition.Name == "ClassA");
+        var claDef = csharp.MainModule.ImportReference(typeof(ClassA));
+        // Assembly-CSharp.dll的所有module
+        foreach (var module in csharp.Modules)
+        {
+            // 每个module都导入ClassA,可以直接在mainModule里导入ClassA就行
+            module.ImportReference(claDef);
+            // 所有类型
+            foreach (var moduleType in module.Types)
+            {
+                // 判定该类型是否需要injection
+                if (CheckAttr(moduleType))
+                {
+                    // 类型下的所有method
+                    foreach (var method in moduleType.Methods)
+                    {
+                        // 方法主体
+                        MethodBody targetBody = method.Body;
+                        // 获取il
+                        var worker = targetBody.GetILProcessor();
+                        // 注入局部变量
+                        targetBody.InitLocals = true;
+                        var variable = new VariableDefinition(claDef);
+                        targetBody.Variables.Add(variable);
+                        // 获取方法的第一个指令位置，也可以查找自己特定的位置,这里就不复杂处理了
+                        var ins = targetBody.Instructions[0];
+                        worker.InsertBefore(ins, worker.Create(OpCodes.Newobj, Constructor));
+                        worker.InsertBefore(ins, worker.Create(OpCodes.Stloc, variable));
+                        worker.InsertBefore(ins, worker.Create(OpCodes.Ldloc, variable));
+                        worker.InsertBefore(ins, worker.Create(OpCodes.Call,
+                            csharp.MainModule.ImportReference(typeof(ClassA).GetMethod("Print"))));
+                    }
+                }
+            }
+        }
+        csharp.Write($"{path}/Assembly-CSharp.dll");
     }
-  }
-  ```
+```
 
 
-现在我们需要使得在打印`“ClassB”`之前，创建一个`ClassA`并执行其打印,一下就是injection的代码:
+> injection后代码如下了！
 
-  ```C#
-  static void Inject(string path)
-      {
-          // 加载第一个Assembly-CSharp.dll
-          AssemblyDefinition csharp  = AssemblyDefinition.ReadAssembly($"{path}/Assembly-CSharp.dll");
-          // 依赖的dll
-          AssemblyDefinition DLL1  = AssemblyDefinition.ReadAssembly($"{path}/DLL1.dll");
-          // 因为dll1中只有一个自定义attributes，所以这里就直接取0
-          var customAttribute = DLL1.CustomAttributes[0];
-          // ClassA是DLL1的，在这里我们可以直接访问使用,并将之导入到Assembly-CSharp.dll
-          var Constructor = csharp.MainModule.ImportReference(typeof(ClassA).GetConstructor(new Type[] { }));
-          //var claDef = DLL1.MainModule.Types.Single(definition =>  definition.Name == "ClassA");
-          var claDef = csharp.MainModule.ImportReference(typeof(ClassA));
-          // Assembly-CSharp.dll的所有module
-          foreach (var module in csharp.Modules)
-          {
-              // 每个module都导入ClassA,可以直接在mainModule里导入ClassA就行
-              module.ImportReference(claDef);
-              // 所有类型
-              foreach (var moduleType in module.Types)
-              {
-                  // 判定该类型是否需要injection
-                  if (CheckAttr(moduleType))
-                  {
-                      // 类型下的所有method
-                      foreach (var method in moduleType.Methods)
-                      {
-                          // 方法主体
-                          MethodBody targetBody = method.Body;
-                          // 获取il
-                          var worker = targetBody.GetILProcessor();
-                          // 注入局部变量
-                          targetBody.InitLocals = true;
-                          var variable = new VariableDefinition(claDef);
-                          targetBody.Variables.Add(variable);
-                          // 获取方法的第一个指令位置，也可以查找自己特定的位置,这里就不复杂处理了
-                          var ins = targetBody.Instructions[0];
-                          worker.InsertBefore(ins, worker.Create(OpCodes.Newobj, Constructor));
-                          worker.InsertBefore(ins, worker.Create(OpCodes.Stloc, variable));
-                          worker.InsertBefore(ins, worker.Create(OpCodes.Ldloc, variable));
-                          worker.InsertBefore(ins, worker.Create(OpCodes.Call,
-                              csharp.MainModule.ImportReference(typeof(ClassA).GetMethod("Print"))));
-                      }
-                  }
-              }
-          }
-          csharp.Write($"{path}/Assembly-CSharp.dll");
-      }
-  ```
+```C#
+// ClassB
+using UnityEngine;
 
+[MyAttr]
+public class ClassB
+{
+	public int Print()
+	{
+		ClassA classA = new ClassA();
+		classA.Print();
+		Debug.LogError("ClassB");
+		return 1;
+	}
 
-injection后代码如下了！
-
-  ```C#
-  // ClassB
-  using UnityEngine;
-
-  [MyAttr]
-  public class ClassB
-  {
-    public int Print()
-    {
-      ClassA classA = new ClassA();
-      classA.Print();
-      Debug.LogError("ClassB");
-      return 1;
-    }
-
-    public ClassB()
-    {
-      new ClassA().Print();
-      base..ctor();
-    }
-  }
-  ```
-
+	public ClassB()
+	{
+		new ClassA().Print();
+		base..ctor();
+	}
+}
+```
 
 
 最后送上悬疑图，有兴趣的可以去了解一下
