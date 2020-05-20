@@ -10,8 +10,11 @@ tags:
     - 译文
 ---
 
+* content
+{:toc}
+
 在项目开发的实际过程中，可能由于各种原因而导致lua代码在执行效率上出现了瓶颈。那么就必须要在代码书写上就要注意代码的实际执行效率了！
-[TOC]
+
 ## luajit的效率
 ### luajit 在不同平台下的表现
 [传送门](http://luajit.org/performance_x86.html)

@@ -10,6 +10,8 @@ tags:
     - Injection
     - CSharp
 ---
+* content
+{:toc}
 
 ## Injection的基本理论
 

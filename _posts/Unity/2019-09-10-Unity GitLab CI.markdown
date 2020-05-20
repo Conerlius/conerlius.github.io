@@ -10,10 +10,12 @@ tags:
     - unity
     - Tool
 ---
+* content
+{:toc}
 
 > 目前只有文件，没有说明,懂powershell的同学应该能看得明白！
 
-# .gitlab-ci.yml
+## .gitlab-ci.yml
 > ```
 > stages:
 >     - AssetBundle
@@ -66,7 +68,7 @@ tags:
 >             - .\*.apk       
 > ```
 
-# BeforeAssetBundleBuild.ps1
+## BeforeAssetBundleBuild.ps1
 > ```
 > $scripterrorfilepath=${CI_PROJECT_DIR}+"/ScriptError.txt"
 > 
@@ -75,7 +77,7 @@ tags:
 > }
 > ```
 
-# AfterAssetBundleBuild.ps1
+## AfterAssetBundleBuild.ps1
 > ```
 > $nid = (Get-Process Unity).id
 > 
@@ -127,7 +129,7 @@ tags:
 > }
 > ```
 
-# WeTest.ps1
+## WeTest.ps1
 > ```
 > if ($WeTestEnable -eq "true" -and $RELEASE -ne "release"){
 >     cp ${CI_PROJECT_DIR}/Tools/wetest/U3DAutomation.dll ${CI_PROJECT_DIR}/> Assets/Script/U3DAutomation.dll

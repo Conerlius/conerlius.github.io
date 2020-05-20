@@ -9,15 +9,17 @@ keywords: CSharp
 tags:
     - CSharp
 ---
+* content
+{:toc}
 
-# 环境
+## 环境
 
 > 首先说明一下生成的系统环境，及其一些配置
 
 因为项目是unity的，所以我会把生成的方式集成到unity菜单下，方便使用。
 系统： windows 10
 
-# 步骤
+## 步骤
 
 将proto文件编译成.cs文件。.net版的protobuf来源于proto社区，有两个版本：
 > 一个版本叫protobuf-net，下载地址为：[https://github.com/mgravell/protobuf-net](https://github.com/mgravell/protobuf-net)  写法上比较符合c#一贯的写法，而且效率更高。

@@ -9,19 +9,23 @@ keywords: tool
 tags:
     - Tool
 ---
+* content
+{:toc}
 
-# snippets是什么？
+## snippets是什么？
 > 简而言之，这个就是个代码块填充工具
-# snippets能做什么？
+
+## snippets能做什么？
 > 1. 填充lua的注释
 > 2. 生成固定的代码模板
-# snippets怎么配置？
+
+## snippets怎么配置？
 > 在vscode里通过`File->Perference->User Snippets`打开
 ![png](/images/snippets_for_vscode.png)
 > 打开后是一系列的语言的snippets配置，没有的话会自动创建
 ![png](/images/snippets_ui.png)
 
-## lua作为实例
+### lua作为实例
 > 刚打开的新配置是像下图的
 ```
 {

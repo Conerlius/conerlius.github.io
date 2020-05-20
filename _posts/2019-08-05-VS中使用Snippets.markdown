@@ -11,13 +11,18 @@ tags:
     - CSharp
 ---
 
+* content
+{:toc}
+
 > 具体的知识点可以自行在[https://docs.microsoft.com/zh-cn/visualstudio/ide/walkthrough-creating-a-code-snippet?view=vs-2019](https://docs.microsoft.com/zh-cn/visualstudio/ide/walkthrough-creating-a-code-snippet?view=vs-2019)查看，这里仅仅只是做一个简单的说明
-# 开篇
+## 开篇
 > visual studio 的snippets文件模板可以通过`工具->代码片段管理器`，展示的窗体里不同语言路径不同，，自定义的一般在用户的文档下
 ![png](/images/snippets_for_vs-1.png)
 >
 > 文件必须是后缀`.snippet`
-# 模板
+
+## 模板
+
 ```
 <CodeSnippets>
 	<!-- 1+,CodeSnippet -->
@@ -92,13 +97,15 @@ tags:
 </CodeSnippets>
 ```
 
-# 说明
+## 说明
+
 1. 0+：表示零个或零个以上
 2. [0,1]：表示零个或一个
 3. 1：表示仅只有一个
 4. 1+：表示有一个或一个以上
 
-# Demo
+## Demo
+
 ```
 <CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
     <CodeSnippet Format="1.0.0">

@@ -9,6 +9,8 @@ keywords: unity,可寻址系统
 tags:
     - unity
 ---
+* content
+{:toc}
 
 ## Unity Addressable Asset System
 unity 可寻址系统是提供了一种简单的资源加载方式，那就是通过`address`（地址）来加载。它通过简化内容包的创建和部署来处理资产管理的开销。

@@ -9,6 +9,9 @@ keywords: opengl
 tags:
     - opengl
 ---
+* content
+{:toc}
+
 ## 前提
 > OpenGL学习前的基本技能
 >> * C/C++的变成语言基础

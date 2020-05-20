@@ -10,7 +10,8 @@ tags:
     - unity
 ---
 
-[TOC]
+* content
+{:toc}
 
 [Link](https://docs.unity3d.com/Manual/cus-layout.html)
 

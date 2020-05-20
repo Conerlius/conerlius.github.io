@@ -9,6 +9,8 @@ keywords: unity,batch
 tags:
     - unity
 ---
+* content
+{:toc}
 
 ## 背景
 unity的静态合批在特定的情况下不能有效地合批，但是在scene的场景中缺有大量的静态物体！
@@ -23,6 +25,7 @@ unity本身也提供了相应的api给我们处理,在说到实现前，需要�
 * 静态（static）： 必须是静态的对象！
   
 ![png](/images/Unity/unity_manual_batch.jpg)
+
 ### CombineInstance
 Struct used to describe meshes to be combined using Mesh.CombineMeshes.
 > 用来描绘网格合并的结构,主要是为了使用`Mesh.CombineMeshes`
