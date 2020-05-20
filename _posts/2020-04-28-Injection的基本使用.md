@@ -213,6 +213,7 @@ tags:
   ```
 
 
+
 - 导入引用类型
 
   ```C#
@@ -241,14 +242,16 @@ tags:
   assembly.MainModule.ImportReference(typeof(typeName).GetMethod(method_name))));
   ```
 
-  
 
+  
 - 其他
 
   ```C#
   // 创建对象
   worker.InsertBefore(ins, worker.Create(OpCodes.Newobj, 类型的构造方法));
   ```
+
+
 
 ## Demo
 
@@ -269,6 +272,7 @@ public class ClassB
 	}
 }
 ```
+
 
 现在我们需要使得在打印`“ClassB”`之前，创建一个`ClassA`并执行其打印,一下就是injection的代码:
 
@@ -322,6 +326,7 @@ static void Inject(string path)
     }
 ```
 
+
 injection后代码如下了！
 
 ```C#
@@ -346,6 +351,7 @@ public class ClassB
 	}
 }
 ```
+
 
 
 最后送上悬疑图，有兴趣的可以去了解一下
