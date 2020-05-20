@@ -257,7 +257,7 @@ tags:
 
 下面举个demo说明一下!
 
-> 比如我们有一下一个类型:
+比如我们有一下一个类型:
 
 ```C#
 using UnityEngine;
@@ -274,7 +274,7 @@ public class ClassB
 ```
 
 
-> 现在我们需要使得在打印`“ClassB”`之前，创建一个`ClassA`并执行其打印,一下就是injection的代码:
+现在我们需要使得在打印`“ClassB”`之前，创建一个`ClassA`并执行其打印,一下就是injection的代码:
 
 ```C#
 static void Inject(string path)
@@ -326,8 +326,7 @@ static void Inject(string path)
     }
 ```
 
-
-> injection后代码如下了！
+injection后代码如下了！
 
 ```C#
 // ClassB
