@@ -54,8 +54,8 @@ author:
 
 ## => GitHub Repository (if the site is hosted by GitHub)
 ##############################
-repository: Conerlius/conerlius.github.io
-repository_tree: master
+repository: #Conerlius/conerlius.github.io
+repository_tree: #master
 
 
 ## => Paths
@@ -117,11 +117,11 @@ sharing:
 ## => Comments
 ##############################
 comments:
-  provider: true # false (default), "disqus", "gitalk", "valine", "custom"
+  provider: "disqus" # false (default), "disqus", "gitalk", "valine", "custom"
 
   ## Disqus
   disqus:
-    shortname: conerlius # the Disqus shortname for the site
+    shortname: "conerlius" # the Disqus shortname for the site
 
   ## Gitalk
   # please refer to https://github.com/gitalk/gitalk for more info.
@@ -146,13 +146,13 @@ comments:
 ## => Pageview
 ##############################
 pageview:
-  provider: true # false (default), "leancloud", "custom"
+  provider: "leancloud" # false (default), "leancloud", "custom"
 
   ## Leancloud
   leancloud:
-    app_id    : nqiej9unKvi1r7PrHJLr6eOk-gzGzoHsz # LeanCloud App id
-    app_key   : LrXOUc07FpRSoBNnDciFiT3o # LeanCloud App key
-    app_class : MyBlog # LeanCloud App class
+    app_id    : "nqiej9unKvi1r7PrHJLr6eOk-gzGzoHsz" # LeanCloud App id
+    app_key   : "LrXOUc07FpRSoBNnDciFiT3o" # LeanCloud App key
+    app_class : "MyBlog" # LeanCloud App class
 
 
 ## => Search
@@ -168,11 +168,11 @@ search:
 ## => Analytics
 ##############################
 analytics:
-  provider: google # false (default), "google", "custom"
+  provider: "google" # false (default), "google", "custom"
 
   ## Google Analytics
   google:
-    tracking_id : UA-148607761-1 # Google Analytics id for the site
+    tracking_id : "UA-148607761-1" # Google Analytics id for the site
     anonymize_ip: true # Anonymize IP tracking for Analytics
 
 
