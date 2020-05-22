@@ -1,5 +1,5 @@
 ---
-layout: article
+layout: post
 titles:
   # @start locale config
   en      : &EN       About
