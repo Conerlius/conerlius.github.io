@@ -12,7 +12,7 @@
 #    `--'   `----''--'   '--' `--'
 
 encoding : UTF-8
-
+theme: jekyll-text-theme
 
 ## => Site Settings
 ##############################
