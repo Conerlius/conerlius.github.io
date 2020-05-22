@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "Unity中使用代码模板"
 subtitle:   " \"Unity中使用代码模板\""
 date:       2019-08-05 14:48:00

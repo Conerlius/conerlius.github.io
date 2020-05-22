@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "Vscode中的snippets"
 subtitle:   " \"Vscode中的snippets\""
 date:       2019-08-05 14:38:00

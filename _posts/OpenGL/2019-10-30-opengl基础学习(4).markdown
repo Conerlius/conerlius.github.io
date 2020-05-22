@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "opengl基础学习(4)"
 subtitle:   " \"shader\""
 date:       2019-10-30 15:00:00

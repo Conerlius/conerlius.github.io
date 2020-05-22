@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "Render Hell -Book 1[译文]"
 subtitle:   " \"Graphic\""
 date:       2019-08-5 11:25:00

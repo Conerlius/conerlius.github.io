@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "GitLab CI在windows下的部署"
 subtitle:   " \"GitLab CI在windows下的部署\""
 date:       2019-08-05 17:26:00

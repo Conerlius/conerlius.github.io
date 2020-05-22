@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "金科相关"
 subtitle:   " \"流程\""
 date:       2019-09-10 10:06:00

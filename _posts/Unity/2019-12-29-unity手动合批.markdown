@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "unity手动合批"
 subtitle:   " \"Batch\""
 date:       2019-12-29 15:00:00

@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "Unity的il2cpp单独编译dll"
 subtitle:   " \"il2cpp\""
 date:       2019-09-26 15:00:00

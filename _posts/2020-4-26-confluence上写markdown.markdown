@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "confluence上写markdown"
 subtitle:   " \"physic\""
 date:       2020-04-26 11:22:00

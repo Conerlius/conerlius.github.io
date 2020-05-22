@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "opengl基础学习(3)"
 subtitle:   " \"三角形\""
 date:       2019-09-24 15:00:00

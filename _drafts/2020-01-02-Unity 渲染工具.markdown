@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "unity性能优化工具汇总"
 subtitle:   " \"tools\""
 date:       2020-01-02 15:00:00

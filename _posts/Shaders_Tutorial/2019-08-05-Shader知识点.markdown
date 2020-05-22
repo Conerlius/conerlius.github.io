@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "Shader知识点"
 subtitle:   " \"Shader知识点\""
 date:       2019-08-05 17:11:00

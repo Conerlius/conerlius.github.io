@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "如何生成C#版的protobuf"
 subtitle:   " \"protobuf\""
 date:       2019-07-31 18:22:00

@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "Unity TimeLine(without Cinemachine)"
 subtitle:   " \"Unity TimeLine(without Cinemachine)\""
 date:       2019-08-05 17:28:00

@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "renderDoc在unity中的使用"
 subtitle:   " \"tools\""
 date:       2020-01-03 15:00:00

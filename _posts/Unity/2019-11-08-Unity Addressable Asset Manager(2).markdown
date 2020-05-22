@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "Unity可寻址资源系统(2)"
 subtitle:   " \"unity\""
 date:       2019-11-08 21:00:00

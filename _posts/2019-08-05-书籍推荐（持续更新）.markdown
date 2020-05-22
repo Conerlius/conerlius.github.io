@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "书籍推荐（持续更新）"
 subtitle:   " \"书籍推荐（持续更新）\""
 date:       2019-08-05 17:12:00

@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "自定义骨骼动画播放"
 subtitle:   " \"自定义动画\""
 date:       2019-09-04 16:00:00

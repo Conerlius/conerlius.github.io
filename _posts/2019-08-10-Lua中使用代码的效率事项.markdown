@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "Lua中的代码效率注意事项"
 subtitle:   " \"Lua中的代码效率注意事项\""
 date:       2019-09-25 15:00:00

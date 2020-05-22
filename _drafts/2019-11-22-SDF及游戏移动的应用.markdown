@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "SDF及游戏移动的应用"
 subtitle:   " \"算法\""
 date:       2019-11-22 11:25:00

@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "shader--Vertex(2)"
 subtitle:   " \"Vertex\""
 date:       2019-08-05 17:17:00

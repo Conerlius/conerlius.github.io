@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "unity的断点续传"
 subtitle:   " \"Unity\""
 date:       2019-12-16 11:25:00

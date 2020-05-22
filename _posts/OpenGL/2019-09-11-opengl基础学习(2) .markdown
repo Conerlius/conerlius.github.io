@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "opengl基础学习(2)"
 subtitle:   " \"OpenGL\""
 date:       2019-09-11 20:00:00

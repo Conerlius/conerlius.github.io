@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "UGUI优化方案"
 subtitle:   " \"ugui的一些注意事项\""
 date:       2019-07-31 18:00:00

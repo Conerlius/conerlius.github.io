@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "定点数开根号的性能问题"
 subtitle:   " \"math\""
 date:       2019-09-26 15:00:00

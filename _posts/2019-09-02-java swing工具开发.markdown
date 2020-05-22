@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "Java swing 工具开发"
 subtitle:   " \"工具开发\""
 date:       2019-09-02 11:38:00

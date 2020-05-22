@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "MVC,MVP,MVVM,MOVE"
 subtitle:   " \"MVC,MVP,MVVM,MOVE\""
 date:       2019-08-05 17:05:00

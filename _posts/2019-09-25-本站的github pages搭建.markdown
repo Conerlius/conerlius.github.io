@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "本站的github pages搭建"
 subtitle:   " \"github pages\""
 date:       2019-09-25 15:00:00

@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "如何使用Android Studio在安卓平台对Unity开发的应用进行性能检查？[转]"
 subtitle:   " \"Android debug\""
 date:       2019-08-05 13:00:00

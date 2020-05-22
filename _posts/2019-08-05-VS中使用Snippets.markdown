@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "VS中使用Snippets"
 subtitle:   " \"VS中使用Snippets\""
 date:       2019-08-05 14:44:00

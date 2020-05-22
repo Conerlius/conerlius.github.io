@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "Unity Animation优化"
 subtitle:   " \"Animation优化\""
 date:       2019-09-05 18:00:00

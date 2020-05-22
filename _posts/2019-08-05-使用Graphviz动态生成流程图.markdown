@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "使用Graphviz动态生成流程图"
 subtitle:   " \"Graphivz\""
 date:       2019-8-05 12:00:00

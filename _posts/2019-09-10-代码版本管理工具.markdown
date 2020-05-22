@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "代码版本管理工具"
 subtitle:   " \"Git SVN\""
 date:       2019-09-10 10:06:00

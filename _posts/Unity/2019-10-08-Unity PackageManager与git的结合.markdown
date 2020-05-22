@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "Unity PackageManager与git的结合"
 subtitle:   " \"github和Package\""
 date:       2019-10-08 11:00:00

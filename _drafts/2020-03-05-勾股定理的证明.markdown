@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "勾股定理的证明.."
 subtitle:   " \"physic\""
 date:       2020-03-05 18:22:00

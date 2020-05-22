@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "Unity Android Profile"
 subtitle:   " \"Profile\""
 date:       2019-10-12 00:25:00

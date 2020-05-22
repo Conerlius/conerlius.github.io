@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "Unity GitLab CI"
 subtitle:   " \"CI\""
 date:       2019-09-10 17:00:00
