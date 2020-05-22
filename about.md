@@ -1,5 +1,6 @@
 ---
-layout: post
+layout: article
+title: 关于
 titles:
   # @start locale config
   en      : &EN       About

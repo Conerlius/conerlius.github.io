@@ -1,5 +1,5 @@
 ---
-layout:     post
+layout:     article
 title:      "Injection的基本使用"
 subtitle:   " \"physic\""
 date:       2020-04-28 18:00:00
