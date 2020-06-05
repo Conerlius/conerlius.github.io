@@ -10,6 +10,72 @@ tags:
     - unity
 ---
 
+## BuildScriptBase
+
+> `BuildScriptBase`是给`Editor`使用的，并不是打包后在目标平台上用的。
+
+### 大体流程
+
+先看看`BuildScriptBase`的大体流程图，这样后面讲代码还能知道怎么回事!
+
+```mermaid
+graph TB
+	A[Addressable] -- build menu click --> B(BuildDataImplementation)
+    A -- clear menu click --> C(ClearCachedData)
+    C --> D[end]
+	B -- manual call --> E[ProcessAllGroups] -->F[ProcessGroup]
+	F-->D
+```
+
+> 继承`BuildScriptBase`需要重写一下几个方法
+
+### Name
+
+> 通过修正这个名称展示在`settings`中
+
+> ![png](/images/Unity/addressable/6.png)
+
+### CanBuildData
+
+> 该方法是判定是否是build的时候使用的，在addressable的时候，会传入`AddressablesPlayerBuildResult`给扩展类型
+>
+> `AddressablesPlayModeBuildResult`代表的是`play mode`
+
+> 一般是通过下面的这种方式来判定
+
+> ```c#
+> // build
+> return typeof(T).IsAssignableFrom(typeof(AddressablesPlayerBuildResult));
+> ```
+
+> ```c#
+> // play
+> return typeof(T).IsAssignableFrom(typeof(AddressablesPlayModeBuildResult));
+> ```
+
+### BuildDataImplementation
+
+> 该方法是执行打包的时候，具体执行的操作;
+> 
+> 通过流程图，我们知道这个方法是在我们打包的时候调用的。
+
+### ProcessAllGroups
+
+> 处理所有的`Groups`
+
+### ProcessGroup
+
+> 处理指定的`Groups`
+
+### ClearCachedData
+
+> 该方法是执行本地发布资源清理时调用的
+
+### IsDataBuilt
+
+> 未知
+
+
 ## Play Mode Script
 
 `addressable` play模式使用的是`BuildScriptBase`作为基类的,最简单的构建大致如下
