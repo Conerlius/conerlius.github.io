@@ -22,7 +22,8 @@ tags:
 ```mermaid
 graph TD;
 	A[Addressable]
-    A-->B;
+	B(BuildDataImplementation)
+    A--a-->B;
     A-->C;
     B-->D;
     C-->D;
@@ -41,7 +42,8 @@ graph TB;
 	A--build menu click-->B;
     A--clear menu click-->C;
     C-->D;
-	B--manual call-->E-->F;
+	B--manual call-->E;
+	E-->F;
 	F-->D;
 ```
 
