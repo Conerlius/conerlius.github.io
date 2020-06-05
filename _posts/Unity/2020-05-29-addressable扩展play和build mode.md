@@ -6,7 +6,6 @@ date:       2020-05-29 17:00:00
 author:     "Conerlius"
 category: unity
 keywords: unity,addressable
-mermaid: true
 tags:
     - unity
 ---
@@ -22,7 +21,7 @@ tags:
 先看看`BuildScriptBase`的大体流程图，这样后面讲代码还能知道怎么回事!
 
 ```mermaid
-graph TB
+graph TB;
 	A[Addressable] -- build menu click --> B(BuildDataImplementation)
     A -- clear menu click --> C(ClearCachedData)
     C --> D[end]
