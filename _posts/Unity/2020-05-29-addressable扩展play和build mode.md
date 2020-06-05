@@ -1,4 +1,5 @@
 ---
+mermaid: true
 layout:     article
 title:      "addressable扩展play和build mode"
 subtitle:   " \"unity\""
@@ -22,11 +23,17 @@ tags:
 
 ```mermaid
 graph TB;
-	A[Addressable] -- build menu click --> B(BuildDataImplementation)
-    A -- clear menu click --> C(ClearCachedData)
-    C --> D[end]
-	B -- manual call --> E[ProcessAllGroups] -->F[ProcessGroup]
-	F-->D
+	A[Addressable]
+	B(BuildDataImplementation)
+	C(ClearCachedData)
+	D[end]
+	E[ProcessAllGroups]
+	F[ProcessGroup]
+	A-- build menu click --> B;
+    A -- clear menu click --> C;
+    C --> D;
+	B -- manual call --> E -->F;
+	F-->D;
 ```
 
 > 继承`BuildScriptBase`需要重写一下几个方法
