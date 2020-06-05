@@ -1,5 +1,4 @@
 ---
-mermaid: true
 layout:     article
 title:      "addressable扩展play和build mode"
 subtitle:   " \"unity\""
@@ -18,17 +17,6 @@ tags:
 ### 大体流程
 
 先看看`BuildScriptBase`的大体流程图，这样后面讲代码还能知道怎么回事!
-
-```mermaid
-graph TD;
-	A[Addressable]
-	B(BuildDataImplementation)
-    A--a-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
-
 
 
 ```mermaid
