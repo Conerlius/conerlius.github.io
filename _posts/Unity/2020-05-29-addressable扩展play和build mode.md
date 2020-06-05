@@ -21,6 +21,7 @@ tags:
 
 ```mermaid
 graph TD;
+	A[Addressable]
     A-->B;
     A-->C;
     B-->D;
@@ -37,10 +38,10 @@ graph TB;
 	D[end]
 	E[ProcessAllGroups]
 	F[ProcessGroup]
-	A-- build menu click --> B;
-    A -- clear menu click --> C;
-    C --> D;
-	B -- manual call --> E -->F;
+	A--build menu click-->B;
+    A--clear menu click-->C;
+    C-->D;
+	B--manual call-->E-->F;
 	F-->D;
 ```
 
