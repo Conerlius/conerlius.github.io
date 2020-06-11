@@ -10,8 +10,7 @@ tags:
     - shader
 ---
 
-* content
-{:toc}
+[TOC]
 
 [继上一篇的后续](/shader--Vertex(1))
 > 上一章我们讲了`Vertex`和`Fragment`那么这两者有什么关系呢？<br>

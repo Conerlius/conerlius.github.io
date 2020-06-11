@@ -9,8 +9,8 @@ keywords: shader,unity
 tags:
     - shader
 ---
-* content
-{:toc}
+
+[TOC]
 
 前面两章说了一些基本的内容，我们做Shader，怎么可能烧的了贴图纹理呢？所以这章我们来讲讲纹理的使用。<br>
 > 首先我们像之前声明Color那样去声明和绑定一个纹理<br>

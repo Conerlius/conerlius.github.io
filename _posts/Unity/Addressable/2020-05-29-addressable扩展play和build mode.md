@@ -23,13 +23,16 @@ tags:
 
 ```mermaid
 graph TB;
-	A[Addressable]
+	A[BuildScriptBase]
 	B(BuildDataImplementation)
 	C(ClearCachedData)
 	D[end]
 	E[ProcessAllGroups]
 	F[ProcessGroup]
-	A--build menu click-->B;
+	G[CanBuildData]
+	A--build/play menu click-->G;
+	G--yes-->B;
+	G--no-->D;
     A--clear menu click-->C;
     C-->D;
 	B--manual call-->E;
@@ -65,9 +68,7 @@ graph TB;
 
 ### BuildDataImplementation
 
-> 该方法是执行打包的时候，具体执行的操作;
-> 
-> 通过流程图，我们知道这个方法是在我们打包的时候调用的。
+> 该方法是执行打包(启动该mode)的时候，具体执行的操作;
 
 ### ProcessAllGroups
 
