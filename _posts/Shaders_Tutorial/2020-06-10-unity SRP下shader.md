@@ -14,7 +14,7 @@ tags:
 
 ## Unity的自定义管线
 
-sss
+
 
 ### Unity 自定义管线的构建（以urp为例）
 
@@ -23,14 +23,14 @@ sss
 ```mermaid
 classDiagram
     class CustomRenderPipeLineAsset {
-        +CreatePipeline() RenderPipeline
+        CreatePipeline() RenderPipeline
     }
     class CustomRenderPipeLine{
-        +CustomRenderPipeLine()
-        +Render(ScriptableRenderContext context, Camera[] cameras)
+        CustomRenderPipeLine()
+        Render(ScriptableRenderContext context, Camera[] cameras)
     }
     class MainCameraRender{
-        +RenderCamera(ScriptableRenderContext context, Camera camera)
+        RenderCamera(ScriptableRenderContext context, Camera camera)
     }
     CustomRenderPipeLineAsset-->CustomRenderPipeLine : 创建
     CustomRenderPipeLine-->MainCameraRender : 调用
