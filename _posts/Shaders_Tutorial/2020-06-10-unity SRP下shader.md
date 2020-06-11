@@ -22,10 +22,10 @@ sss
 
 ```mermaid
 classDiagram
-    class CustomRenderPipeLineAsset~RenderPipelineAsset~{
+    class CustomRenderPipeLineAsset {
         +CreatePipeline() RenderPipeline
     }
-    class CustomRenderPipeLine~RenderPipeline~{
+    class CustomRenderPipeLine{
         +CustomRenderPipeLine()
         +Render(ScriptableRenderContext context, Camera[] cameras)
     }
