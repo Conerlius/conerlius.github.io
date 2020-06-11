@@ -22,19 +22,22 @@ tags:
 
 ```mermaid
 classDiagram
-    class CustomRenderPipeLineAsset {
-        CreatePipeline() RenderPipeline
+    class CustomRenderPipeLineAsset~RenderPipelineAsset~{
+        +CreatePipeline() RenderPipeline
     }
-    class CustomRenderPipeLine{
-        CustomRenderPipeLine()
-        Render(ScriptableRenderContext context, Camera[] cameras)
+    class CustomRenderPipeLine~RenderPipeline~{
+        +CustomRenderPipeLine()
+        +Render(ScriptableRenderContext context, Camera[] cameras)
     }
     class MainCameraRender{
-        RenderCamera(ScriptableRenderContext context, Camera camera)
+        +RenderCamera(ScriptableRenderContext context, Camera camera)
     }
     CustomRenderPipeLineAsset-->CustomRenderPipeLine : 创建
     CustomRenderPipeLine-->MainCameraRender : 调用
 ```
+
+如果上图失败
+![png](/images/shader_tutorial/1.png)
 
 ## Unity Shader HLSL的基本语法
 
