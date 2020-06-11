@@ -144,7 +144,13 @@ fieldInfo2?.SetValue(groupSchema, new SerializedType { Value =typeof(LuaBundlePr
 
 ## `Group Schema`添加资源
 
+```c#
+string guid = AssetDatabase.AssetPathToGUID(path);
+var group = CreateOrGetDirectory(bundle);
+var assetEntry = _setting.CreateOrMoveEntry(guid, group);
+```
 
+使用资源的`guid`添加
 
 ## 指定`Build and Play Mode Scripts`
 
