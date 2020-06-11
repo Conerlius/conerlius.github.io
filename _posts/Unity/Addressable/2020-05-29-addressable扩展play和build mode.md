@@ -10,6 +10,8 @@ tags:
     - unity
 ---
 
+[TOC]
+
 ## BuildScriptBase
 
 > `BuildScriptBase`是给`Editor`使用的，并不是打包后在目标平台上用的。
