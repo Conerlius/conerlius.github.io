@@ -174,6 +174,33 @@ PlayerPrefs.SetString(Addressables.kAddressablesRuntimeDataPath, runtimeSettings
 
 ### catalog.json 的创建
 
+由于`catalog.json`是`ContentCatalogData`类型，所以在`BuildDataImplementation`方法里添加一下方法
+
+```c#
+List<ContentCatalogDataEntry> locations = new List<ContentCatalogDataEntry>();
+var catalog = new ContentCatalogData(locations, ResourceManagerRuntimeData.kCatalogAddress);
+```
+
+- locations
+
+`locations`里存放的是所有的需要`addressable`进行key引导（需要加载的）资源，其里面的元素类型是`ContentCatalogDataEntry`,`ContentCatalogDataEntry`后面会讲到;
+
+- ResourceManagerRuntimeData.kCatalogAddress
+
+unity默认给的名称，这里需要注意和`setting.json`里的对应
+
+- 保存
+
+```c#
+var catalogPath = string.Format(PathFormat, Path.Combine(Application.dataPath, "../"),"catalog");
+WriteFile(catalogPath, JsonUtility.ToJson(catalog), builderInput.Registry);
+```
+
+同`setting.json`;
+
+进行到这一步的时候，运行unity已经能在`Library/com.unity.addressables`下看到`catalog.json`文件了，那么现在我们需要往`locations`里填充需要导出的资源数据了；因为资源的数据都存放在`Addressable`的`Group`下，所以我们要开始说说`Group`要怎么处理了
 
 ### Group的处理
+
+
 ### 添加时间监听
