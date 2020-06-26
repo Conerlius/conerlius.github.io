@@ -5,9 +5,9 @@ subtitle:   " \"unity\""
 date:       2020-05-29 17:00:00
 author:     "Conerlius"
 category: unity
-keywords: unity,addressable
 tags:
     - unity
+    - addressable
 ---
 
 [TOC]
