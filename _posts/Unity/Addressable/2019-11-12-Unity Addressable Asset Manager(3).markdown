@@ -5,7 +5,7 @@ subtitle:   " \"unity\""
 date:       2019-11-12 22:00:00
 author:     "Conerlius"
 category: unity
-keywords: unity,可寻址系统
+keywords: unity,addressable
 tags:
     - unity
 ---
