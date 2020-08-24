@@ -48,7 +48,7 @@ xml的固定开头
 
 在选中自定义的`UXML`文件后，unity的右下角（即unity提供的资源预览窗口可以直接看到生成的ui！）
 
-![png](../../../images/unity/uielements/1.png)
+![png](/images/unity/uielements/1.png)
 
 ### C#加载
 
@@ -76,7 +76,7 @@ public class MyWindow : EditorWindow  {
 
 效果图
 
-![png](../../../images/unity/uielements/2.png)
+![png](/images/unity/uielements/2.png)
 
 ## `UIElements`的各种类型
 
@@ -207,7 +207,7 @@ First.uxml
 </UXML>
 ```
 
-![png](../../../images/unity/uielements/3.png)
+![png](/images/unity/uielements/3.png)
 
 
 
@@ -235,7 +235,7 @@ root.Query("foo").Children<Button>().ForEach(//do stuff);
 
 `UIElement`的事件传递如下:
 
-![png](../../../images/unity/uielements/4.png)
+![png](/images/unity/uielements/4.png)
 
 `UIElement`提供了一下两个常用的，和一个不怎么使用的。
 
