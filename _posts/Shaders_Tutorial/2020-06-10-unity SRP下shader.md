@@ -50,7 +50,7 @@ graph LR;
 > 将模型自身坐标转换到视觉空间坐标
 > 
 > 借助`《real-time rendering》`的图
-![png](/images/shader_tutorial/2.png)
+![png](../../images/shader_tutorial/2.png)
 - 顶点着色
 > 
 - 投影
@@ -103,7 +103,7 @@ classDiagram
 ```
 
 如果上图失败
-![png](/images/shader_tutorial/1.png)
+![png](../../images/shader_tutorial/1.png)
 
 ## Unity Shader HLSL的基本语法
 
@@ -181,11 +181,11 @@ bo_si_mao tom;
 
 比如我自家里有一只叫做`kitty`的猫，朋友A的也有一只叫`kitty`的猫， 都是叫`kitty`，但是在我家指的是我家的猫，在朋友A家里确实朋友A的猫，那是两只不同的猫
 
-![png](/images/shader_tutorial/3.png)
+![png](../../images/shader_tutorial/3.png)
 
 也许你会杠，说如果我把朋友A的`kitty`猫,带回我家呢？答案是，系统也懵逼，不知道`kitty`到底是哪只猫(只能报错了~)！那有没有办法呢？当然是有啦，不过后面讲`方法`的时候讲!
 
-![png](/images/shader_tutorial/4.png)
+![png](../../images/shader_tutorial/4.png)
 
 ### 基本的shader结构
 
@@ -229,7 +229,7 @@ Shader "CustomRP/你喜欢叫什么就叫什么"
 > 
 > `vertex`声明顶点着色器执行的方法;`#pragma vertex LitPassVertex`,`LitPassVertex`就是顶点着色器的入口，这个名称可以自定义，但是必要有次方法，后面方法会讲到方法的声明
 >
-> `fragment`声明顶点着色器执行的方法;`#pragma fragment LitPassFragment`,`LitPassFragment`就是片元着色器的入口，这个名称可以自定义，但是必要有次方法，后面方法会讲到方法的声明
+> `fragment`声明顶点着色器执行的方法;`#pragma fragment LitPassFragment`,`LitPassFragment`就是片元着色器的入口，这个名称可以自定义，但是必须要有此方法，后面方法会讲到方法的声明
 
 - #include
 
@@ -402,7 +402,7 @@ void 我开始行动()
 
 把猫抱回家后，我们重新命名为`tom`了，这样我在自己家里的时候，我自己的猫还是叫`kitty`,但是`朋友A`家的`kitty`就叫做`tom`了，这样我们不会懵逼，系统也能区别!
 
-![png](/images/shader_tutorial/5.png)
+![png](../../images/shader_tutorial/5.png)
 
 #### 强转换类型
 
