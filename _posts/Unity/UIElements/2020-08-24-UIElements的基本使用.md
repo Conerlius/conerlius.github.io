@@ -207,7 +207,7 @@ First.uxml
 </UXML>
 ```
 
-![png](/images/unity/uielements/3.png)
+![png](/images/Unity/uielements/3.png)
 
 
 
@@ -235,7 +235,7 @@ root.Query("foo").Children<Button>().ForEach(//do stuff);
 
 `UIElement`的事件传递如下:
 
-![png](/images/unity/uielements/4.png)
+![png](/images/Unity/uielements/4.png)
 
 `UIElement`提供了一下两个常用的，和一个不怎么使用的。
 
