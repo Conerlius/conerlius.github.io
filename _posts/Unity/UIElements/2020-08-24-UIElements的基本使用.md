@@ -94,7 +94,7 @@ ui的树状结构，每个节点都包含布局、渲染顺序、事件响应等
 
 ### uss的格式
 
-```scss
+```css
 selector {
   property1:value;
   property2:value;
@@ -103,7 +103,7 @@ selector {
 
 eg:
 
-```scss
+```css
 Button {
   width: 200px;
 }
@@ -140,7 +140,7 @@ editorWindow.rootVisualElement.Add(ui);
 
 全局生效：
 
-```scss
+```xml
 <engine:UXML ...>
     <engine:VisualElement class="root">
         <Style src="styles.uss" />
@@ -152,7 +152,7 @@ editorWindow.rootVisualElement.Add(ui);
 
 单个`Element`生效
 
-```scss
+```xml
 <engine:UXML ...>
     <engine:VisualElement class="root">
         <Style src="styles.uss" />
@@ -167,7 +167,7 @@ demo:
 
 firststyles.uss(***和`First.uxml`同一个目录下***)
 
-```scss
+```css
 root {
     width: 200px;
     height: 200px;
@@ -183,7 +183,7 @@ Button {
 
 First.uxml
 
-```scss
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <UXML
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -228,6 +228,22 @@ root.Add(label);
 root.Query<Button>("foo").First();
 root.Query("foo").Children<Button>().ForEach(//do stuff);
 ```
+
+### 其他
+
+- 为组件动态指定样式
+
+  在实际开发中，会因为逻辑的变更而对组件进行样式之类的修改。
+
+  ```
+  s
+  ```
+
+  
+
+- 动态添加组件
+
+- 动态删除或隐藏组件
 
 
 
