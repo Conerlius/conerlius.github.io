@@ -9,8 +9,7 @@ keywords: opengl
 tags:
     - opengl
 ---
-* content
-{:toc}
+
 
 ## shader
 在最简配置下，您得有两个着色器：一个叫顶点着色器（vertex shader），它将作用于每个顶点上；另一个叫片段着色器（fragment shader），它将作用于每一个采样点。
@@ -48,7 +47,7 @@ glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
 glCompileShader(vertexShader);
 ```
 ### 片段着色器
-`片段着色器`和`定点着色器`一样
+`片段着色器`和`顶点着色器`一样
 ```
 #version 330 core
 out vec4 FragColor;

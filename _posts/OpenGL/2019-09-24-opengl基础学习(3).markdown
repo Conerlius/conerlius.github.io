@@ -53,10 +53,16 @@ glfwSwapBuffers函数会交换颜色缓冲（它是一个储存着GLFW窗口每�
 ## 三角形的前提
 > 前面说了基本事件监听，以及buffer的交换,这里就大概讲一下渲染中的三角形是怎么一回事:
 
-首先要明确的是，在GPU里，万物皆数据,而一个占空间的物体（2D或3D）都是需要通过一系列的定点来确定基本的形状的，而GPU下，所有的定点都是用来构建三角形的，然后通过一个个三角形构建出更复杂的几何体；比如一个4边形就由两个三角形构成；<br>
+首先要明确的是，在GPU里，万物皆数据,而一个占空间的物体（2D或3D）都是需要通过一系列的定点来确定基本的形状的，而GPU下，所有的定点都是用来构建三角形的，然后通过一个个三角形构建出更复杂的几何体；比如一个4边形就由两个三角形构成；
 ![png](/images/OpenGL/opengl_3_pipeline.png)
 
+上面的流程中，还省略了几个比较重要的节点
+
+![png](/images/OpenGL/opengl_3_1.png)
+
+
 ## 顶点输入
+
 前面已经提到过，图形的形状都是由顶点的数据组成的，而opengl的坐标体系都是3D的（x,y和z）,该坐标的值只有在[-1~1]的范围的时候opengl才会处理。所有在所谓的标准化设备坐标(Normalized Device Coordinates)范围内的坐标才会最终呈现在屏幕上（在这个范围以外的坐标都不会显示）。
 
 ### 标准化设备坐标(Normalized Device Coordinates, NDC)
@@ -71,6 +77,10 @@ glfwSwapBuffers函数会交换颜色缓冲（它是一个储存着GLFW窗口每�
 下面讲一下如何将顶点数组输入到GPU里
 
 常用的有两种VAO(顶点数组对象)和VBO(顶点缓冲对象)
+
+> 顶点数组对象：Vertex Array Object，VAO
+> 
+> 顶点缓冲对象：Vertex Buffer Object，VBO
 
 ### VAO
 ```
@@ -152,6 +162,8 @@ void OpenGL_Session1::drawView() {
 	glDisableVertexAttribArray(0);
 }
 ```
+
+需要注意的是，`glEnableVertexAttribArray`和`glDisableVertexAttribArray`通常是配对使用的，当然如果在现在这个例子中也可以不在渲染循环中使用的，但是为了良好的习惯，还是使用比较好!
 
 [代码](https://github.com/Conerlius/LearnOpenGL/blob/master/Project1/OpenGL_Session1.cpp)
 

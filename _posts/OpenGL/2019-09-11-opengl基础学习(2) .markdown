@@ -17,7 +17,7 @@ tags:
 
 ## 启动项目
 空的项目里，我们需要在`main.cpp`加上自己的逻辑
-```
+```c++
 // 创建一个程序实例
 ApplicationStart* application = new ApplicationStart();
 int result = application->Start();
@@ -27,7 +27,8 @@ return result;
 
 在前面一节文章里，我们已经知道，为了能更好地使用opengl，我们接入了`GLFW`
 那么我们修改一下`ApplicationStart::Start`的方法
-```
+
+```c++
 // 启动
 int ApplicationStart::Start()
 {
@@ -35,14 +36,16 @@ int ApplicationStart::Start()
 	return 0;
 }
 ```
-```
+```c++
 // 初始化GLFW
 void ApplicationStart::initGLFW() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#if MAC_OS
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+#endif
 }
 ```
 更加详细的`GLFW`文档在[这里](https://www.glfw.org/docs/latest/window_guide.html)
@@ -53,7 +56,7 @@ void ApplicationStart::initGLFW() {
 
 在初始化完成`GLFW`后，我们正式创建一个视图窗口看看；在`initGLFW();`下添加一个`drawWindow();`然后我们尝试在`drawWindow()`方法里绘制一个窗口
 
-```
+```c++
 GLFWwindow* window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
 if (window == NULL)
 {
@@ -70,7 +73,7 @@ glfwMakeContextCurrent(window);
 
 由于本文是通过`GLAD`来管理opengl的函数指针的，所以在设定上下文后，我们需要初始化`GLAD`,(必须是绑定完上下文后，否则报错)
 
-```
+```c++
 if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 {
     return -1;
@@ -79,7 +82,7 @@ if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 
 > 这个时候，我们的工程已经可以启动了，但是窗口却一闪而过；因为`main`在执行完`drawWindow`后，就退出了，故需要添加等待用户主动关闭窗口循环;
 
-```
+```c++
 while (!glfwWindowShouldClose(window))
 {
 }
