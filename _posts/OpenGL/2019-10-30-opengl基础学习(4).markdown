@@ -67,6 +67,7 @@ glCompileShader(fragmentShader);
 ```
 
 ### 着色器程序
+
 前面已经把`Vertex shader`和`Fragment shader`将完了，也编译了，那么要如何将这两个变成着色器程序?
 创建一个程序对象
 

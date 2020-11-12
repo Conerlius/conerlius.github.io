@@ -168,3 +168,7 @@ void OpenGL_Session1::drawView() {
 [代码](https://github.com/Conerlius/LearnOpenGL/blob/master/Project1/OpenGL_Session1.cpp)
 
 ![png](/images/OpenGL/opengl3-result.png)
+
+> 补充说明一下`glEnableVertexAttribArray`
+> 
+> `glEnableVertexAttribArray`可以直接理解成允许gpu读取哪些数据；
