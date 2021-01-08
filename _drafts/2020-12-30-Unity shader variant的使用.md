@@ -77,9 +77,28 @@ $$
 `Unity`的`multi_compile keyword1 ……`（或`multi_compile_local`）会产生大量的`variant`的组合，而unity对每个`variant`都进行编译，从而使得编译耗时很长，前面的link有说到！如果想实现剔除一些没有必要的变体，使用`shader_feature`(或`shader_feature_local`)来减少`variant`
 
 使用`multi_compile`的时候，有3.15k个variant
+
 ![png](/images/Unity/unity_shadervariant_1.png)
 
 全部更换成使用`shader_feature`的时候，就变成只有11个variant了
+
 ![png](/images/Unity/unity_shadervariant_2.png)
 
-这样在unity打包编译shader的时候，
+这样在unity打包编译shader的时候，Unity就会剔除了不使用的`shader variant`了。
+
+现在先上一下前后的比较图：
+
+修改前:
+
+![png](/images/Unity/unity_shadervariant_3.png)
+
+修改后:
+
+本来是想要截图的，但是发现变体变少了之后，一下子就闪过了，没有来得及截图那么快，结论是减少到了5个`variant`（视具体使用情况而定的！）
+
+#### 加载时间优化
+
+`Unity`提供了一个针对`shader`很有效的Unity运行时编译机制，有了解的同学都知道--`ShaderVariants`;
+
+#### OnProcessShader处理
+
