@@ -69,6 +69,24 @@ $$
 ![png](/images/Unity/srp/gamma3.png)
 
 
+http://www6.uniovi.es/hypgraph/color/gamma_correction/gamma_intro.html
+
+https://zhuanlan.zhihu.com/p/341560507
+
+https://en.wikipedia.org/wiki/Gamma_correction
+
+https://learnopengl-cn.github.io/05%20Advanced%20Lighting/02%20Gamma%20Correction/
+
+https://www.zhihu.com/question/27467127/answer/37555901
+
+https://www.japanistry.com/understanding-gamma-in-photography/
+
+https://zhuanlan.zhihu.com/p/133632563
+
+https://zhuanlan.zhihu.com/p/36581276
+
+https://zhuanlan.zhihu.com/p/66558476
+
 ### CRT & LCD
 
 LCD并没有直接继承CRT的特征，但是也会模拟CRT的效果！（是不很无语，感觉是历史遗留问题，但是现实就是这样，至于为什么这里就不深究了！）
