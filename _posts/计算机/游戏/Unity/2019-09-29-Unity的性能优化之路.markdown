@@ -1,0 +1,63 @@
+---
+layout:     article
+title:      "Unity的性能优化之路"
+subtitle:   " \"Unity\""
+date:       2020-01-02 15:00:00
+author:     "Conerlius"
+category: unity
+keywords: unity
+tags:
+    - unity
+---
+
+## 比较常见的Unity项目优化
+平时多逛逛[uwa](https://blog.uwa4d.com/category/technology/)
+常见的unity优化项一般有一下几大点:
+* 运行时效率
+* 批次(batch)
+* 加载时间
+* 构建时间
+  
+### 运行时效率
+#### UGUI的优化
+[UGUI优化方案]({% post_url 2019-07-31-UGUI优化方案 %})
+#### C# 逻辑的调度（property、field）
+从IL上看，`field`调用的是`Ldfld`,而property调用的是`Callvirt`，不用想也是`Ldfld`的效率高了！
+
+所以，如果是高频率使用的，还是建议牺牲部分设计模式，采用public field比较好(如果不差那点性能，可以忽略这点)；
+#### 对象池、GC
+创建对象的时候会牵连内存整理，空间申请等，消耗是不言而喻的；而且对象的大量、频繁创建和回收，都会带来GC的回收消耗！
+
+所以，对象池的使用就更显得可贵了！
+
+如果使用的是unity 2019以上，可以使用 `Incremental garbage collector`
+![png](/images/computer/game/unity/untiy_性能优化.png)
+
+#### 资源的设定
+* audio的`Load Type`
+
+#### Physic Group
+无论是自己写的物理系统还是使用unity的，都需要做好碰撞对象的分组，用于减少每帧的碰撞遍历的次数！
+
+#### Shader
+##### Shader变体
+shader的变体在解释后，每个变体都会占用一定的内存，并且在shader解释的时候，由于变体多，需要编译几次，一般可以理解为一个变体就需要编译一下，每一个变体编译消耗的时间不一，但如果变体的数量较多的话，因为编译的好耗时，也是造成卡顿的原因之一。
+##### Shader instance
+这项技术不要滥用，能batch的就优先batch，然后才是instance
+
+#### Animator、Animation
+简单的动画就不要考虑Animator，直接使用animation效率更高；
+而且aniomator.init等的消耗也不乐观；
+如果简单的animation,满足不了，animator的消耗又受不起，可以参考一下[这里]({% post_url 2019-09-04-自定义骨骼动画播放 %})
+#### PlayerMainLoop
+这个是unity2018的特性，把unity的playmainloop下不需要的update去除掉，争取最大化的性能
+#### Resource.ReleaseUnUsed
+资源的管理，这点在这里就不多说了，管理好自己项目的资源！
+#### Other Setting
+暂无
+
+### 更底层的优化
+#### IL
+unity C#的IL代码，我使用的是rider是看的，在rider里可以直接通过`IL View`来查看C#生成的il,修改代码予减少il指令的执行！
+#### CPP
+如果项目工程使用的是il2cpp的话，在运行的时候，就会在`Temp\StagingArea\Data\il2cppOutput`路径下产生具体的cpp文件，在该文件路径下，很方便我们查看il2cpp后生成的代码样式！

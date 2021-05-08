@@ -1,0 +1,127 @@
+---
+layout:     article
+title:      "unity手动合批"
+subtitle:   " \"Batch\""
+date:       2019-12-29 15:00:00
+author:     "Conerlius"
+category: unity
+keywords: unity,batch
+tags:
+    - unity
+---
+
+## 背景
+unity的静态合批在特定的情况下不能有效地合批，但是在scene的场景中缺有大量的静态物体！
+
+## 技术原理
+通过代码手动合批，生成一个个合并后的mesh和纹理材质，然后替换场景中原有的物体！
+
+## 具体
+unity本身也提供了相应的api给我们处理,在说到实现前，需要先说明一下合批的一些前提条件：
+### 前提
+* 材质（Material）：材质球要相同，如果材质球不同，unity则无法进行静态合批！
+* 静态（static）： 必须是静态的对象！
+  
+![png](/images/computer/game/unity/unity_manual_batch.jpg)
+
+### CombineInstance
+Struct used to describe meshes to be combined using Mesh.CombineMeshes.
+> 用来描绘网格合并的结构,主要是为了使用`Mesh.CombineMeshes`
+
+| name | des |
+| -- | -- |
+| mesh | 合并的网格 |
+| subMeshIndex | 子网格索引 |
+| transform | 合并之前，网格变换的矩阵 |
+
+### CombineMeshes
+这里就不细说了，代码里有注释了！
+```
+using System.Collections.Generic;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class CombineDemo
+{
+	[MenuItem("Tools/Combine Scene Static Mesh")]
+	static void CombineInstance()
+	{
+		List<GameObject> rootGameObjects = new List<GameObject>();
+		if (Selection.gameObjects != null && Selection.gameObjects.Length!=0)
+		{
+			foreach (var gameObject in Selection.gameObjects)
+			{
+				rootGameObjects.Add(gameObject);
+			}
+		}
+		else
+		{
+			var editorScene = SceneManager.GetActiveScene();
+			editorScene.GetRootGameObjects(rootGameObjects);
+		}
+		// 递归查找可以合并的mesh
+		Dictionary<Material,CombineInstance[]> combineInstanceses = new Dictionary<Material, CombineInstance[]>();
+		Recurrence(rootGameObjects, combineInstanceses);
+		foreach (var combineInstances in combineInstanceses)
+		{
+			Mesh instance = new Mesh();
+			instance.CombineMeshes(combineInstances.Value);
+			// 如果是直接使用
+			var testObj = new GameObject();
+			var meshFilter = testObj.AddComponent<MeshFilter>();
+			var meshRender = testObj.AddComponent<MeshRenderer>();
+			meshFilter.mesh = instance;
+			meshRender.material = combineInstances.Key;
+			// 如果是需要保存下来作为运行时使用！
+			// AssetDatabase.CreateAsset(instance, "path/name.assets");
+		}
+	}
+
+	private static void Recurrence(List<GameObject> objs, Dictionary<Material,CombineInstance[]> list)
+	{
+		Dictionary<Material, List<MeshFilter>> dictionary = new Dictionary<Material, List<MeshFilter>>();
+		foreach (var o in objs)
+		{
+			ResearchGameObject(o, dictionary);
+		}
+		foreach (var staticObjs in dictionary)
+		{
+			CombineInstance[] combineInstances = new CombineInstance[staticObjs.Value.Count];
+			for (int i = 0; i < staticObjs.Value.Count; i++)
+			{
+				combineInstances[i] = new CombineInstance();
+				combineInstances[i].mesh = staticObjs.Value[i].sharedMesh;
+				combineInstances[i].transform = staticObjs.Value[i].transform.localToWorldMatrix;
+				// 有需要的可以看着官方文档去添加一些属性的记录
+				// combineInstances[i].realtimeLightmapScaleOffset
+			}
+			list.Add(staticObjs.Key, combineInstances);
+		}
+	}
+
+	private static void ResearchGameObject(GameObject gameObject, Dictionary<Material,List<MeshFilter>> dictionary)
+	{
+		var flag = GameObjectUtility.GetStaticEditorFlags(gameObject);
+		if (flag == StaticEditorFlags.BatchingStatic)
+		{
+			var meshFilter = gameObject.GetComponent<MeshFilter>();
+			var meshRenderer = gameObject.GetComponent<MeshRenderer>();
+			List<MeshFilter> meshFilters;
+			if (!dictionary.TryGetValue(meshRenderer.sharedMaterial, out meshFilters))
+			{
+				meshFilters = new List<MeshFilter>();
+				dictionary.Add(meshRenderer.sharedMaterial, meshFilters);
+			}
+			meshFilters.Add(meshFilter);
+		}
+
+		int childCount = gameObject.transform.childCount;
+		for (int i = 0; i < childCount; i++)
+		{
+			ResearchGameObject(gameObject.transform.GetChild(i).gameObject, dictionary);
+		}
+	}
+}
+
+```

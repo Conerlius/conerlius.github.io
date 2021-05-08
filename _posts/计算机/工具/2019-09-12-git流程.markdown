@@ -1,0 +1,82 @@
+---
+layout:     article
+title:      "git代码版本管理"
+subtitle:   " \"流程\""
+date:       2019-09-12 15:45:00
+author:     "Conerlius"
+toc: true
+category: tool
+keywords: git
+tags:
+    - tool
+---
+
+## git代码版本管理
+
+### git的各种分支定义
+* 划分主干分支(master)
+* 开发分支(dev)
+* 开发的feature/xxx分支
+* release分支
+* Hotfix
+* Tag
+
+#### 主干分支master
+> 经过测试QA验收的内容版本，其中囊括所有的地区版本，渠道版本的内容;
+> 也可以不使用该分支,具体可以按项目怎么定义master的含义;
+
+#### 开发分支develop
+> 该分支要是经过一定测试的内容，其中囊括所有的地区版本，渠道版本的内容;
+> 因为功能具有耦合性，所以此分支还是有可能产生`bug`，没有`master`稳定
+> 如果需要修复该分支上的bug，可以根据具体项目定义，另起`Hotfix`或`Bug`分支都行，建议`Bug`分支
+
+#### 开发的feature
+> 具体单一一个功能一个feature分支，命名规则是`feature/功能名称`，eg: `feature/mail`；名称必须是有意义的英文命名；
+> 该分支上的功能必须经过测试QA验收通过后才可以Merge到开发develop；
+> 需要注意的是，merge到develop的时候，一定只能产生一条commit记录;
+> 次分支在merge完成后，***必须删除!***
+
+#### release分支
+> 预发布分支
+> 该分支通常是做为发不版本的一个测试分支，eg:如果需要发布一个腾讯渠道的app，那么就会创建一个release分支，按照PM的要求，把当前里程碑的内容逐一merge到此release分支；
+> 之测试QA在次分支上测试发布版本的内容;
+> 次分支在正式发布完成后，打上发布版本的`Tag`,***并删除此分支*** ;
+
+#### Hotfix
+> hotfix是紧急修复的分支，常用于Release或master分支；如果QA在测试release分支的时候发现***需要*** 修复的bug，则开发需要另起`Hotfix`分支来修复次问题，QA在`Hotfix`分支验收完成后，再merge到`release`分支，如果有需要，还需要merge到`develop`
+> 次分支在merge完成后，***必须删除!***
+
+#### Tag
+> 该标志是用了记录发布版本的，上线后，后续的发布版本都将基于此tag创建`release`分支
+
+### 流程
+> git 的代码管理流程有一种广为人知的流程，先来说明一下经典的流程
+#### 经典流程
+> 先post一张每次讲git都会出现的图;
+> **以下是盗用网络上的图**
+> ![png](/images/computer/tool/git_flow_chart.png)
+
+##### 流程的说明
+> 自右到左来分析；项目的的最初版本应该是从master切出去的，git一般刚开始使用的时候也是这样的。如果某一个功能需要开发，那么开发者则需要基于develop切出分支`feature/XXX`进行开发，注意QA需要在`feature/XXX`上怼功能进行验收，确定没有问题的时候才能`merge`到`develop`，这一步需要有QA或`develop`分支的管理执行，不要随意执行；
+>> `feature`合并到`develop`的时候，要注意前面分支定义的使用后规则
+> 
+> 上面是日常开发的流程。如果遇到发布版本的时候，即基于当前的`develop`版本切出`release`分支，QA在`release`上进行版本验收，如果需要修复`release`上的bug，直接在`release`上修复，然后把已经修复的bug`merge`到`develop`；当`release`验收完成后，即可以将`release merge`到`master`并打上该版本的`tag`。
+> 
+> 如果线上出现需要紧急修复的bug，则需要基于`master`切出`Hotfix`分支对已经发布的版本进行修复。
+
+>> 但是上面的流程在有些情况下就比较麻烦了，并不是说做不到，只是麻烦或导致分支的定义有些混乱。
+
+#### 调整后的流程
+> 这里就简单罗列一些情况
+> * 如果需要发布两个国家的版本（类似王者荣耀的海外版），master有两个？
+> * 小范围测试功能的时候，`某个渠道A`才有`功能A`,其他渠道不能有`功能A`,通过远程后台配置？多个`develop`?
+> 
+> 所以我对上图的流程的`release`和`hotfix`进行一些小的调整;
+> 
+> ![png](/images/computer/tool/git_flow_chart_fix.png)
+
+##### 流程说明
+
+> 如果遇到发布版本的时候，即基于线上的版本切出`release`分支，QA在`release`上进行版本验收，如果需要修复`release`上的bug，直接在`release`或者`hotfix`上修复，然后把已经修复的bug`merge`到`develop`；当`release`验收完成后，即可以将`release`打上该版本的`tag`，然后删除`release`
+> 
+> 如果线上出现需要紧急修复的bug，则需要基于线上的版本切出`Hotfix`分支对已经发布的版本进行修复。

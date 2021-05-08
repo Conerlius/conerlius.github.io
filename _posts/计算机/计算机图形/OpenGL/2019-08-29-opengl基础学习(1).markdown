@@ -1,0 +1,69 @@
+---
+layout:     article
+title:      "opengl基础学习(1)"
+subtitle:   " \"OpenGL\""
+date:       2019-08-29 10:06:00
+author:     "Conerlius"
+category: opengl
+keywords: opengl
+tags:
+    - opengl
+---
+
+## 前提
+> OpenGL学习前的基本技能
+>> * C/C++的变成语言基础
+>> * 基本的数学基础
+>> * Visual Studio
+
+## opengl
+> OpenGL只是一种api规范；
+
+## opengl开发环境
+> 因为其是一种规范，所以在跨平台的时候，我们需要根据平台对其api进行函数绑定；
+> 
+> 由于每次都要绑定很麻烦，所以我们使用`GLFW`提供的`opengl core`绑定库进行绑定
+>> [`GLFW`](https://www.glfw.org/download.html)本文是基于window进行开发的，为了快速入门，这里就不讲`GLFW`编译的事情，有兴趣的同学可以自己尝试去编译。这里就直接下载Binaries
+> 
+> ![png](/images/computer/render/opengl/opengl_project_create1.jpg)
+> 首先，打开Visual Studio，创建一个新的项目。如果VS提供了多个选项，选择Visual C++，然后选择`Empty Project(空项目)`（别忘了给你的项目起一个合适的名字）。现在我们开始创建我们第一个OpenGL程序吧！
+
+### 项目配置
+* Link(链接)
+> 之前我们下载了`GLFW`，那么我们就需要引用它
+>> 首先进入Project Properties(工程属性，在解决方案窗口里右键项目)，然后选择VC++ Directories(VC++ 目录)选项卡（如下图）。在下面的两栏添加目录：
+>> ![png](/images/computer/render/opengl/opengl_project_create2.jpg)
+>>
+>> 在`包含目录`里添加`GLFW`的`include`目录
+>> ![png](/images/OpenGL/opengl_project_create3.jpg)
+>>
+>> 还需要在`库目录`里添加lib，由于我使用的是vs2019,所以引用的是vc2019
+>> ![png](/images/computer/render/opengl/opengl_project_create5.jpg)
+>> ![png](/images/computer/render/opengl/opengl_project_create4.jpg)
+>> 最后需要在Linker(链接器)选项卡里的Input(输入)选项卡里添加glfw3.lib这个文件;在Windows平台，opengl32.lib已经包含在Microsoft SDK里了，它在Visual Studio安装的时候就默认安装了。由于这篇教程用的是VS编译器，并且是在Windows操作系统上，我们只需将opengl32.lib添加进连接器设置里就行了。
+>> ![png](/images/computer/render/opengl/opengl_project_create6.jpg)
+
+* GLAD
+> 因为OpenGL只是一个标准/规范，具体的实现是由驱动开发商针对特定显卡实现的。由于OpenGL驱动版本众多，它大多数函数的位置都无法在编译时确定下来，需要在运行时查询。所以任务就落在了开发者身上，开发者需要在运行时获取函数地址并将其保存在一个函数指针中供以后使用。取得地址的方法因平台而异，在Windows上会是类似这样
+> ```
+> // 定义函数原型
+> typedef void (*GL_GENBUFFERS) (GLsizei, GLuint*);
+> // 找到正确的函数并赋值给函数指针
+> GL_GENBUFFERS glGenBuffers  = (GL_GENBUFFERS)wglGetProcAddress("glGenBuffers");
+> // 现在函数可以被正常调用了
+> GLuint buffer;
+> glGenBuffers(1, &buffer);
+> ```
+>
+> 为了减免这个代码的书写，我们使用了[`GLAD`](https://glad.dav1d.de/);
+> 
+> 打开[`GLAD`](https://glad.dav1d.de/)的[在线服务](https://glad.dav1d.de/)，将语言(Language)设置为C/C++，在API选项中，选择3.3以上的OpenGL(gl)版本（我们的教程中将使用3.3版本，但更新的版本也能正常工作）。之后将模式(Profile)设置为Core，并且保证生成加载器(Generate a loader)的选项是选中的。
+> 
+> 下载完成后，在压缩包里有两个头文件和一个`glad.c`文件；将两个头文件目录（glad和KHR）复制到你的Include文件夹中（或者增加一个额外的项目指向这些目录），并添加glad.c文件到你的工程中。
+>
+> 经过前面的这些步骤之后，你就应该可以将以下的指令加到你的文件顶部了：
+> ```
+> #include <glad/glad.h> 
+> ```
+
+> 到这里，工程的配置已经完成了，下一章我们开始写写真正的opengl了!!
