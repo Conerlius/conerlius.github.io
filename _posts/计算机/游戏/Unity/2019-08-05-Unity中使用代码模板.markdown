@@ -21,7 +21,7 @@ tags:
 > 这个时候，代码模板就应运而生啦！！
 > 
 > 代码块模板请参考
->> [Vscode中的snippets]({% post_url 2019-04-24-snippets_for_vscode %})
+>> [Vscode中的snippets]({% post_url 2019-08-05-Vscode中的snippets %})
 >> 
 >> [Visual studio]({% post_url 2019-04-25-snippets_for_vs %})
 
