@@ -37,7 +37,7 @@ https://www.jetbrains.com/rider/unreal/
 
 通过上述的link填好申请后，会收到一个邮件，点击邮件的link激活后，在[rider证书](https://account.jetbrains.com/licenses)登录后就能看到已经激活的app；
 
-![png](/images/computer/game/ue/1.png)
+![png](/images/computer/game/ue/rider/1.png)
 
 下载安装完成后自行登录账号激活就可以了！
 
@@ -45,10 +45,14 @@ https://www.jetbrains.com/rider/unreal/
 
 通过`Editor`-->`Plugins`添加`rider`插件
 
-![png](/images/computer/game/ue/2.png)
+![png](/images/computer/game/ue/rider/2.png)
 
-![png](/images/computer/game/ue/3.png)
+![png](/images/computer/game/ue/rider/3.png)
 
 最后通过`Editor`-->`Editor Preference`指定`source code`的编辑器为`rider`：
 
-![png](/images/computer/game/ue/4.png)
+![png](/images/computer/game/ue/rider/4.png)
+
+重启`UE`后，在`File`菜单中就能看到`rider`工程相关了！
+
+![png](/images/computer/game/ue/rider/5.png)
