@@ -22,7 +22,7 @@ tags:
 
 # 简单使用
 
-![png](/images/computer/render/fenxi/agpid_1.png)
+![png](/images/computer/game/common/gpu/agpid_1.png)
 
 启动 `AGPID` 后,打开设备列表中，选择对应的机型，然后`OK` 按钮开始监控程序，等待进入指定的界面后，点击`Start`开始截帧即可
 
@@ -30,7 +30,7 @@ tags:
 
 > 如果是 `opengl` 的话，需要使用 `ANGLE` 去模拟，手机需要安装 `ANGLE`
 
-![png](/images/computer/render/fenxi/agpid_3.png)
+![png](/images/computer/game/common/gpu/agpid_3.png)
 
 使用是很简，但是因为一些条件的问题，我这里就遇到各种麻烦，所以才记录一下
 
@@ -40,7 +40,7 @@ tags:
 
 在执行到安装的过程中的时候断开，就能在一下路径中找到当前需要安装的apk
 
-![png](/images/computer/render/fenxi/agpid_2.png)
+![png](/images/computer/game/common/gpu/agpid_2.png)
 
 
 ```
